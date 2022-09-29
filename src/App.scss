@@ -1,0 +1,266 @@
+:root {
+    // 主题色值;
+    --system-color-: #001528;
+}
+
+#app {
+    background-color: #f2f2f2;
+}
+
+
+*,
+body,
+ul,
+li,
+ol,
+p {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+// vue 动画
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.2s ease-in-out;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+
+//加粗
+.font-weight {
+    @include fontWeight();
+}
+
+
+button:focus,
+input:focus {
+    outline: 0;
+}
+
+//强制中英文换行
+.word-break {
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+/* clear */
+.clear {
+    clear: both;
+}
+
+.clear:before,
+.clear:after {
+    content: "";
+    display: block;
+    clear: both;
+    height: 0;
+    visibility: hidden;
+}
+
+/* float */
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}
+
+/* align */
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-left {
+    text-align: left;
+}
+
+/* ellipsis */
+
+.ellipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.clamp {
+    @include overClamp;
+}
+
+//超过3行部分点点点显示
+.clampThree {
+    @include overClamp($clamp:3);
+}
+
+/* breakWord */
+
+.break-word {
+    word-wrap: break-word;
+    word-break: normal;
+}
+
+//禁用文本复制
+.no-select {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* 通用圆角 */
+
+.page-radius {
+    @include radius;
+}
+
+/* circle */
+
+.circle {
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+.bg-base {
+    @include bgBase;
+}
+
+.bg-all {
+    @include bgAll;
+}
+
+.bg-cover {
+    @include bgCover;
+}
+
+.content-box {
+    @include boxSizingContent;
+}
+
+/* flex布局 */
+
+.flex {
+    display: -webkit-box;
+    display: -webkit-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.flex-warp {
+    flex-wrap: wrap;
+}
+
+.flex-base {
+    @include flexBase;
+}
+
+.flex-grow-base {
+    @include flexGrow;
+}
+
+
+/* flexColumn */
+
+.flex-column {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+
+/* 项目在主轴上的对齐方式 */
+.align-items {
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+.content-between {
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+}
+
+.content-around {
+    -webkit-justify-content: space-around;
+    justify-content: space-around;
+}
+
+.content-center {
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+.content-start {
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start;
+}
+
+.content-end {
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+}
+
+/* 项目在交叉轴上如何对齐 */
+
+.align-and {
+    -webkit-align-items: flex-end;
+    align-items: flex-end;
+}
+
+.align-center {
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+/* 项目在多根轴线上对齐方式 */
+
+.items-between {
+    -webkit-align-content: space-between;
+    align-content: space-between;
+}
+
+.items-center {
+    -webkit-align-content: center;
+    align-content: center;
+}
+
+
+/* 消除谷歌浏览器的默认填充背景色 */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    box-shadow: 0 0 0 60px #FFFFFF inset;
+    -webkit-text-fill-color: #4A4A4A;
+}
+
+div {
+    @include boxSizingBorder;
+}
+
+.minHeight {
+    min-height: 350px;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+
+.box-content {
+    box-sizing: border-box
+}
+
+
+/*遮罩层显示时body的样式*/
+.notScroll {
+    overflow: hidden;
+    height: 100%;
+}
+
+.pointer {
+    cursor: pointer;
+}

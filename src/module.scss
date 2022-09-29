@@ -1,0 +1,113 @@
+@use "sass:math";
+
+// 1920适配-pc端
+@function vww1920($number) {
+    @return math.div($number, 1920) * 100+vw;
+}
+
+// 375适配-手机端
+@function vww375($number) {
+    @return math.div($number, 375) * 100+vw;
+}
+
+// 加粗
+@mixin fontWeight {
+    font-weight: bold;
+}
+
+/* 超出剪切 */
+
+@mixin overClamp($clamp: 1) {
+    display: -webkit-box;
+    /*! autoprefixer: ignore next */
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $clamp;
+    overflow: hidden;
+    //解决开头是英文的字符串
+    white-space: normal;
+    word-break: break-all;
+    text-overflow: ellipsis;
+}
+
+@mixin rotate($deg: 90) {
+    transform: rotate($deg + deg);
+    -webkit-transform: rotate($deg + deg);
+}
+
+//过度动画
+@mixin transition($property: all, $duration: 1s, $func: linear, $delay: 0s) {
+    transition: $property $duration $func $delay;
+    -webkit-transition: $property $duration $func $delay;
+}
+
+@mixin radius($num: 5px) {
+    border-radius: $num;
+    -webkit-border-radius: $num;
+}
+
+@mixin radiusAll($top: 0, $right: 0, $bottom: 0, $left: 0) {
+    border-radius: $top $right $bottom $left;
+    -webkit-border-radius: $top $right $bottom $left;
+}
+
+/* background */
+
+@mixin bgBase ($size:contain) {
+    background-size: $size;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+@mixin bgAll {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+@mixin bgCover {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+@mixin bgImg($bg_url, $url: $url1) {
+    background-image: url($bg_url);
+}
+
+@mixin bgImgBase($bgImgUrl: "",
+    $position: center,
+    $repeat: no-repeat,
+    $size: contain) {
+    background-image: url($bgImgUrl);
+    background-position: $position;
+    background-repeat: $repeat;
+    background-size: $size;
+}
+
+/* box-sizing */
+
+@mixin boxSizingContent {
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+@mixin boxSizingBorder {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+@mixin flexBase($flex: 1) {
+    flex: $flex;
+    -webkit-flex: $flex;
+    -ms-flex: $flex;
+}
+
+//flex-grow
+@mixin flexGrow($grow: 1) {
+    flex-grow: $grow;
+    -webkit-flex-grow: $grow;
+    -ms-flex-grow: $grow;
+}
+
+// 设置滚动条
+@mixin setScrollbar {}
