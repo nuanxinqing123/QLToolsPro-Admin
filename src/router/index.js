@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-10-25 17:17:40
  * @LastEditors: LiLei
- * @LastEditTime: 2022-09-29 17:56:04
+ * @LastEditTime: 2022-09-29 20:59:01
  */
 import {
     createRouter,
@@ -94,6 +94,54 @@ const routes = [
                 component: () =>
                     import(
                         /* webpackChunkName: 'messagePushManagement' */ "@/pages/adminPage/messagePushManagement/index.vue"
+                    ),
+            },
+            {
+                path: "/userVariableManagement",
+                name: "userVariableManagement",
+                meta: {
+                    title: "用户变量管理",
+                    key: "5",
+                },
+                component: () =>
+                    import(
+                        /* webpackChunkName: 'userVariableManagement' */ "@/pages/adminPage/userVariableManagement/index.vue"
+                    ),
+            },
+            {
+                path: "/rechargeData",
+                name: "rechargeData",
+                meta: {
+                    title: "充值数据",
+                    key: "6",
+                },
+                component: () =>
+                    import(
+                        /* webpackChunkName: 'rechargeData' */ "@/pages/adminPage/rechargeData/index.vue"
+                    ),
+            },
+            {
+                path: "/uploadData",
+                name: "uploadData",
+                meta: {
+                    title: "上传记录",
+                    key: "7",
+                },
+                component: () =>
+                    import(
+                        /* webpackChunkName: 'uploadData' */ "@/pages/adminPage/uploadData/index.vue"
+                    ),
+            },
+            {
+                path: "/variableManagement",
+                name: "variableManagement",
+                meta: {
+                    title: "变量管理",
+                    key: "8",
+                },
+                component: () =>
+                    import(
+                        /* webpackChunkName: 'variableManagement' */ "@/pages/adminPage/variableManagement/index.vue"
                     ),
             },
         ],

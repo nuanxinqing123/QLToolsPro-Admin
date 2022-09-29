@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-05-11 17:01:36
  * @LastEditors: LiLei
- * @LastEditTime: 2022-09-29 17:56:25
+ * @LastEditTime: 2022-09-29 20:59:13
 -->
 <template>
     <a-layout style="min-height: 100vh">
@@ -30,6 +30,21 @@
                 <a-menu-item key="4"
                              @click="goPage('messagePushManagement','4')">
                     <span>消息推送管理</span>
+                </a-menu-item>
+                <a-menu-item key="5"
+                             @click="goPage('userVariableManagement','5')">
+                    <span>用户变量管理</span>
+                </a-menu-item>
+                <a-sub-menu key="sub1">
+                    <template #title>数据查询</template>
+                    <a-menu-item key="6"
+                                 @click="goPage('rechargeData','6')">充值数据</a-menu-item>
+                    <a-menu-item key="7"
+                                 @click="goPage('uploadData','7')">上传记录</a-menu-item>
+                </a-sub-menu>
+                <a-menu-item key="8"
+                             @click="goPage('variableManagement','8')">
+                    <span>变量管理</span>
                 </a-menu-item>
                 <!-- <a-sub-menu key="sub1">
                     <template #title>panelManagement</template>

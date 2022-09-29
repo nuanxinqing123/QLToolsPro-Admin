@@ -1,5 +1,5 @@
 <!--
- * @Descripttion: 用户管理
+ * @Descripttion: 变量管理
  * @Author: LiLei
  * @Date: 2022-07-13 16:10:45
  * @LastEditors: LiLei
@@ -14,24 +14,24 @@
         <div class="report-container search-container">
             <a-form class="flex flex-warp"
                     :model="searchData">
-                <a-form-item label="关键字:"
+                <!-- <a-form-item label="关键字:"
                              name="s">
                     <a-input v-model:value="searchData.s"
                              placeholder="请输入关键字" />
-                </a-form-item>
+                </a-form-item> -->
 
                 <a-form-item>
                     <a-button type="primary"
-                              @click.prevent="onSubmit"
+                              @click.prevent="setPop()"
                               class="filter-search">
-                        <SearchOutlined />
-                        搜索
+                        <!-- <SearchOutlined /> -->
+                        新增
                     </a-button>
-                    <a-button style="margin-left: 10px"
+                    <!-- <a-button style="margin-left: 10px"
                               class="filter-reset"
                               @click="resetFieldsClick">
                         <SyncOutlined />重置
-                    </a-button>
+                    </a-button> -->
                 </a-form-item>
             </a-form>
         </div>
@@ -106,9 +106,8 @@ import editOrAdd from "./editOrAdd.vue";
 import { Form, Empty, message } from "ant-design-vue";
 import countAnimation from "@/components/count-animation/count-animation.vue";
 import {
-    userManagementDelete,
-    userManagementList,
-    userManagementListSearch,
+    variableManagementList,
+    variableManagementDelete,
 } from "@/utils/api";
 import {
     dateTtoDateStr,
@@ -144,60 +143,60 @@ const columns = [
         width: 120
     },
     {
-        title: "用户UID",
-        dataIndex: "UserID",
+        title: "变量名",
+        dataIndex: "EnvName",
         fixed: "left",
         width: 200
     },
     {
-        title: "用户邮箱",
-        dataIndex: "Email",
+        title: "变量备注",
+        dataIndex: "EnvRemarks",
         fixed: "left",
         width: 200
     },
     {
-        title: "用户名",
-        dataIndex: "Username",
+        title: "变量限额",
+        dataIndex: "EnvQuantity",
         width: 200
     },
     {
-        title: "用户密码",
-        dataIndex: "Password",
+        title: "变量提交正则",
+        dataIndex: "EnvRegex",
         width: 200
     },
     {
-        title: "用户积分",
-        dataIndex: "Integral",
+        title: "变量模式",
+        dataIndex: "EnvMode",
         width: 200
     },
     {
-        title: "VIP",
-        dataIndex: "IsVIP",
+        title: "变量更新匹配正则",
+        dataIndex: "EnvUpdate",
         width: 200
     },
     {
-        title: "会员到期时间",
-        dataIndex: "ActivationTime",
+        title: "变量是否使用插件",
+        dataIndex: "EnvIsPlugin",
         width: 200
     },
     {
-        title: "管理员",
-        dataIndex: "IsAdmin",
+        title: "变量绑定的插件名称",
+        dataIndex: "EnvPluginName",
         width: 280
     },
     {
-        title: "用户WxpusherID",
-        dataIndex: "UserWxpusher",
+        title: "变量是否计费",
+        dataIndex: "EnvIsCharging",
         width: 280
     },
     {
-        title: "用户账户状态",
-        dataIndex: "IsState",
+        title: "变量提交积分扣额",
+        dataIndex: "EnvNeedIntegral",
         width: 280
     },
     {
-        title: "近期登录信息",
-        dataIndex: "LoginIP",
+        title: "变量提示内容",
+        dataIndex: "EnvTips",
         width: 280
     },
     {
@@ -227,24 +226,24 @@ const setPop = (item) => {
     if (item) {
         popData.value = {
             ...item,
-            title: "面板编辑"
+            title: "变量编辑"
         };
     } else {
         popData.value = {
-            title: "面板新增"
+            title: "变量新增"
         };
     }
 }
 
 // 删除面板
 const deletRow = (item) => {
-    userManagementDelete({
+    variableManagementDelete({
         data: {
-            id: item.ID
+            id: [item.ID]
         }
     }).then(() => {
         message.success("操作成功!");
-        resetFieldsClick();
+        getData(true);
     })
 }
 
@@ -252,18 +251,11 @@ const getData = (flag) => {
     if (flag) {
         pageNum.value = 1;
     }
-    let splicingData = {}, postFuc
-    if (isSearchData.value) {
-        postFuc = userManagementListSearch
-        splicingData = searchData
-    } else {
-        postFuc = userManagementList
-        splicingData = {
-            page: pageNum.value
-        }
-    }
+    let splicingData = {
+        page: pageNum.value
+    };
 
-    postFuc({
+    variableManagementList({
         data: searchData,
         splicingData: splicingData,
     }).then((data) => {

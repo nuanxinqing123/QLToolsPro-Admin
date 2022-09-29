@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 03:11:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-09-29 18:19:17
+ * @LastEditTime: 2022-09-29 21:06:33
  */
 import service from "./request";
 
@@ -504,6 +504,129 @@ export function messagePushManagementMessageSend(opts) {
         method: "POST",
         isForm: false,
         url: import.meta.env.VITE_URl + "v3/api/message/send",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+
+/*******数据查询********/
+// 充值数据
+// 列表查询
+export function rechargeDataList(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "get",
+        isForm: false,
+        ifSplicing: true, //是否拼接
+        splicingData: opts.splicingData || {}, //拼接的data
+        url: import.meta.env.VITE_URl + "v3/api/recharge/division/data",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+// 列表搜索查询
+export function rechargeDataListSearch(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "get",
+        isForm: false,
+        ifSplicing: true, //是否拼接
+        splicingData: opts.splicingData || {}, //拼接的data
+        url: import.meta.env.VITE_URl + "v3/api/recharge/search",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+// 上传记录
+// 列表查询
+export function uploadDataList(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "get",
+        isForm: false,
+        ifSplicing: true, //是否拼接
+        splicingData: opts.splicingData || {}, //拼接的data
+        url: import.meta.env.VITE_URl + "v3/api/record/division/data",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+// 列表搜索查询
+export function uploadDataListSearch(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "get",
+        isForm: false,
+        ifSplicing: true, //是否拼接
+        splicingData: opts.splicingData || {}, //拼接的data
+        url: import.meta.env.VITE_URl + "v3/api/record/division/data",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+
+/*******变量管理********/
+// 列表搜索查询
+export function variableManagementList(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "get",
+        isForm: false,
+        ifSplicing: true, //是否拼接
+        splicingData: opts.splicingData || {}, //拼接的data
+        url: import.meta.env.VITE_URl + "v3/api/env/division/data",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+
+// 新增
+export function variableManagementAdd(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "post",
+        isForm: false,
+        url: import.meta.env.VITE_URl + "v3/api/env/add",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+
+// 编辑
+export function variableManagementUpdate(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "put",
+        isForm: false,
+        url: import.meta.env.VITE_URl + "v3/api/env/update",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+
+// 删除
+export function variableManagementDelete(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "delete",
+        isForm: false,
+        url: import.meta.env.VITE_URl + "v3/api/env/delete",
         data: obj.data || {},
         isLoadding: obj.isLoadding || true,
         isCloseLoadding: obj.isCloseLoadding || true,

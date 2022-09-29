@@ -1,5 +1,5 @@
 <!--
- * @Descripttion: 用户管理
+ * @Descripttion: 重置数据
  * @Author: LiLei
  * @Date: 2022-07-13 16:10:45
  * @LastEditors: LiLei
@@ -7,10 +7,6 @@
 -->
 <template>
     <div class="report-page flex flex-column">
-        <edit-or-add v-model:visible="isPop"
-                     @updateData="getData(true)"
-                     :dataObj="popData">
-        </edit-or-add>
         <div class="report-container search-container">
             <a-form class="flex flex-warp"
                     :model="searchData">
@@ -42,32 +38,7 @@
                              :data-source="tableData"
                              :pagination="false"
                              :scroll="{  x: 100 ,y:listHeight}">
-                        <template #bodyCell="{ text, record, index, column }">
-                            <template v-if="column.customKey === 'money'">
-                                <count-animation :num="text"></count-animation>
-                            </template>
-                            <template v-if="column.customKey === 'operation'">
 
-                                <a-button type="primary"
-                                          @click.stop="setPop(record)"
-                                          style="margin-left: 10px;margin-bottom:10px;"
-                                          shape="round">修改
-                                </a-button>
-                                <a-popconfirm placement="topLeft"
-                                              ok-text="是"
-                                              cancel-text="否"
-                                              @confirm="deletRow(record)">
-                                    <template #title>
-                                        是否确认删除？
-                                    </template>
-                                    <a-button type="danger"
-                                              style="margin-left: 10px;margin-bottom:10px;"
-                                              shape="round">删除
-                                    </a-button>
-                                </a-popconfirm>
-
-                            </template>
-                        </template>
                         <template #emptyText
                                   style="{height:'500px'"
                                   }>
@@ -102,13 +73,11 @@
 
 <script setup>
 import { reactive, toRaw, ref, onMounted } from "vue";
-import editOrAdd from "./editOrAdd.vue";
 import { Form, Empty, message } from "ant-design-vue";
 import countAnimation from "@/components/count-animation/count-animation.vue";
 import {
-    userManagementDelete,
-    userManagementList,
-    userManagementListSearch,
+    rechargeDataList,
+    rechargeDataListSearch,
 } from "@/utils/api";
 import {
     dateTtoDateStr,
@@ -145,60 +114,22 @@ const columns = [
     },
     {
         title: "用户UID",
-        dataIndex: "UserID",
+        dataIndex: "RechargeUID",
+        fixed: "left",
+        width: 200
+    },
+
+    {
+        title: "充值类型",
+        dataIndex: "RechargeType",
         fixed: "left",
         width: 200
     },
     {
-        title: "用户邮箱",
-        dataIndex: "Email",
+        title: "CDK",
+        dataIndex: "RechargeCDK",
         fixed: "left",
         width: 200
-    },
-    {
-        title: "用户名",
-        dataIndex: "Username",
-        width: 200
-    },
-    {
-        title: "用户密码",
-        dataIndex: "Password",
-        width: 200
-    },
-    {
-        title: "用户积分",
-        dataIndex: "Integral",
-        width: 200
-    },
-    {
-        title: "VIP",
-        dataIndex: "IsVIP",
-        width: 200
-    },
-    {
-        title: "会员到期时间",
-        dataIndex: "ActivationTime",
-        width: 200
-    },
-    {
-        title: "管理员",
-        dataIndex: "IsAdmin",
-        width: 280
-    },
-    {
-        title: "用户WxpusherID",
-        dataIndex: "UserWxpusher",
-        width: 280
-    },
-    {
-        title: "用户账户状态",
-        dataIndex: "IsState",
-        width: 280
-    },
-    {
-        title: "近期登录信息",
-        dataIndex: "LoginIP",
-        width: 280
     },
     {
         title: "创建时间",
@@ -209,44 +140,12 @@ const columns = [
         title: "更新时间",
         dataIndex: "UpdatedAt",
         width: 280
-    },
-    {
-        title: "操作",
-        dataIndex: "operation",
-        customKey: "operation",
-        fixed: "right",
-        width: 300,
     }
+
 ];
 const tableData = ref([
 
 ]);
-// 是否打开弹窗
-const setPop = (item) => {
-    isPop.value = true;
-    if (item) {
-        popData.value = {
-            ...item,
-            title: "面板编辑"
-        };
-    } else {
-        popData.value = {
-            title: "面板新增"
-        };
-    }
-}
-
-// 删除面板
-const deletRow = (item) => {
-    userManagementDelete({
-        data: {
-            id: item.ID
-        }
-    }).then(() => {
-        message.success("操作成功!");
-        resetFieldsClick();
-    })
-}
 
 const getData = (flag) => {
     if (flag) {
@@ -254,10 +153,10 @@ const getData = (flag) => {
     }
     let splicingData = {}, postFuc
     if (isSearchData.value) {
-        postFuc = userManagementListSearch
+        postFuc = rechargeDataListSearch
         splicingData = searchData
     } else {
-        postFuc = userManagementList
+        postFuc = rechargeDataList
         splicingData = {
             page: pageNum.value
         }
@@ -272,7 +171,7 @@ const getData = (flag) => {
         } else {
             total.value = 0;
         }
-        tableData.value = (data.pageData || data || []).map(item => {
+        tableData.value = (data.rechargeData || data || []).map(item => {
             if (item.CreatedAt) {
                 item.CreatedAt = dateTtoDateStr(item.CreatedAt);
             }
@@ -338,6 +237,7 @@ const onSubmit = () => {
                 isSearchData.value = false;
             }
             getData(true);
+
         })
         .catch((err) => {
             console.log("error", err);
