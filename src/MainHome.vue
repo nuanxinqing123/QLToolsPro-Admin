@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-05-11 17:01:36
  * @LastEditors: LiLei
- * @LastEditTime: 2022-09-29 16:01:03
+ * @LastEditTime: 2022-09-29 17:27:38
 -->
 <template>
     <a-layout style="min-height: 100vh">
@@ -22,6 +22,10 @@
                 <a-menu-item key="2"
                              @click="goPage('panelManagement','2')">
                     <span>面板管理</span>
+                </a-menu-item>
+                <a-menu-item key="3"
+                             @click="goPage('userManagement','2')">
+                    <span>用户管理</span>
                 </a-menu-item>
                 <!-- <a-sub-menu key="sub1">
                     <template #title>panelManagement</template>

@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-10-25 17:17:40
  * @LastEditors: LiLei
- * @LastEditTime: 2022-09-29 15:45:04
+ * @LastEditTime: 2022-09-29 17:27:17
  */
 import {
     createRouter,
@@ -70,6 +70,18 @@ const routes = [
                 component: () =>
                     import(
                         /* webpackChunkName: 'panelManagement' */ "@/pages/adminPage/panelManagement/index.vue"
+                    ),
+            },
+            {
+                path: "/userManagement",
+                name: "userManagement",
+                meta: {
+                    title: "用户管理",
+                    key: "3",
+                },
+                component: () =>
+                    import(
+                        /* webpackChunkName: 'userManagement' */ "@/pages/adminPage/userManagement/index.vue"
                     ),
             },
         ],
