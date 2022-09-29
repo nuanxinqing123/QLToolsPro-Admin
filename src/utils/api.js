@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 03:11:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-09-29 17:49:49
+ * @LastEditTime: 2022-09-29 18:19:17
  */
 import service from "./request";
 
@@ -476,6 +476,34 @@ export function userManagementUpdate(opts) {
         method: "put",
         isForm: false,
         url: import.meta.env.VITE_URl + "v3/api/user/information/update",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+/*******消息推送管理********/
+export function messagePushManagementList(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "get",
+        isForm: false,
+        ifSplicing: true, //是否拼接
+        splicingData: opts.splicingData || {}, //拼接的data
+        url: import.meta.env.VITE_URl + "v3/api/message/division/data",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+// 消息群发
+export function messagePushManagementMessageSend(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "POST",
+        isForm: false,
+        url: import.meta.env.VITE_URl + "v3/api/message/send",
         data: obj.data || {},
         isLoadding: obj.isLoadding || true,
         isCloseLoadding: obj.isCloseLoadding || true,

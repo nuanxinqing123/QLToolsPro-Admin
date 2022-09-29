@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-10-25 17:17:40
  * @LastEditors: LiLei
- * @LastEditTime: 2022-09-29 17:27:17
+ * @LastEditTime: 2022-09-29 17:56:04
  */
 import {
     createRouter,
@@ -82,6 +82,18 @@ const routes = [
                 component: () =>
                     import(
                         /* webpackChunkName: 'userManagement' */ "@/pages/adminPage/userManagement/index.vue"
+                    ),
+            },
+            {
+                path: "/messagePushManagement",
+                name: "messagePushManagement",
+                meta: {
+                    title: "消息推送管理",
+                    key: "4",
+                },
+                component: () =>
+                    import(
+                        /* webpackChunkName: 'messagePushManagement' */ "@/pages/adminPage/messagePushManagement/index.vue"
                     ),
             },
         ],
