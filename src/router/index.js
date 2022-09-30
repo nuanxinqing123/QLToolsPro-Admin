@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-10-25 17:17:40
  * @LastEditors: LiLei
- * @LastEditTime: 2022-09-29 20:59:01
+ * @LastEditTime: 2022-09-30 08:40:33
  */
 import {
     createRouter,
@@ -142,6 +142,18 @@ const routes = [
                 component: () =>
                     import(
                         /* webpackChunkName: 'variableManagement' */ "@/pages/adminPage/variableManagement/index.vue"
+                    ),
+            },
+            {
+                path: "/cardSecretManagement",
+                name: "cardSecretManagement",
+                meta: {
+                    title: "卡密管理",
+                    key: "9",
+                },
+                component: () =>
+                    import(
+                        /* webpackChunkName: 'cardSecretManagement' */ "@/pages/adminPage/cardSecretManagement/index.vue"
                     ),
             },
         ],

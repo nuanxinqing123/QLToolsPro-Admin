@@ -3,9 +3,10 @@
  * @Author: LiLei
  * @Date: 2022-08-16 03:11:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-09-29 21:06:33
+ * @LastEditTime: 2022-09-30 09:46:39
  */
 import service from "./request";
+import exportExcel from "./exportExcel";
 
 // 网站配置获取接口
 export function getSetting(opts) {
@@ -630,6 +631,111 @@ export function variableManagementDelete(opts) {
         data: obj.data || {},
         isLoadding: obj.isLoadding || true,
         isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+/*******卡密管理********/
+
+// 删除
+export function cardSecretManagementDelete(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "delete",
+        isForm: false,
+        url: import.meta.env.VITE_URl + "v3/api/cd-key/delete",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+
+// 编辑
+export function cardSecretManagementUpdate(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "post",
+        isForm: false,
+        url: import.meta.env.VITE_URl + "v3/api/cd-key/batch/update",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+
+// 列表
+export function cardSecretManagementList(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "get",
+        isForm: false,
+        ifSplicing: true, //是否拼接
+        splicingData: opts.splicingData || {}, //拼接的data
+        url: import.meta.env.VITE_URl + "v3/api/cd-key/division/data",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+
+// 列表-筛选查询
+export function cardSecretManagementListSearch(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "get",
+        isForm: false,
+        ifSplicing: true, //是否拼接
+        splicingData: opts.splicingData || {}, //拼接的data
+        url: import.meta.env.VITE_URl + "v3/api/cd-key/search",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+// 列表-标识查询
+export function cardSecretManagementListSearchAll(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "get",
+        isForm: false,
+        ifSplicing: true, //是否拼接
+        splicingData: opts.splicingData || {}, //拼接的data
+        url: import.meta.env.VITE_URl + "v3/api/cd-key/remarks/search",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+// 生成卡密
+export function cardSecretManagementAdd(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "post",
+        isForm: false,
+        url: import.meta.env.VITE_URl + "v3/api/cd-key/add",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+
+// 下载文件
+export function cardSecretManagementAddDownload(opts) {
+    let obj = opts || {};
+    return exportExcel({
+        method: "get",
+        excelType: ".json",
+        excelTitle: "卡密文件",
+        exportTip: "正在下载，请稍候...",
+        url: import.meta.env.VITE_URl + "v3/api/cd-key/data/download",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || false,
+        isCloseLoadding: obj.isCloseLoadding || false,
         isPop: obj.isPop,
     });
 }
