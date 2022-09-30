@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-10-26 12:05:19
  * @LastEditors: LiLei
- * @LastEditTime: 2022-09-29 15:15:50
+ * @LastEditTime: 2022-09-30 10:18:15
  */
 import axios from "axios";
 import qs from "qs";
@@ -39,20 +39,7 @@ service.interceptors.request.use(
             const hide = message.loading("正在导出，请稍候...", 0);
             setTimeout(hide, 2500);
         }
-        // 判断是不是form表单请求
-        if (config.isForm) {
-            const datas = qs.stringify(config.data, {
-                arrayFormat: "indices",
-                allowDots: true,
-            });
-            let formData = new FormData();
-            for (let key in datas) {
-                formData.append(key, datas[key]);
-            }
-            config.headers["Content-Type"] =
-                "application/x-www-form-urlencoded; charset=UTF-8";
-            config.data = datas;
-        } else if (config.ifSplicing) {
+        if (config.ifSplicing) {
             let strUrl = "";
             const splicingData = config.splicingData || config.data;
             console.log("config.splicingData ", config.splicingData);
@@ -67,6 +54,20 @@ service.interceptors.request.use(
                 strUrl = "?" + strUrl;
             }
             config.url += strUrl;
+        }
+        // 判断是不是form表单请求
+        if (config.isForm) {
+            const datas = qs.stringify(config.data, {
+                arrayFormat: "indices",
+                allowDots: true,
+            });
+            let formData = new FormData();
+            for (let key in datas) {
+                formData.append(key, datas[key]);
+            }
+            config.headers["Content-Type"] =
+                "application/x-www-form-urlencoded; charset=UTF-8";
+            config.data = datas;
         } else {
             config.data = config.data;
         }

@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 03:11:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-09-30 09:46:39
+ * @LastEditTime: 2022-09-30 10:18:25
  */
 import service from "./request";
 import exportExcel from "./exportExcel";
@@ -736,6 +736,64 @@ export function cardSecretManagementAddDownload(opts) {
         data: obj.data || {},
         isLoadding: obj.isLoadding || false,
         isCloseLoadding: obj.isCloseLoadding || false,
+        isPop: obj.isPop,
+    });
+}
+/*******插件管理********/
+// 读取插件
+export function plugInManagementList(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "get",
+        isForm: false,
+        ifSplicing: true, //是否拼接
+        splicingData: opts.splicingData || {}, //拼接的data
+        url: import.meta.env.VITE_URl + "v3/api/plugin/data",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+// 删除插件
+export function plugInManagementDelete(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "delete",
+        isForm: false,
+        url: import.meta.env.VITE_URl + "v3/api/plugin/delete",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+// 刷新定时插件
+export function plugInManagementRefresh(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "PUT",
+        isForm: false,
+        url: import.meta.env.VITE_URl + "v3/api/plugin/cron/refresh",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+
+// 上传插件
+export function plugInManagementUpload(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "POST",
+        isForm: true,
+        ifSplicing: true, //是否拼接
+        splicingData: opts.splicingData || {}, //拼接的data
+        url: import.meta.env.VITE_URl + "v3/api/plugin/upload",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
         isPop: obj.isPop,
     });
 }

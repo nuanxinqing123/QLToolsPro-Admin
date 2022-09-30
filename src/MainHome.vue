@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-05-11 17:01:36
  * @LastEditors: LiLei
- * @LastEditTime: 2022-09-30 08:40:49
+ * @LastEditTime: 2022-09-30 09:52:05
 -->
 <template>
     <a-layout style="min-height: 100vh">
@@ -49,6 +49,10 @@
                 <a-menu-item key="9"
                              @click="goPage('cardSecretManagement','9')">
                     <span>卡密管理</span>
+                </a-menu-item>
+                <a-menu-item key="10"
+                             @click="goPage('plugInManagement','10')">
+                    <span>插件管理</span>
                 </a-menu-item>
                 <!-- <a-sub-menu key="sub1">
                     <template #title>panelManagement</template>
