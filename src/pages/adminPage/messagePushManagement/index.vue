@@ -174,14 +174,18 @@ const widthProcessing = () => {
     if (winWidth < 575) {
         listHeight.value = 300;
     } else {
-        setTimeout(() => {
-            try {
-                listHeight.value = document.getElementsByClassName("list-container")[0].clientHeight - 30;
+        try {
+            setTimeout(() => {
+                try {
+                    listHeight.value = document.getElementsByClassName("list-container")[0].clientHeight - 30;
 
-            } catch (error) {
-                console.log("errorerrorerror", error, document.getElementsByClassName("list-container")[0])
-            }
-        }, 1000);
+                } catch (error) {
+                    console.log("errorerrorerror", error, document.getElementsByClassName("list-container")[0])
+                }
+            }, 0);
+        } catch (error) {
+
+        }
     }
 }
 const resetFieldsClick = () => {
