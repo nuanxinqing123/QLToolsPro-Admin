@@ -353,6 +353,7 @@ const getData = (flag) => {
             if (item.UpdatedAt) {
                 item.UpdatedAt = dateTtoDateStr(item.UpdatedAt);
             }
+            return item;
         });
     });
 }
