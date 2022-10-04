@@ -108,27 +108,26 @@
                         </a-input>
                     </a-form-item>
                     <a-form-item name="password">
-                        <a-input v-model:value="formState.password"
-                                 type="password"
-                                 placeholder="请输入密码"
-                                 :bordered="false"
-                                 allow-clear>
+                        <a-input-password v-model:value="formState.password"
+                                          type="password"
+                                          placeholder="请输入密码"
+                                          :bordered="false"
+                                          allow-clear>
                             <template #prefix>
                                 <LockOutlined style="fontSize: 20px;color: rgba(0, 0, 0, 0.25)" />
                             </template>
-                        </a-input>
+                        </a-input-password>
                     </a-form-item>
                     <a-form-item v-if="loginType === 'register'"
                                  name="re_password">
-                        <a-input v-model:value="formState.re_password"
-                                 type="password"
-                                 placeholder="请输入确认密码"
-                                 :bordered="false"
-                                 allow-clear>
+                        <a-input-password v-model:value="formState.re_password"
+                                          placeholder="请输入确认密码"
+                                          :bordered="false"
+                                          allow-clear>
                             <template #prefix>
                                 <LockOutlined style="fontSize: 20px;color: rgba(0, 0, 0, 0.25)" />
                             </template>
-                        </a-input>
+                        </a-input-password>
                     </a-form-item>
                     <view class="login-register"
                           v-if="loginType === 'login'">
