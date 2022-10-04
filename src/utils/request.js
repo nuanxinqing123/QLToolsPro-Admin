@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-10-26 12:05:19
  * @LastEditors: LiLei
- * @LastEditTime: 2022-09-30 10:18:15
+ * @LastEditTime: 2022-10-04 11:48:57
  */
 import axios from "axios";
 import qs from "qs";
@@ -139,7 +139,10 @@ service.interceptors.response.use(
                         message.error(data.msg || "请求异常");
                     }, 400);
                 }
-                if (loginCodes.includes(data.code)) {
+                // 无访问权限或认证已过期
+                if (data.code == 5003) {
+                    commonUtil.initGopage();
+                } else if (loginCodes.includes(data.code)) {
                     // 跳转登录
                     localStorage.clear();
                     commonUtil.navigateTo("login");

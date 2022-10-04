@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-09-29 15:24:11
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-04 11:15:22
+ * @LastEditTime: 2022-10-04 11:49:41
 -->
 <template>
     <a-row>
@@ -49,7 +49,7 @@ import {
 const homeObj = ref({
     "panel_count": 0, //当前生效的面板数量
     "env_count": 0, //当前生效的变量数量
-    "user_count": 1, //网站注册用户数量
+    "user_count": 0, //网站注册用户数量
     "vip_user_count": 0, //网站会员用户数量
     "to_day_integral": 0, //今日消费积分数量
     "to_day_upload_count": 0 //今日上传变量数量
