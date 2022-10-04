@@ -1,7 +1,8 @@
 <template>
     <!-- <a-layout-content :style="{ padding: '20px 50px 0 50px', marginTop: '64px' }"> -->
-    <div :style="{ padding: '24px', minHeight: '380px' }"
-         class="flex flex-column align-center">
+    <div class="flex flex-column align-center report-page overflow-scroll"
+         v-if="listHeight"
+         :style="{'height':listHeight+'px'}">
         <box-container title="网站公告"
                        :loading="pageData.webData.loading"
                        :isLoad="false">
@@ -27,7 +28,7 @@
     <!-- </a-layout-content> -->
 </template>
 <script setup>
-import { reactive, ref, toRefs } from 'vue';
+import { reactive, ref, toRefs, onMounted } from 'vue';
 
 import boxContainer from "components/box-container/box-container.vue";
 import uploadData from "components/upload-data/upload-data.vue";
@@ -43,7 +44,7 @@ const backgroundImage = ref('');
 const pageData = reactive({
     webData: {
         loading: false,
-        data: {}
+        data: ""
     }
 })
 
@@ -80,10 +81,48 @@ const getData = () => {
     //     document.getElementById("app").style.backgroundImage = "url(" + backgroundImage.value + ")";
     // });
 }
-getData();
+// 获取高度
+const listHeight = ref(0);
+onMounted(() => {
+    widthProcessing()
+    // 监听屏幕变化
+    window.addEventListener("resize", () => {
+        // 获取屏幕高度
+        widthProcessing();
+    });
+    getData();
+
+});
+// 监听宽度
+const widthProcessing = () => {
+    // 获取屏幕高度
+    let winWidth = window.innerWidth || document.body.clientWidth;
+
+    if (winWidth < 575) {
+        listHeight.value = 300;
+    } else {
+        try {
+            setTimeout(() => {
+                try {
+                    listHeight.value = document.getElementsByClassName("page-container")[0].clientHeight - 64;
+
+                } catch (error) {
+                    console.log("errorerrorerror", error, document.getElementsByClassName("page-container")[0])
+                }
+            }, 0);
+        } catch (error) {
+
+        }
+    }
+}
 
 </script>
 <style lang="scss">
+.report-page {
+    width: 100%;
+    padding: 15px;
+    height: 100%;
+}
 .ant-layout {
     /* background: #f0f2f5; */
     background: initial;

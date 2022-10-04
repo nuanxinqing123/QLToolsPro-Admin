@@ -338,7 +338,9 @@ const retrieve = () => {
         formState.capt = '';
         formState.code = '';
         getCheckCode();
-    });
+    }).catch(() => {
+        getCheckCode();
+    })
 }
 // 注册
 const register = () => {
@@ -360,7 +362,9 @@ const register = () => {
         formState.capt = '';
         loginType.value = "login";
         getCheckCode();
-    });
+    }).catch(() => {
+        getCheckCode();
+    })
 }
 const handleFinishFailed = errors => {
     console.log(errors);
@@ -408,7 +412,9 @@ const login = () => {
                 name: 'home'
             });
         }*/
-    });
+    }).catch(() => {
+        getCheckCode();
+    })
 };
 
 

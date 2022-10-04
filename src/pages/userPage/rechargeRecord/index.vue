@@ -224,10 +224,9 @@ const onSubmit = () => {
 .report-container {
     width: 100%;
     background: #ffffff;
-    padding: 20px;
+    // padding: 20px;
     box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.17);
     border-radius: 6px;
-    margin-bottom: 15px;
     // 筛选搜索
     .filter-search {
         background-color: #3fb3b0;

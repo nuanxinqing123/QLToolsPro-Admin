@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-05-11 17:01:36
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-04 11:37:02
+ * @LastEditTime: 2022-10-04 21:26:21
 -->
 <template>
     <a-layout style="min-height: 100vh">
@@ -57,7 +57,9 @@
             <p-header></p-header>
             <a-layout-content style="margin: 0 16px">
                 <div :style="{ padding: '24px', background: '#fff', height: '100%',marginTop:'15px'
-                     }">
+                     }"
+                     class="flex flex-column page-container">
+
                     <!-- Bill is a cat. -->
                     <router-view></router-view>
                 </div>

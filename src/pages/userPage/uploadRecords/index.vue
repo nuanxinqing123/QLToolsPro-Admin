@@ -200,7 +200,7 @@ const onSubmit = () => {
 .report-page {
     width: 100%;
     background: #f2f2f2;
-    padding: 15px;
+    // padding: 15px;
     // height: 100vh;
     .ant-table-thead {
         height: 45px;
@@ -227,7 +227,6 @@ const onSubmit = () => {
     padding: 20px;
     box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.17);
     border-radius: 6px;
-    margin-bottom: 15px;
     // 筛选搜索
     .filter-search {
         background-color: #3fb3b0;
