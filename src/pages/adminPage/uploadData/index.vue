@@ -6,7 +6,7 @@
  * @Las tEditTime: 2022-07-13 16:17:03
 -->
 <template>
-    <div class="report-page flex flex-column">
+    <div class="report-page flex flex-column flex-base">
         <div class="report-container search-container">
             <a-form class="flex flex-warp"
                     :model="searchData">
@@ -234,7 +234,7 @@ const onSubmit = () => {
     width: 100%;
     background: #f2f2f2;
     padding: 15px;
-    height: 100vh;
+    // height: 100vh;
     .ant-table-thead {
         height: 45px;
         > tr > th {
