@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-15 23:10:20
  * @LastEditors: LiLei
- * @LastEditTime: 2022-08-16 02:15:12
+ * @LastEditTime: 2022-10-04 20:47:21
  */
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
@@ -36,25 +36,32 @@ export default defineConfig({
     },
 
     base: "./", // 公共路径
+    // devServer: {
+    //     proxy: {
+    //         "/": {
+    //             target: "http://h.6b7.xyz:6600/", //接口域名
+    //             changeOrigin: true, //是否跨域
+    //             ws: true, //是否代理 websockets
+    //             secure: true, //是否https接口
+    //             pathRewrite: {
+    //                 //路径重置
+    //                 "^/api": "",
+    //             },
+    //         },
+    //     },
+    // },
+    // 代理设置
     server: {
         hot: true, //自动保存
         // ← ← ← ← ← ←
         host: "0.0.0.0", // ← 新增内容 ←
-        // fs: {
-        //     strict: false,
-        // },
-        // proxy: {
-        //     // 字符串简写写法
-        //     // "/foo": "http://localhost:4567",
-        //     // 选项写法
-        //     "/": {
-        //         target: "https://dev-fp-pile-station.quicklycharge.com",
-        //         changeOrigin: true,
-        //         secure: false, // 如果是https接口，需要配置这个参数
-        //         // ws: true, //websocket支持
-        //         rewrite: (path) => path.replace(/^\/api/, ""),
-        //     },
-        // },
+        proxy: {
+            "/api": {
+                target: "http://h.6b7.xyz:6600/",
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/api/, ""),
+            },
+        },
     },
 
     productionSourceMap: false, // 生产环境下css 分离文件
