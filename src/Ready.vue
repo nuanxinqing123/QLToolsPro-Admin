@@ -31,7 +31,8 @@ if (token) {
             commonUtil.navigateTo("login");
         });
 } else {
-
+    // 跳转登录页面
+    commonUtil.navigateTo("login");
 }
 </script>
 
