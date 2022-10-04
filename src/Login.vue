@@ -335,6 +335,8 @@ const retrieve = () => {
     }).then((data) => {
         message.success("注册成功,请重新登录");
         loginType.value = "login";
+        formState.capt = '';
+        formState.code = '';
         getCheckCode();
     });
 }
@@ -355,6 +357,7 @@ const register = () => {
         }
     }).then((data) => {
         message.success("注册成功,请登录");
+        formState.capt = '';
         loginType.value = "login";
         getCheckCode();
     });

@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-15 23:10:20
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-04 20:47:21
+ * @LastEditTime: 2022-10-04 21:05:02
  */
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
@@ -56,10 +56,10 @@ export default defineConfig({
         // ← ← ← ← ← ←
         host: "0.0.0.0", // ← 新增内容 ←
         proxy: {
-            "/api": {
+            "/foo": {
                 target: "http://h.6b7.xyz:6600/",
                 changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/api/, ""),
+                rewrite: (path) => path.replace(/^\/foo/, ""),
             },
         },
     },
