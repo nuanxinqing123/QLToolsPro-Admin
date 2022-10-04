@@ -25,7 +25,7 @@
                         </a-radio-group>
                     </a-form-item>
                     <a-form-item name="email"
-                                 v-if="loginType !== 'retrieve' || (loginType === 'retrieve' && formState.find_type==='email')">
+                                 v-if="loginType == 'register' || (loginType === 'retrieve' && formState.find_type==='email')">
                         <a-input v-model:value="formState.email"
                                  placeholder="请输入邮箱"
                                  :bordered="false"
@@ -370,6 +370,7 @@ const checkCodeImage = ref('');
 // 登录方式 login -登录   register -注册 retrieve -找回
 const loginType = ref('login');
 const setLoginType = text => {
+    formState.email = '';
     formState.username = '';
     formState.password = '';
     formState.code = '';
