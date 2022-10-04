@@ -43,7 +43,7 @@
                                   style="{height:'500px'"
                                   }>
                             <div class="table-empty flex align-items"
-                                 :style="{'height':listHeight-50+'px'}">
+                                 :style="{'height':listHeight-95+'px'}">
                                 <a-empty :image="simpleImage" />
                             </div>
 
@@ -184,7 +184,7 @@ const widthProcessing = () => {
         try {
             setTimeout(() => {
                 try {
-                    listHeight.value = document.getElementsByClassName("list-container")[0].clientHeight - 30;
+                    listHeight.value = document.getElementsByClassName("list-container")[0].clientHeight - 95;
 
                 } catch (error) {
                     console.log("errorerrorerror", error, document.getElementsByClassName("list-container")[0])

@@ -6,7 +6,7 @@
  * @Las tEditTime: 2022-07-13 16:17:03
 -->
 <template>
-    <div class="report-page flex flex-column">
+    <div class="report-page flex flex-column flex-base">
         <edit-or-add v-model:visible="isPop"
                      @updateData="getData"
                      :dataObj="popData">
@@ -148,7 +148,7 @@
                                   style="{height:'500px'"
                                   }>
                             <div class="table-empty flex align-items"
-                                 :style="{'height':listHeight-50+'px'}">
+                                 :style="{'height':listHeight-95+'px'}">
                                 <a-empty :image="simpleImage" />
                             </div>
 
@@ -381,7 +381,7 @@ const widthProcessing = () => {
         try {
             setTimeout(() => {
                 try {
-                    listHeight.value = document.getElementsByClassName("list-container")[0].clientHeight - 30;
+                    listHeight.value = document.getElementsByClassName("list-container")[0].clientHeight - 95;
 
                 } catch (error) {
                     console.log("errorerrorerror", error, document.getElementsByClassName("list-container")[0])
@@ -425,7 +425,7 @@ const onSubmit = () => {
     width: 100%;
     background: #f2f2f2;
     padding: 15px;
-    height: 100vh;
+    // height: 100vh;
     .ant-table-thead {
         height: 45px;
         > tr > th {

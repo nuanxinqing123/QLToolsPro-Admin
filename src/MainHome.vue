@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-05-11 17:01:36
  * @LastEditors: LiLei
- * @LastEditTime: 2022-09-30 09:52:05
+ * @LastEditTime: 2022-10-04 11:24:13
 -->
 <template>
     <a-layout style="min-height: 100vh">
@@ -88,9 +88,9 @@
         <a-layout>
             <p-header></p-header>
             <a-layout-content style="margin: 0 16px">
-                <div :style="{ padding: '24px', background: '#fff', minHeight: '360px',marginTop:'15px'
-                     }">
-                    <!-- Bill is a cat. -->
+                <div :style="{ padding: '24px', background: '#fff', height: '100%',marginTop:'15px'
+                     }"
+                     class="flex flex-column">
                     <router-view></router-view>
                 </div>
             </a-layout-content>
