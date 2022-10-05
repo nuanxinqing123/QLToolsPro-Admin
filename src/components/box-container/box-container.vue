@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-11-14 10:33:11
  * @LastEditors: LiLei
- * @LastEditTime: 2022-08-16 13:55:34
+ * @LastEditTime: 2022-10-05 09:50:40
 -->
 <template>
     <div class="flex flex-column pc-container">
@@ -105,10 +105,9 @@ export default defineComponent({
 <style lang="scss">
 .pc-container {
     width: 60%;
-    min-height: 200px;
+    // min-height: 200px;
     position: relative;
     padding: 0 15px;
-
     background-color: #fff;
     border-radius: 10px;
     margin-bottom: 20px;

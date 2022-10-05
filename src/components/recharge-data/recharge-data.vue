@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:37:06
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-05 08:45:22
+ * @LastEditTime: 2022-10-05 09:38:57
 -->
 
 <template>
@@ -30,6 +30,7 @@
             <a-textarea v-model:value="formState.recharge_cdk">
             </a-textarea>
         </a-form-item>
+        {{type}}
         <a-form-item :wrapper-col="{ offset: 3, span: 16 }">
             <a-button type="primary"
                       style="width:100%;"
@@ -38,7 +39,7 @@
     </a-form>
 </template>
 <script setup>
-import { reactive, computed, watch, toRefs } from 'vue';
+import { reactive, computed } from 'vue';
 
 import {
     userIntegralRecharge,
@@ -48,24 +49,12 @@ import {
     commonUtil
 } from '@/utils/store';
 import { message } from "ant-design-vue";
-const props = defineProps({
-    type: String,
-});
-const {
-    type
-} = toRefs(props);
-// 定义 watch 监听
-watch(
-    type,
-    (newCount, old, clear) => {
-        // 如果 watch 监听被重复执行了，则会先清除上次未完成的异步任务
-        formState.type = type.value;
-    }
-    // watch 刚被创建的时候不执行
-    // { lazy: true }
-);
-
-
+const setType = (t) => {
+    formState.type = t;
+}
+defineExpose({
+    setType
+})
 const formState = reactive({
     type: "1",
     recharge_cdk: ""
