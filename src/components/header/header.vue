@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:07:46
  * @LastEditors: LiLei
- * @LastEditTime: 2022-09-29 15:13:47
+ * @LastEditTime: 2022-10-05 08:46:22
 -->
 <template>
     <a-page-header style="background-color: #fff;"
@@ -11,8 +11,14 @@
                    :sub-title="activePage.content">
         <template #extra>
             <!-- 现在时间:{{tiemStr}} -->
-            <sketch-outlined style="margin-right:5px;" />会员： {{getUserSms.ActivationTime}}
-            <dollar-outlined style="margin-right:5px;" />积分：0
+            <span @click="setTop('2')"
+                  class="pointer">
+                <sketch-outlined style="margin-right:5px;" />会员： {{getUserSms.ActivationTime}}
+            </span>
+            <span @click="setTop('1')"
+                  class="pointer">
+                <dollar-outlined style="margin-right:5px;" />积分：0
+            </span>
 
             <a-popconfirm placement="topLeft"
                           ok-text="是"
@@ -29,6 +35,9 @@
             <!-- <theme-color></theme-color> -->
         </template>
     </a-page-header>
+    <recharge-pop v-model:visible="isPop"
+                  :type="type"></recharge-pop>
+
 </template>
 
 <script setup>
@@ -36,11 +45,13 @@ import { DollarOutlined, SketchOutlined, LogoutOutlined } from '@ant-design/icon
 
 import { defineComponent, ref, onUnmounted } from 'vue';
 // import themeColor from "components/theme-color/theme-color.vue";
+import rechargePop from "@/components/recharge-pop/recharge-pop.vue";
 
 import { useCommonUtilStore } from "stores/commonUtil";
 const commonUtil = useCommonUtilStore();
 const tiemStr = ref('');
-
+const isPop = ref(false);
+const type = ref("1");
 import {
     storeToRefs
 } from 'pinia'
@@ -50,6 +61,10 @@ const {
     activePage,
 } = storeToRefs(commonUtil);
 
+const setTop = (t) => {
+    type.value = t;
+    isPop.value = true;
+}
 let times = null;
 
 try {
