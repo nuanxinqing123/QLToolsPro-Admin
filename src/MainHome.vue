@@ -3,14 +3,14 @@
  * @Author: LiLei
  * @Date: 2021-05-11 17:01:36
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-04 11:24:13
+ * @LastEditTime: 2022-10-05 10:23:57
 -->
 <template>
     <a-layout style="min-height: 100vh">
         <a-layout-sider v-model:collapsed="collapsed"
                         collapsible>
             <div class="page-logo text-center font-weight">
-                {{!collapsed?'青龙Tools-Admin':"青"}}
+                {{!collapsed?'青龙Tools Pro':"青"}}
             </div>
             <a-menu v-model:selectedKeys="selectedKeys"
                     theme="dark"

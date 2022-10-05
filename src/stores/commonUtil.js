@@ -14,6 +14,7 @@ function deepClone(obj) {
 }
 import { defineStore } from "pinia";
 import {
+    getSetting,
     userSms,
     checkToken,
     wxpusherState,
@@ -24,6 +25,13 @@ import router from "@/router";
 
 export const useCommonUtilStore = defineStore("commonUtil", {
     state: () => ({
+        // 网站设置obj
+        siteSettings: {
+            logo: "",
+            title: "",
+            bgUrl: "",
+            ico: "",
+        },
         // 用户信息
         userSms: {},
         pageKeys: [],
@@ -153,9 +161,72 @@ export const useCommonUtilStore = defineStore("commonUtil", {
                 name: name,
             });
         },
+        // 设置网页设置
+        setPageSettings() {
+            if (this.getItem("siteSettings")) {
+                this.siteSettings = this.getItem("siteSettings");
+            }
+            const { ico, title } = this.siteSettings;
+            // 设置ico
+            if (ico) {
+                let $favicon = document.querySelector('link[rel="icon"]');
+                if ($favicon !== null) {
+                    $favicon.href = ico;
+                } else {
+                    $favicon = document.createElement("link");
+                    $favicon.rel = "icon";
+                    $favicon.href = ico;
+                    document.head.appendChild($favicon);
+                }
+            }
+            // 设置标题
+            if (title) {
+                document.title = title;
+            }
+        },
         // 获取订阅状态
         getWxpusherState() {
             return new Promise(async (resolve, reject) => {
+                // 网站标题
+                const titleRes = await getSetting({
+                    splicingData: {
+                        key: "web_title",
+                    },
+                });
+                if (titleRes.value) {
+                    this.siteSettings.title = titleRes.value;
+                }
+                // 网站图标
+                const icoRes = await getSetting({
+                    splicingData: {
+                        key: "web_ico",
+                    },
+                });
+                if (icoRes.value) {
+                    this.siteSettings.ico = icoRes.value;
+                }
+
+                // 网站logo
+                const logoRes = await getSetting({
+                    splicingData: {
+                        key: "web_logo",
+                    },
+                });
+                if (logoRes.value) {
+                    this.siteSettings.logo = logoRes.value;
+                }
+                // 网站背景
+                const bgRes = await getSetting({
+                    splicingData: {
+                        key: "web_bg",
+                    },
+                });
+                if (bgRes.value) {
+                    this.siteSettings.bgUrl = bgRes.value;
+                }
+                // 保存缓存
+                this.saveItem("siteSettings", this.siteSettings);
+                this.setPageSettings();
                 wxpusherState()
                     .then((data) => {
                         resolve(data);
