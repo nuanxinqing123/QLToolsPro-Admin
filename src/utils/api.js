@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 03:11:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-09-30 10:18:25
+ * @LastEditTime: 2022-10-05 11:37:32
  */
 import service from "./request";
 import exportExcel from "./exportExcel";
@@ -791,6 +791,51 @@ export function plugInManagementUpload(opts) {
         ifSplicing: true, //是否拼接
         splicingData: opts.splicingData || {}, //拼接的data
         url: import.meta.env.VITE_URl + "v3/api/plugin/upload",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+/*******用户管理********/
+// 列表-标识查询
+export function userVariableManagementSearchAll(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "get",
+        isForm: false,
+        ifSplicing: true, //是否拼接
+        splicingData: opts.splicingData || {}, //拼接的data
+        url: import.meta.env.VITE_URl + "v3/api/user/env/data/search",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+
+// 修改用户变量
+export function userVariableManagementUpdate(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "post",
+        isForm: false,
+        url: import.meta.env.VITE_URl + "v3/api/user/env/data/update",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+
+// 删除用户变量
+
+export function userVariableManagementDelete(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "delete",
+        isForm: false,
+        url: import.meta.env.VITE_URl + "v3/api/user/env/data/delete",
         data: obj.data || {},
         isLoadding: obj.isLoadding || true,
         isCloseLoadding: obj.isCloseLoadding || true,

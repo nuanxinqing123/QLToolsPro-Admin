@@ -94,6 +94,10 @@
                             <template v-if="column.customKey === 'money'">
                                 <count-animation :num="text"></count-animation>
                             </template>
+                            <template v-if="column.customKey === 'isHide'">
+                                <span>************</span>
+                            </template>
+
                             <template v-if="column.customKey === 'operation'">
                                 <!-- <a-button type="primary"
                                           v-if="record.PanelEnable"
@@ -237,23 +241,25 @@ const columns = [
     {
         title: "Client_ID",
         dataIndex: "PanelClientID",
+        customKey: "isHide",
         width: 200
     },
     {
         title: "Client_Secret",
         dataIndex: "PanelClientSecret",
+        customKey: "isHide",
         width: 200
     },
-    {
-        title: "Token",
-        dataIndex: "PanelToken",
-        width: 200
-    },
-    {
-        title: "Params",
-        dataIndex: "PanelParams",
-        width: 200
-    },
+    // {
+    //     title: "Token",
+    //     dataIndex: "PanelToken",
+    //     width: 200
+    // },
+    // {
+    //     title: "Params",
+    //     dataIndex: "PanelParams",
+    //     width: 200
+    // },
     {
         title: "绑定变量",
         dataIndex: "EnvBinding",

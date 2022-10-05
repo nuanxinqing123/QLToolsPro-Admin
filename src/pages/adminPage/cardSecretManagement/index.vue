@@ -6,7 +6,7 @@
  * @Las tEditTime: 2022-07-13 16:17:03
 -->
 <template>
-    <div class="report-page flex flex-column">
+    <div class="report-page flex flex-column flex-base">
 
         <generate-card-secret v-model:visible="isAddPop"
                               @updateData="getData(true)"></generate-card-secret>
@@ -67,6 +67,16 @@
                              :pagination="false"
                              :scroll="{  x: 100 ,y:listHeight}">
                         <template #bodyCell="{ text, record, index, column }">
+                            <template v-if="column.customKey === 'state'">
+                                <a-button type="link"
+                                          primary
+                                          v-if="record.CdKeyState"
+                                          class="state-button state-enable">启用</a-button>
+                                <a-button type="link"
+                                          danger
+                                          class="state-button"
+                                          v-else>禁用</a-button>
+                            </template>
                             <template v-if="column.customKey === 'money'">
                                 <count-animation :num="text"></count-animation>
                             </template>
@@ -197,7 +207,7 @@ const columns = [
         width: 120
     },
     {
-        title: "CDK",
+        title: "卡密显示",
         dataIndex: "CdKey",
         fixed: "left",
         width: 200
@@ -226,6 +236,7 @@ const columns = [
     {
         title: "状态",
         dataIndex: "CdKeyState",
+        customKey: "state",
         width: 200
     },
     {
@@ -404,7 +415,12 @@ const onSubmit = () => {
     width: 100%;
     background: #f2f2f2;
     padding: 15px;
-    height: 100vh;
+    .state-button {
+        cursor: initial;
+    }
+    .state-enable {
+        color: green;
+    }
     .ant-table-thead {
         height: 45px;
         > tr > th {

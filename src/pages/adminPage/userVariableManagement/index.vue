@@ -14,6 +14,15 @@
         <div class="report-container search-container">
             <a-form class="flex flex-warp"
                     :model="searchData">
+                <a-form-item label="搜索类型:"
+                             name="type">
+                    <a-radio-group v-model:value="searchData.type">
+                        <a-radio value="panel"
+                                 name="type">面板</a-radio>
+                        <a-radio value="user"
+                                 name="type">用户</a-radio>
+                    </a-radio-group>
+                </a-form-item>
                 <a-form-item label="关键字:"
                              name="s">
                     <a-input v-model:value="searchData.s"
@@ -108,7 +117,7 @@ import countAnimation from "@/components/count-animation/count-animation.vue";
 import {
     userManagementDelete,
     userManagementList,
-    userManagementListSearch,
+    userVariableManagementSearchAll,
 } from "@/utils/api";
 import {
     dateTtoDateStr,
@@ -132,6 +141,7 @@ const simpleImage = Empty.PRESENTED_IMAGE_SIMPLE;
 // 查询数据
 const searchData = reactive({
     s: "",
+    type: "panel"
 });
 const isSearchData = ref(false);
 const { resetFields, validate, validateInfos } = useForm(searchData);
@@ -252,18 +262,19 @@ const getData = (flag) => {
     if (flag) {
         pageNum.value = 1;
     }
-    let splicingData = {}, postFuc
+    let splicingData = {};
     if (isSearchData.value) {
-        postFuc = userManagementListSearch
         splicingData = searchData
-    } else {
-        postFuc = userManagementList
-        splicingData = {
-            page: pageNum.value
-        }
+        splicingData.page = pageNum.value;
     }
+    // else {
+    //     postFuc = userManagementList
+    //     splicingData = {
+    //         page: pageNum.value
+    //     }
+    // }
 
-    postFuc({
+    userVariableManagementSearchAll({
         data: searchData,
         splicingData: splicingData,
     }).then((data) => {

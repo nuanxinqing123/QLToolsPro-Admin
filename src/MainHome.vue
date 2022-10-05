@@ -3,13 +3,18 @@
  * @Author: LiLei
  * @Date: 2021-05-11 17:01:36
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-05 10:23:57
+ * @LastEditTime: 2022-10-05 10:50:05
 -->
 <template>
     <a-layout style="min-height: 100vh">
         <a-layout-sider v-model:collapsed="collapsed"
                         collapsible>
-            <div class="page-logo text-center font-weight">
+            <a-image :width="70"
+                     :preview="false"
+                     :src="commonUtil.siteSettings.logo"
+                     v-if="commonUtil.siteSettings.logo" />
+            <div class="page-logo text-center font-weight"
+                 v-else>
                 {{!collapsed?'青龙Tools Pro':"青"}}
             </div>
             <a-menu v-model:selectedKeys="selectedKeys"
@@ -17,25 +22,34 @@
                     mode="inline">
                 <a-menu-item key="1"
                              @click="goPage('home','1')">
+                    <pie-chart-outlined />
                     <span>总览</span>
                 </a-menu-item>
                 <a-menu-item key="2"
                              @click="goPage('panelManagement','2')">
+                    <setting-outlined />
                     <span>面板管理</span>
                 </a-menu-item>
                 <a-menu-item key="3"
                              @click="goPage('userManagement','3')">
+                    <usergroup-delete-outlined />
                     <span>用户管理</span>
                 </a-menu-item>
                 <a-menu-item key="4"
                              @click="goPage('messagePushManagement','4')">
+                    <send-outlined />
                     <span>消息推送管理</span>
                 </a-menu-item>
                 <a-menu-item key="5"
                              @click="goPage('userVariableManagement','5')">
+                    <user-delete-outlined />
                     <span>用户变量管理</span>
                 </a-menu-item>
                 <a-sub-menu key="sub1">
+                    <template #icon>
+                        <database-outlined />
+                    </template>
+
                     <template #title>数据查询</template>
                     <a-menu-item key="6"
                                  @click="goPage('rechargeData','6')">充值数据</a-menu-item>
@@ -44,45 +58,20 @@
                 </a-sub-menu>
                 <a-menu-item key="8"
                              @click="goPage('variableManagement','8')">
+                    <build-outlined />
                     <span>变量管理</span>
                 </a-menu-item>
                 <a-menu-item key="9"
                              @click="goPage('cardSecretManagement','9')">
+                    <credit-card-outlined />
                     <span>卡密管理</span>
                 </a-menu-item>
                 <a-menu-item key="10"
                              @click="goPage('plugInManagement','10')">
+                    <cloud-server-outlined />
                     <span>插件管理</span>
                 </a-menu-item>
-                <!-- <a-sub-menu key="sub1">
-                    <template #title>panelManagement</template>
-                    <a-menu-item key="2"
-                                 @click="goPage('panelManagement','2')">列表</a-menu-item>
-                    <a-menu-item key="3"
-                                 @click="goPage('memberRecharge','3')">会员充值</a-menu-item>
-                </a-sub-menu>
-                <a-sub-menu key="sub2">
-                    <template #title>操作记录</template>
-                    <a-menu-item key="4"
-                                 @click="goPage('rechargeRecord','4')">充值记录</a-menu-item>
-                    <a-menu-item key="5"
-                                 @click="goPage('uploadRecords','5')">上传记录</a-menu-item>
-                </a-sub-menu> -->
-                <!-- <a-menu-item key="2"
-                             @click="goPage('rechargePoints','2')">
-                    <pie-chart-outlined />
-                    <span>CDK状态检查</span>
-                </a-menu-item>
-                <a-menu-item key="3"
-                             @click="goPage('panelInfoObtain','3')">
-                    <team-outlined />
-                    <span>面板：信息获取</span>
-                </a-menu-item>
-                <a-menu-item key="4"
-                             @click="goPage('uploadVariables','4')">
-                    <file-outlined />
-                    <span>上传变量</span>
-                </a-menu-item> -->
+
             </a-menu>
         </a-layout-sider>
         <a-layout>
@@ -101,7 +90,7 @@
     </a-layout>
 </template>
 <script setup>
-import { PieChartOutlined, DesktopOutlined, UserOutlined, TeamOutlined, FileOutlined } from '@ant-design/icons-vue';
+import { PieChartOutlined, SettingOutlined, UsergroupDeleteOutlined, SendOutlined, UserDeleteOutlined, DatabaseOutlined, CreditCardOutlined, CloudServerOutlined, BuildOutlined } from '@ant-design/icons-vue';
 import { defineComponent, ref, computed } from 'vue';
 import pHeader from "components/header/header.vue";
 import router from "@/router";
@@ -130,7 +119,10 @@ const goPage = (name, key) => {
     background: rgba(255, 255, 255, 0.3);
     font-size: 14px;
 }
-
+.ant-image {
+    left: 50%;
+    margin-left: -35px;
+}
 .site-layout .site-layout-background {
     background: #fff;
 }

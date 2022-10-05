@@ -162,11 +162,11 @@ export const useCommonUtilStore = defineStore("commonUtil", {
             });
         },
         // 设置网页设置
-        setPageSettings() {
-            if (this.getItem("siteSettings")) {
+        setPageSettings(flag) {
+            if (flag && this.getItem("siteSettings")) {
                 this.siteSettings = this.getItem("siteSettings");
             }
-            const { ico, title } = this.siteSettings;
+            const { ico, title, bgUrl } = this.siteSettings;
             // 设置ico
             if (ico) {
                 let $favicon = document.querySelector('link[rel="icon"]');
@@ -183,6 +183,18 @@ export const useCommonUtilStore = defineStore("commonUtil", {
             if (title) {
                 document.title = title;
             }
+            // 设置背景图片
+            // if (bgUrl) {
+            //     setTimeout(() => {
+            //         const bgDom =
+            //             document.getElementsByClassName(
+            //                 "ant-layout-content"
+            //             )[0];
+            //         console.log("bgDom", bgDom);
+            //         bgDom.style.backgroundSize = "cover";
+            //         bgDom.style.backgroundImage = "url(" + bgUrl + ")";
+            //     }, 2000);
+            // }
         },
         // 获取订阅状态
         getWxpusherState() {

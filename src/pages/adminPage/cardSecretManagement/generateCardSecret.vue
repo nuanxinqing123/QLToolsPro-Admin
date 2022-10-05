@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-22 16:44:50
  * @LastEditors: LiLei
- * @LastEditTime: 2022-09-30 09:36:55
+ * @LastEditTime: 2022-10-05 11:19:57
 -->
 <template>
     <p-center-modal :modalVisible="visible"
@@ -42,11 +42,33 @@
                 </a-form-item>
                 <a-form-item label="CD-KEY有效期"
                              name="cd_key_validity_period">
+                    <a-radio-group v-model:value="formState.cd_key_validity_period">
+                        <a-radio :value="1"
+                                 name="type">天卡</a-radio>
+                        <a-radio :value="7"
+                                 name="type">周卡</a-radio>
+                        <a-radio :value="14"
+                                 name="type">两周卡</a-radio>
+                        <a-radio :value="31"
+                                 name="type">月卡</a-radio>
+
+                        <a-radio :value="92"
+                                 name="type">季度</a-radio>
+                        <a-radio :value="183"
+                                 name="type">半年</a-radio>
+                        <a-radio :value="365"
+                                 name="type">一年</a-radio>
+                    </a-radio-group>
+
+                </a-form-item>
+                <a-form-item name="cd_key_validity_period"
+                             :wrapper-col="{ span: 15, offset: 7 }">
                     <a-input-number v-model:value="formState.cd_key_validity_period"
+                                    placeholder="请输入CD-KEY有效期"
                                     style="width：100%;"
                                     min="0" />
-                </a-form-item>
 
+                </a-form-item>
                 <a-form-item label="CD-KEY前缀"
                              name="cd_key_prefix">
                     <a-input v-model:value="formState.cd_key_prefix" />

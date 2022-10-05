@@ -95,7 +95,7 @@ const total = ref(0);
 // 当前页码
 const pageNum = ref(1);
 // 分页数量
-const pageSize = ref(10);
+const pageSize = ref(25);
 // 空图片
 const simpleImage = Empty.PRESENTED_IMAGE_SIMPLE;
 // 查询数据
@@ -167,7 +167,11 @@ const getData = (flag) => {
         splicingData: splicingData,
     }).then((data) => {
         if (!isSearchData.value) {
-            total.value = data.page * 20;
+            if (data.page == 1) {
+                total.value = (data.rechargeData || data || []).length;
+            } else {
+                total.value = data.page * pageSize.value;
+            }
         } else {
             total.value = 0;
         }

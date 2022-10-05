@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-05-10 13:30:49
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-05 10:20:47
+ * @LastEditTime: 2022-10-05 10:25:30
 -->
 <template>
     <a-config-provider :locale="zhCN">
@@ -22,7 +22,7 @@ const isShow = ref(true);
 // 初始化设置网站信息
 import { useCommonUtilStore } from "stores/commonUtil";
 const commonUtil = useCommonUtilStore();
-commonUtil.setPageSettings();
+commonUtil.setPageSettings(true);
 const reload = () => {
     //reload方法首先将isShow设置为false，将router-view通过if判断取消
     isShow.value = false;

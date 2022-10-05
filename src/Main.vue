@@ -3,13 +3,19 @@
  * @Author: LiLei
  * @Date: 2021-05-11 17:01:36
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-05 10:23:52
+ * @LastEditTime: 2022-10-05 10:51:36
 -->
 <template>
     <a-layout style="min-height: 100vh">
         <a-layout-sider v-model:collapsed="collapsed"
                         collapsible>
-            <div class="page-logo text-center font-weight">
+
+            <a-image :width="70"
+                     :preview="false"
+                     :src="commonUtil.siteSettings.logo"
+                     v-if="commonUtil.siteSettings.logo" />
+            <div class="page-logo text-center font-weight"
+                 v-else>
                 {{!collapsed?'青龙Tools Pro':"青"}}
             </div>
             <a-menu v-model:selectedKeys="selectedKeys"
@@ -17,6 +23,7 @@
                     mode="inline">
                 <a-menu-item key="1"
                              @click="goPage('variableSubmission','1')">
+
                     <!-- <template #icon>
                         <MailOutlined />
                     </template> -->
@@ -97,7 +104,10 @@ const goPage = (name, key) => {
     background: rgba(255, 255, 255, 0.3);
     font-size: 14px;
 }
-
+.ant-image {
+    left: 50%;
+    margin-left: -35px;
+}
 .site-layout .site-layout-background {
     background: #fff;
 }
