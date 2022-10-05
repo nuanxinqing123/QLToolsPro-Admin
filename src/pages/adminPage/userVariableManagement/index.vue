@@ -49,12 +49,16 @@
                 <div class="list-container flex-base">
                     <a-table :columns="columns"
                              :data-source="tableData"
+                             v-if="tableData.length"
+                             defaultExpandAllRows
                              :pagination="false"
                              :scroll="{  x: 100 ,y:listHeight}">
                         <template #bodyCell="{ text, record, index, column }">
-                            <template v-if="column.customKey === 'money'">
-                                <count-animation :num="text"></count-animation>
+
+                            <template v-if="column.customKey === 'isTree'">
+                                <list-item :data="record"></list-item>
                             </template>
+
                             <template v-if="column.customKey === 'operation'">
 
                                 <a-button type="primary"
@@ -77,6 +81,7 @@
 
                             </template>
                         </template>
+
                         <template #emptyText
                                   style="{height:'500px'"
                                   }>
@@ -112,10 +117,11 @@
 <script setup>
 import { reactive, toRaw, ref, onMounted } from "vue";
 import editOrAdd from "./editOrAdd.vue";
+import listItem from "./list-item.vue";
 import { Form, Empty, message } from "ant-design-vue";
 import countAnimation from "@/components/count-animation/count-animation.vue";
 import {
-    userManagementDelete,
+    userVariableManagementDelete,
     userManagementList,
     userVariableManagementSearchAll,
 } from "@/utils/api";
@@ -128,6 +134,7 @@ import {
     SyncOutlined,
 } from "@ant-design/icons-vue";
 const popData = ref({});
+const posetSearchData = ref({});
 const isPop = ref(false);
 const useForm = Form.useForm;
 // 列表总数
@@ -148,85 +155,37 @@ const { resetFields, validate, validateInfos } = useForm(searchData);
 
 const columns = [
     {
-        title: "ID",
-        dataIndex: "ID",
-        fixed: "left",
-        width: 120
-    },
-    {
-        title: "用户UID",
-        dataIndex: "UserID",
-        fixed: "left",
+        title: "面板名称",
+        dataIndex: "panel_name",
         width: 200
     },
     {
-        title: "用户邮箱",
-        dataIndex: "Email",
-        fixed: "left",
-        width: 200
+        title: '变量名称',
+        dataIndex: 'name',
+        key: 'name',
     },
     {
-        title: "用户名",
-        dataIndex: "Username",
-        width: 200
-    },
-    {
-        title: "用户密码",
-        dataIndex: "Password",
-        width: 200
-    },
-    {
-        title: "用户积分",
-        dataIndex: "Integral",
-        width: 200
-    },
-    {
-        title: "VIP",
-        dataIndex: "IsVIP",
-        width: 200
-    },
-    {
-        title: "会员到期时间",
-        dataIndex: "ActivationTime",
-        width: 200
-    },
-    {
-        title: "管理员",
-        dataIndex: "IsAdmin",
-        width: 280
-    },
-    {
-        title: "用户WxpusherID",
-        dataIndex: "UserWxpusher",
-        width: 280
-    },
-    {
-        title: "用户账户状态",
-        dataIndex: "IsState",
-        width: 280
-    },
-    {
-        title: "近期登录信息",
-        dataIndex: "LoginIP",
-        width: 280
-    },
-    {
-        title: "创建时间",
-        dataIndex: "CreatedAt",
-        width: 280
-    },
-    {
-        title: "更新时间",
-        dataIndex: "UpdatedAt",
-        width: 280
+        title: '变量值',
+        dataIndex: 'value',
+        key: 'value',
     },
     {
         title: "操作",
         dataIndex: "operation",
         customKey: "operation",
-        fixed: "right",
-        width: 300,
     }
+    // {
+    //     title: "变量",
+    //     dataIndex: "isTree",
+    //     customKey: "isTree",
+
+    // },
+    // {
+    //     title: "操作",
+    //     dataIndex: "operation",
+    //     customKey: "operation",
+    //     width: 200
+    // }
 ];
 const tableData = ref([
 
@@ -248,50 +207,55 @@ const setPop = (item) => {
 
 // 删除面板
 const deletRow = (item) => {
-    userManagementDelete({
+    userVariableManagementDelete({
         data: {
-            id: item.ID
+            "panel_name": item.panel_name,
+            "id": item.id,
+            "_id": item._id
         }
     }).then(() => {
         message.success("操作成功!");
-        resetFieldsClick();
+        getData(true);
     })
 }
-
+const dataAll = ref([]);
+// 获取分页数据
+const getTableData = () => {
+    //   const pageAllIndex = Math.ceil(total.value  / pageSize.value);
+    let isEnd = false;
+    let endSize = pageNum.value * pageSize.value;
+    if (endSize > total.value) {
+        endSize = total.value;
+        isEnd = true;
+    }
+    tableData.value = dataAll.value.slice((pageNum.value - 1) * pageSize.value, endSize);
+}
+// 获取总数据
 const getData = (flag) => {
     if (flag) {
         pageNum.value = 1;
     }
-    let splicingData = {};
-    if (isSearchData.value) {
-        splicingData = searchData
-        splicingData.page = pageNum.value;
-    }
-    // else {
-    //     postFuc = userManagementList
-    //     splicingData = {
-    //         page: pageNum.value
-    //     }
-    // }
+    let splicingData = posetSearchData.value;
+    splicingData.page = pageNum.value;
 
     userVariableManagementSearchAll({
         data: searchData,
         splicingData: splicingData,
     }).then((data) => {
-        if (!isSearchData.value) {
-            total.value = data.page * 20;
-        } else {
-            total.value = 0;
-        }
-        tableData.value = (data.pageData || data || []).map(item => {
-            if (item.CreatedAt) {
-                item.CreatedAt = dateTtoDateStr(item.CreatedAt);
-            }
-            if (item.UpdatedAt) {
-                item.UpdatedAt = dateTtoDateStr(item.UpdatedAt);
-            }
-            return item;
-        });
+        dataAll.value = data.map(item => {
+            return item.panel_env ? item.panel_env.map(it => {
+                it.panel_name = item.panel_name;
+                if (it.CreatedAt) {
+                    it.CreatedAt = dateTtoDateStr(it.CreatedAt);
+                }
+                if (it.UpdatedAt) {
+                    it.UpdatedAt = dateTtoDateStr(it.UpdatedAt);
+                }
+                return it;
+            }) : [];
+        }).flat();
+        total.value = dataAll.value.length;
+        getTableData()
     });
 }
 
@@ -304,6 +268,8 @@ onMounted(() => {
         // 获取屏幕高度
         widthProcessing();
     });
+    posetSearchData.value = searchData;
+
     getData();
 
 });
@@ -332,27 +298,23 @@ const widthProcessing = () => {
 const resetFieldsClick = () => {
     resetFields();
     isSearchData.value = false;
-    getData();
+    getData(true);
 
 };
 // 分页回调
 const paginationchange = (page, pageSize) => {
-    getData();
+    getTableData();
 };
 // 分页回调
 const onShowSizeChange = (e) => {
     console.log("eee", e);
-    getData();
+    getTableData();
 
 };
 const onSubmit = () => {
     validate()
         .then((value) => {
-            if (searchData.s) {
-                isSearchData.value = true;
-            } else {
-                isSearchData.value = false;
-            }
+            posetSearchData.value = searchData;
             getData(true);
         })
         .catch((err) => {

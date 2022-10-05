@@ -9,6 +9,8 @@
         "preview": "vite preview"
     },
     "dependencies": {
+        "@wangeditor/editor": "^5.1.21",
+        "@wangeditor/editor-for-vue": "^5.1.12",
         "ant-design-vue": "^3.2.11",
         "axios": "^0.27.2",
         "gsap": "^3.11.2",

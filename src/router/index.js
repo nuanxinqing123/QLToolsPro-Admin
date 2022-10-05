@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-10-25 17:17:40
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-05 08:24:38
+ * @LastEditTime: 2022-10-05 22:17:47
  */
 import {
     createRouter,
@@ -166,6 +166,30 @@ const routes = [
                 component: () =>
                     import(
                         /* webpackChunkName: 'plugInManagement' */ "@/pages/adminPage/plugInManagement/index.vue"
+                    ),
+            },
+            {
+                path: "/webSettings",
+                name: "webSettings",
+                meta: {
+                    title: "网站设置",
+                    key: "11",
+                },
+                component: () =>
+                    import(
+                        /* webpackChunkName: 'webSettings' */ "@/pages/adminPage/webSettings/index.vue"
+                    ),
+            },
+            {
+                path: "/containerManagement",
+                name: "containerManagement",
+                meta: {
+                    title: "容器管理",
+                    key: "12",
+                },
+                component: () =>
+                    import(
+                        /* webpackChunkName: 'containerManagement' */ "@/pages/adminPage/containerManagement/index.vue"
                     ),
             },
         ],

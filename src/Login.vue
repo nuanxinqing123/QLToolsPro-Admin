@@ -131,9 +131,12 @@
                     </a-form-item>
                     <view class="login-register"
                           v-if="loginType === 'login'">
-                        没有账号?
-                        <text class="register-button"
-                              @click="setLoginType('register')">注册</text>
+                        <template v-if="commonUtil.siteSettings.register==1">
+                            没有账号?
+                            <text class="register-button"
+                                  @click="setLoginType('register')">注册</text>
+                        </template>
+
                         忘记密码?
                         <text class="register-button"
                               @click="setLoginType('retrieve')">找回</text>
@@ -152,9 +155,11 @@
                         已有账号?
                         <text class="register-button"
                               @click="setLoginType('login')">登录</text>
-                        没有账号?
-                        <text class="register-button"
-                              @click="setLoginType('register')">注册</text>
+                        <template v-if="commonUtil.siteSettings.register==1">
+                            没有账号?
+                            <text class="register-button"
+                                  @click="setLoginType('register')">注册</text>
+                        </template>
                     </view>
                     <a-form-item align="middle">
                         <a-button v-if="loginType === 'login'"

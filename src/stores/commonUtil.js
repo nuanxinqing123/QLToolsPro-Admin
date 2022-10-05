@@ -14,6 +14,7 @@ function deepClone(obj) {
 }
 import { defineStore } from "pinia";
 import {
+    webSettingsSms,
     getSetting,
     userSms,
     checkToken,
@@ -27,10 +28,11 @@ export const useCommonUtilStore = defineStore("commonUtil", {
     state: () => ({
         // 网站设置obj
         siteSettings: {
-            logo: "",
-            title: "",
-            bgUrl: "",
-            ico: "",
+            web_title: "",
+            web_ico: "",
+            web_logo: "",
+            register: "",
+            notice: "",
         },
         // 用户信息
         userSms: {},
@@ -196,10 +198,39 @@ export const useCommonUtilStore = defineStore("commonUtil", {
             //     }, 2000);
             // }
         },
+        // 获取网站设置
+        getWebSetting(flag) {
+            return new Promise(async (resolve, reject) => {
+                webSettingsSms().then((data) => {
+                    this.siteSettings.web_title =
+                        data.filter((item) => item.key == "web_title")[0]
+                            .value || "";
+                    this.siteSettings.web_ico =
+                        data.filter((item) => item.key == "web_ico")[0].value ||
+                        "";
+                    this.siteSettings.web_logo =
+                        data.filter((item) => item.key == "web_logo")[0]
+                            .value || "";
+                    this.siteSettings.register =
+                        data.filter((item) => item.key == "register")[0]
+                            .value || "";
+                    this.siteSettings.web_bg =
+                        data.filter((item) => item.key == "web_bg")[0].value ||
+                        "";
+                    this.siteSettings.notice =
+                        data.filter((item) => item.key == "notice")[0].value ||
+                        "";
+                    // 保存缓存
+                    this.saveItem("siteSettings", this.siteSettings);
+                    this.setPageSettings(flag);
+                    resolve(this.siteSettings);
+                });
+            });
+        },
         // 获取订阅状态
         getWxpusherState() {
             return new Promise(async (resolve, reject) => {
-                // 网站标题
+                /*// 网站标题
                 const titleRes = await getSetting({
                     splicingData: {
                         key: "web_title",
@@ -236,9 +267,11 @@ export const useCommonUtilStore = defineStore("commonUtil", {
                 if (bgRes.value) {
                     this.siteSettings.bgUrl = bgRes.value;
                 }
-                // 保存缓存
+                  // 保存缓存
                 this.saveItem("siteSettings", this.siteSettings);
-                this.setPageSettings();
+                */
+
+                // await this.getWebSetting(true);
                 wxpusherState()
                     .then((data) => {
                         resolve(data);

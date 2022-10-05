@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:37:06
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-05 09:38:57
+ * @LastEditTime: 2022-10-05 16:01:27
 -->
 
 <template>
@@ -30,7 +30,6 @@
             <a-textarea v-model:value="formState.recharge_cdk">
             </a-textarea>
         </a-form-item>
-        {{type}}
         <a-form-item :wrapper-col="{ offset: 3, span: 16 }">
             <a-button type="primary"
                       style="width:100%;"

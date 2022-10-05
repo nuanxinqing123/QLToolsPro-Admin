@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 03:11:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-05 11:37:32
+ * @LastEditTime: 2022-10-05 20:53:42
  */
 import service from "./request";
 import exportExcel from "./exportExcel";
@@ -836,6 +836,34 @@ export function userVariableManagementDelete(opts) {
         method: "delete",
         isForm: false,
         url: import.meta.env.VITE_URl + "v3/api/user/env/data/delete",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+/*******用户管理********/
+
+// 获取网站设置信息
+export function webSettingsSms(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "GET",
+        isForm: false,
+        url: import.meta.env.VITE_URl + "v1/api/set/settings",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+
+export function webSettingsUpdate(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "PUT",
+        isForm: false,
+        url: import.meta.env.VITE_URl + "v3/api/set/settings",
         data: obj.data || {},
         isLoadding: obj.isLoadding || true,
         isCloseLoadding: obj.isCloseLoadding || true,
