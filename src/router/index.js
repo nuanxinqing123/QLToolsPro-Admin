@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-10-25 17:17:40
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-05 22:17:47
+ * @LastEditTime: 2022-10-05 22:28:58
  */
 import {
     createRouter,
@@ -190,6 +190,18 @@ const routes = [
                 component: () =>
                     import(
                         /* webpackChunkName: 'containerManagement' */ "@/pages/adminPage/containerManagement/index.vue"
+                    ),
+            },
+            {
+                path: "/adminHome",
+                name: "adminHome",
+                meta: {
+                    title: "首页",
+                    key: "13",
+                },
+                component: () =>
+                    import(
+                        /* webpackChunkName: 'adminHome' */ "@/pages/userPage/variableSubmission/index.vue"
                     ),
             },
         ],

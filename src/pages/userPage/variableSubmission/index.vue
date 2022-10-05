@@ -1,6 +1,6 @@
 <template>
     <!-- <a-layout-content :style="{ padding: '20px 50px 0 50px', marginTop: '64px' }"> -->
-    <div class="flex flex-column align-center report-page overflow-scroll"
+    <div class="flex flex-column align-center home-page overflow-scroll"
          v-if="listHeight"
          :style="{'height':listHeight+'px'}">
         <box-container title="网站公告"
@@ -118,7 +118,7 @@ const widthProcessing = () => {
 
 </script>
 <style lang="scss">
-.report-page {
+.home-page {
     width: 100%;
     padding: 15px;
     height: 100%;

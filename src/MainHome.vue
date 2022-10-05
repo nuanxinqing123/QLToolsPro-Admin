@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-05-11 17:01:36
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-05 22:21:09
+ * @LastEditTime: 2022-10-05 22:27:33
 -->
 <template>
     <a-layout style="min-height: 100vh">
@@ -20,6 +20,11 @@
             <a-menu v-model:selectedKeys="selectedKeys"
                     theme="dark"
                     mode="inline">
+                <a-menu-item key="13"
+                             @click="goPage('adminHome','1')">
+                    <home-outlined />
+                    <span>首页</span>
+                </a-menu-item>
                 <a-menu-item key="1"
                              @click="goPage('home','1')">
                     <pie-chart-outlined />
@@ -104,7 +109,7 @@
     </a-layout>
 </template>
 <script setup>
-import { PieChartOutlined, SettingOutlined, UsergroupDeleteOutlined, SendOutlined, UserDeleteOutlined, DatabaseOutlined, CreditCardOutlined, CloudServerOutlined, BuildOutlined, ShrinkOutlined, AppstoreOutlined } from '@ant-design/icons-vue';
+import { PieChartOutlined, SettingOutlined, UsergroupDeleteOutlined, SendOutlined, UserDeleteOutlined, DatabaseOutlined, CreditCardOutlined, CloudServerOutlined, BuildOutlined, ShrinkOutlined, AppstoreOutlined, HomeOutlined } from '@ant-design/icons-vue';
 import { defineComponent, ref, computed } from 'vue';
 import pHeader from "components/header/header.vue";
 import router from "@/router";

@@ -147,7 +147,7 @@ export const useCommonUtilStore = defineStore("commonUtil", {
         // 初始化跳转页面
         initGopage() {
             if (this.getUserSms.IsAdmin) {
-                this.navigateTo("home");
+                this.navigateTo("adminHome");
             } else {
                 this.navigateTo("variableSubmission");
             }
@@ -168,22 +168,22 @@ export const useCommonUtilStore = defineStore("commonUtil", {
             if (flag && this.getItem("siteSettings")) {
                 this.siteSettings = this.getItem("siteSettings");
             }
-            const { ico, title, bgUrl } = this.siteSettings;
+            const { web_ico, web_title } = this.siteSettings;
             // 设置ico
-            if (ico) {
+            if (web_ico) {
                 let $favicon = document.querySelector('link[rel="icon"]');
                 if ($favicon !== null) {
-                    $favicon.href = ico;
+                    $favicon.href = web_ico;
                 } else {
                     $favicon = document.createElement("link");
                     $favicon.rel = "icon";
-                    $favicon.href = ico;
+                    $favicon.href = web_ico;
                     document.head.appendChild($favicon);
                 }
             }
             // 设置标题
-            if (title) {
-                document.title = title;
+            if (web_title) {
+                document.title = web_title;
             }
             // 设置背景图片
             // if (bgUrl) {
