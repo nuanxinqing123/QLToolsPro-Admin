@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-10-25 17:17:40
  * @LastEditors: LiLei
- * @LastEditTime: 2022-09-30 09:51:33
+ * @LastEditTime: 2022-10-05 08:24:38
  */
 import {
     createRouter,
@@ -188,27 +188,15 @@ const routes = [
                     ),
             },
             {
-                path: "/rechargePoints",
-                name: "rechargePoints",
+                path: "/recharge",
+                name: "recharge",
                 meta: {
-                    title: "积分充值",
+                    title: "充值服务",
                     key: "2",
                 },
                 component: () =>
                     import(
-                        /* webpackChunkName: 'rechargePoints' */ "@/pages/userPage/rechargePoints/index.vue"
-                    ),
-            },
-            {
-                path: "/memberRecharge",
-                name: "memberRecharge",
-                meta: {
-                    title: "会员充值",
-                    key: "3",
-                },
-                component: () =>
-                    import(
-                        /* webpackChunkName: 'memberRecharge' */ "@/pages/userPage/memberRecharge/index.vue"
+                        /* webpackChunkName: 'recharge' */ "@/pages/userPage/recharge/index.vue"
                     ),
             },
             {
@@ -216,7 +204,7 @@ const routes = [
                 name: "rechargeRecord",
                 meta: {
                     title: "充值记录",
-                    key: "4",
+                    key: "3",
                 },
                 component: () =>
                     import(
@@ -228,7 +216,7 @@ const routes = [
                 name: "uploadRecords",
                 meta: {
                     title: "上传记录",
-                    key: "5",
+                    key: "4",
                 },
                 component: () =>
                     import(

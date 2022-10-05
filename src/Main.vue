@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-05-11 17:01:36
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-04 21:26:21
+ * @LastEditTime: 2022-10-05 08:25:43
 -->
 <template>
     <a-layout style="min-height: 100vh">
@@ -22,19 +22,16 @@
                     </template> -->
                     <span>变量提交</span>
                 </a-menu-item>
-                <a-sub-menu key="sub1">
-                    <template #title>充值服务</template>
-                    <a-menu-item key="2"
-                                 @click="goPage('rechargePoints','2')">积分充值</a-menu-item>
-                    <a-menu-item key="3"
-                                 @click="goPage('memberRecharge','3')">会员充值</a-menu-item>
-                </a-sub-menu>
+                <a-menu-item key="2"
+                             @click="goPage('recharge','2')">
+                    <span>充值服务</span>
+                </a-menu-item>
                 <a-sub-menu key="sub2">
                     <template #title>操作记录</template>
                     <a-menu-item key="4"
-                                 @click="goPage('rechargeRecord','4')">充值记录</a-menu-item>
+                                 @click="goPage('rechargeRecord','3')">充值记录</a-menu-item>
                     <a-menu-item key="5"
-                                 @click="goPage('uploadRecords','5')">上传记录</a-menu-item>
+                                 @click="goPage('uploadRecords','4')">上传记录</a-menu-item>
                 </a-sub-menu>
                 <!-- <a-menu-item key="2"
                              @click="goPage('rechargePoints','2')">

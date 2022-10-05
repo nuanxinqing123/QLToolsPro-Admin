@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:37:06
  * @LastEditors: LiLei
- * @LastEditTime: 2022-09-29 13:57:32
+ * @LastEditTime: 2022-10-05 08:16:09
 -->
 
 <template>
@@ -47,9 +47,9 @@
                      label="变量值"
                      has-feedback
                      :rules="[{ required: true, message: '请输入变量值!' }]">
-            <a-input v-model:value="formState.envData"
-                     placeholder="请输入变量值!">
-            </a-input>
+            <a-textarea v-model:value="formState.envData"
+                        placeholder="请输入变量值!">
+            </a-textarea>
         </a-form-item>
         <!-- <a-form-item name="nameRemarks"
                      label="备注"
