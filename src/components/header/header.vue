@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:07:46
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-06 16:04:33
+ * @LastEditTime: 2022-10-06 16:41:01
 -->
 <template>
     <a-page-header :title="activePage.title"
@@ -121,4 +121,7 @@ getAncientPoetry();
 </script>
 
 <style lang="scss">
+.ant-page-header-heading-extra {
+    line-height: 32px;
+}
 </style>

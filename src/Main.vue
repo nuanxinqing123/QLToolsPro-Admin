@@ -3,11 +3,12 @@
  * @Author: LiLei
  * @Date: 2021-05-11 17:01:36
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-06 16:27:31
+ * @LastEditTime: 2022-10-06 16:36:21
 -->
 <template>
     <a-layout style="min-height: 100vh">
         <a-layout-sider v-model:collapsed="collapsed"
+                        :class="commonUtil.siteSettings.web_bg?'slide-hide-bg':''"
                         collapsible>
 
             <a-image :width="70"
@@ -24,16 +25,19 @@
                 <a-menu-item key="1"
                              @click="goPage('variableSubmission','1')">
 
-                    <!-- <template #icon>
-                        <MailOutlined />
-                    </template> -->
+                    <build-outlined />
+
                     <span>变量提交</span>
                 </a-menu-item>
                 <a-menu-item key="2"
                              @click="goPage('recharge','2')">
+                    <pay-circle-outlined />
                     <span>充值服务</span>
                 </a-menu-item>
                 <a-sub-menu key="sub2">
+                    <template #icon>
+                        <book-outlined />
+                    </template>
                     <template #title>操作记录</template>
                     <a-menu-item key="4"
                                  @click="goPage('rechargeRecord','3')">充值记录</a-menu-item>
@@ -73,7 +77,7 @@
     </a-layout>
 </template>
 <script setup>
-import { PieChartOutlined, DesktopOutlined, UserOutlined, TeamOutlined, FileOutlined } from '@ant-design/icons-vue';
+import { BuildOutlined, PayCircleOutlined, BookOutlined } from '@ant-design/icons-vue';
 import { defineComponent, ref, computed, onMounted } from 'vue';
 import pHeader from "components/header/header.vue";
 import pFooter from "@/components/footer/footer.vue";

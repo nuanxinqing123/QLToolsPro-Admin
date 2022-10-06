@@ -281,9 +281,14 @@ section.ant-layout {
     &.ant-layout-sider {
         background-color: initial;
 
-        .ant-menu-item {
+        .ant-menu-item,
+        .ant-menu-submenu-title {
             color: #333;
             font-weight: bold;
+
+            &:hover {
+                color: #666;
+            }
         }
 
         .ant-layout-sider-trigger,
