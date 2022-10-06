@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-05-11 17:01:36
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-06 16:27:18
+ * @LastEditTime: 2022-10-06 16:43:18
 -->
 <template>
     <a-layout style="min-height: 100vh">
@@ -98,8 +98,7 @@
             <p-header></p-header>
             <a-layout-content>
                 <!-- <div :style="{ padding: '24px', background: '#fff', height: '100%',marginTop:'15px' -->
-                <div :style="{ height: '100%',marginTop:'15px'
-                     }"
+                <div :style="{ height: '100%' }"
                      ref="routerPageRef"
                      class="flex flex-column page-container">
                     <router-view></router-view>
@@ -121,13 +120,13 @@ const collapsed = ref(false);
 const selectedKeys = ref(commonUtil.pageKeys);
 const routerPageRef = ref(null);
 onMounted(() => {
-    // 计算容器高度，需要减去15的头部高度
+    // 计算容器高度，---需要减去15的头部高度,暂时去除
     let routerPageHeight = routerPageRef.value.clientHeight || routerPageRef.value.$el.clientHeight;
-    commonUtil.setRouterPageHeight(routerPageHeight - 15);
+    commonUtil.setRouterPageHeight(routerPageHeight);
     // 监听屏幕大小变化
     window.addEventListener("resize", () => {
         let routerPageHeight = routerPageRef.value.clientHeight || routerPageRef.value.$el.clientHeight;
-        commonUtil.setRouterPageHeight(routerPageHeight - 15);
+        commonUtil.setRouterPageHeight(routerPageHeight);
     });
 })
 

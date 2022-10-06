@@ -3,11 +3,10 @@
  * @Author: LiLei
  * @Date: 2022-09-29 15:24:11
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-06 14:53:23
+ * @LastEditTime: 2022-10-06 16:51:08
 -->
 <template>
-    <page-container @initData="getData"
-                    isScroll>
+    <page-container @initData="getData">
         <template #top>
             <a-row>
                 <a-col :span="12">

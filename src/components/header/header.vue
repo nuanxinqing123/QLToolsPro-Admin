@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:07:46
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-06 16:41:01
+ * @LastEditTime: 2022-10-06 16:47:08
 -->
 <template>
     <a-page-header :title="activePage.title"
@@ -34,6 +34,7 @@
             <!-- <theme-color></theme-color> -->
         </template>
     </a-page-header>
+    <a-divider />
     <recharge-pop v-model:visible="isPop"
                   :type="type"></recharge-pop>
 
@@ -123,5 +124,8 @@ getAncientPoetry();
 <style lang="scss">
 .ant-page-header-heading-extra {
     line-height: 32px;
+}
+.ant-divider-horizontal {
+    margin: 0;
 }
 </style>

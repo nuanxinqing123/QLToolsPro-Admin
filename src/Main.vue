@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-05-11 17:01:36
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-06 16:36:21
+ * @LastEditTime: 2022-10-06 16:43:27
 -->
 <template>
     <a-layout style="min-height: 100vh">
@@ -64,8 +64,7 @@
         <a-layout>
             <p-header></p-header>
             <a-layout-content>
-                <div :style="{ height: '100%',marginTop:'15px'
-                     }"
+                <div :style="{ height: '100%' }"
                      ref="routerPageRef"
                      class="flex flex-column page-container">
                     <router-view></router-view>
