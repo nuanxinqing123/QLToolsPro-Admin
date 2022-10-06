@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 03:11:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-06 10:41:34
+ * @LastEditTime: 2022-10-06 20:08:35
  */
 import service from "./request";
 import exportExcel from "./exportExcel";
@@ -867,6 +867,93 @@ export function webSettingsUpdate(opts) {
         data: obj.data || {},
         isLoadding: obj.isLoadding || true,
         isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+
+/********容器管理********/
+
+// 迁移
+export function containerManagementTransfer(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "post",
+        isForm: false,
+        url: import.meta.env.VITE_URl + "v3/api/container/transfer",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+// 复制
+export function containerManagementCopy(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "post",
+        isForm: false,
+        url: import.meta.env.VITE_URl + "v3/api/container/copy",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+// 备份
+export function containerManagementBackup(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "post",
+        isForm: false,
+        url: import.meta.env.VITE_URl + "v3/api/container/backup",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+// 恢复
+export function containerManagementRestore(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "post",
+        isForm: true,
+        ifSplicing: true, //是否拼接
+        splicingData: opts.splicingData || {}, //拼接的data
+        url: import.meta.env.VITE_URl + "v3/api/container/restore",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+
+// 任务错误记录查询
+export function containerManagementErrorList(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "get",
+        isForm: false,
+        url: import.meta.env.VITE_URl + "v3/api/container/error/content",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+
+// 备份数据下载
+export function containerManagementBackUpDownload(opts) {
+    let obj = opts || {};
+    return exportExcel({
+        method: "get",
+        excelType: ".json",
+        excelTitle: "backup",
+        exportTip: "正在下载，请稍候...",
+        url: import.meta.env.VITE_URl + "v3/api/container/backup/download",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || false,
+        isCloseLoadding: obj.isCloseLoadding || false,
         isPop: obj.isPop,
     });
 }

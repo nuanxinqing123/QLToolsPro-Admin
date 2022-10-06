@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:37:06
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-06 16:23:47
+ * @LastEditTime: 2022-10-06 16:59:55
 -->
 
 <template>
@@ -27,6 +27,7 @@
                         <a-input v-model:value="formState.web_title"
                                  placeholder="请输入网站标题">
                         </a-input>
+                        <div class="input-tip">此设置会更改前台的网站标题</div>
                     </a-form-item>
                     <a-form-item label="网站图标"
                                  name="web_ico"
@@ -34,6 +35,8 @@
                         <a-textarea v-model:value="formState.web_ico"
                                     placeholder="请输入网站图标">
                         </a-textarea>
+                        <div class="input-tip">此设置会更改网站图标, 支持图床和直接返回图片的API接口</div>
+
                     </a-form-item>
                     <a-form-item label="网站LOGO"
                                  name="web_logo"
@@ -41,6 +44,8 @@
                         <a-textarea v-model:value="formState.web_logo"
                                     placeholder="请输入网站LOGO">
                         </a-textarea>
+                        <div class="input-tip">此设置会更改前后台左侧LOGO图片, 支持图床和直接返回图片的API接口</div>
+
                     </a-form-item>
                     <a-form-item label="网站背景"
                                  name="web_bg"
@@ -48,6 +53,8 @@
                         <a-textarea v-model:value="formState.web_bg"
                                     placeholder="请输入网站背景">
                         </a-textarea>
+                        <div class="input-tip">此设置会更改前后台的背景图, 支持图床和直接返回图片的API接口</div>
+
                     </a-form-item>
                     <a-form-item label="注册开关"
                                  name="register">
@@ -57,8 +64,10 @@
                             <a-radio value="2"
                                      name="type">关闭</a-radio>
                         </a-radio-group>
+                        <div class="input-tip">此设置会更改是否可用注册功能</div>
+
                     </a-form-item>
-                    <a-form-item label="网站介绍"
+                    <a-form-item label="网站公告"
                                  name="notice">
                         <div style="border: 1px solid #ccc">
                             <Toolbar style="border-bottom: 1px solid #ccc"

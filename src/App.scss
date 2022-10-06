@@ -268,10 +268,17 @@ div {
     cursor: pointer;
 }
 
+.cursor-initial {
+    cursor: initial;
+}
+
 section.ant-layout {
     background: initial;
 }
 
+.ant-divider-horizontal {
+    margin: 0 !important;
+}
 
 // 左侧栏目去除背景
 .slide-hide-bg {
@@ -297,4 +304,10 @@ section.ant-layout {
             background-color: initial;
         }
     }
+}
+
+.input-tip {
+    color: rgba(0, 0, 0, .54);
+    font-size: 12px;
+    margin-top: 8px;
 }

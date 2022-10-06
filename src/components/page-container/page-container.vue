@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-10-05 17:14:08
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-06 16:32:13
+ * @LastEditTime: 2022-10-06 20:00:41
 -->
 <template>
     <div :style="{height:routerPageHeight+'px'}"
@@ -20,15 +20,16 @@
         <!-- 表格 -->
         <div class="flex-base flex flex-column"
              v-if="isTable">
-            <div class="flex-base table-list-container"
+            <div class="flex-base"
+                 :class="isNoYScroll?'':'table-list-container'"
                  ref="tableRef">
                 <a-table :columns="columns"
-                         v-if="tableHeight"
+                         v-if="isNoYScroll || tableHeight"
                          :data-source="dataSource"
                          :row-selection="isRowSelection?rowSelection:null"
                          :pagination="false"
                          class="table-list"
-                         :scroll="{  x: 100 ,y:tableHeight - 55}">
+                         :scroll="{  x: 100 ,y:isNoYScroll?null:tableHeight - 55}">
                     <template #bodyCell="{ text, record, index, column }">
                         <slot name="bodyCell"
                               :text="text"
@@ -86,6 +87,7 @@ const props = defineProps({
     columns: Array,
     dataSource: Array,
     isTable: Boolean,
+    isNoYScroll: Boolean,
     total: [Number, String],
     pageNum: [Number, String],
     isSearch: Boolean,
@@ -96,6 +98,7 @@ const props = defineProps({
 });
 
 const {
+    isNoYScroll,
     isCenter,
     isScroll,
     total,
@@ -117,7 +120,9 @@ onMounted(() => {
     // 计算容器高度，需要减去15的头部高度
     setTimeout(() => {
         try {
-            tableHeight.value = tableRef.value.clientHeight || tableRef.value.$el.clientHeight;
+            if (!isNoYScroll.value) {
+                tableHeight.value = tableRef.value.clientHeight || tableRef.value.$el.clientHeight;
+            }
         } catch (error) {
 
         }
@@ -128,7 +133,7 @@ onMounted(() => {
 
     // 监听屏幕变化
     window.addEventListener("resize", () => {
-        if (isTable.value) {
+        if (isTable.value && !isNoYScroll.value) {
             setTimeout(() => {
                 tableHeight.value = tableRef.value.clientHeight || tableRef.value.$el.clientHeight;
                 console.log("tableHeight.value3 ", tableHeight.value, tableRef.value.clientHeight)
