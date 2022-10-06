@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-05-11 17:01:36
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-05 22:27:33
+ * @LastEditTime: 2022-10-06 13:59:52
 -->
 <template>
     <a-layout style="min-height: 100vh">
@@ -96,8 +96,10 @@
         <a-layout>
             <p-header></p-header>
             <a-layout-content style="margin: 0 16px">
-                <div :style="{ padding: '24px', background: '#fff', height: '100%',marginTop:'15px'
+                <!-- <div :style="{ padding: '24px', background: '#fff', height: '100%',marginTop:'15px' -->
+                <div :style="{ height: '100%',marginTop:'15px'
                      }"
+                     ref="routerPageRef"
                      class="flex flex-column page-container">
                     <router-view></router-view>
                 </div>
@@ -110,13 +112,23 @@
 </template>
 <script setup>
 import { PieChartOutlined, SettingOutlined, UsergroupDeleteOutlined, SendOutlined, UserDeleteOutlined, DatabaseOutlined, CreditCardOutlined, CloudServerOutlined, BuildOutlined, ShrinkOutlined, AppstoreOutlined, HomeOutlined } from '@ant-design/icons-vue';
-import { defineComponent, ref, computed } from 'vue';
+import { defineComponent, ref, computed, onMounted } from 'vue';
 import pHeader from "components/header/header.vue";
 import router from "@/router";
 import { commonUtil } from "@/utils/store";
 const collapsed = ref(false);
 const selectedKeys = ref(commonUtil.pageKeys);
-
+const routerPageRef = ref(null);
+onMounted(() => {
+    // 计算容器高度，需要减去15的头部高度
+    let routerPageHeight = routerPageRef.value.clientHeight || routerPageRef.value.$el.clientHeight;
+    commonUtil.setRouterPageHeight(routerPageHeight - 15);
+    // 监听屏幕大小变化
+    window.addEventListener("resize", () => {
+        let routerPageHeight = routerPageRef.value.clientHeight || routerPageRef.value.$el.clientHeight;
+        commonUtil.setRouterPageHeight(routerPageHeight - 15);
+    });
+})
 
 const goPage = (name, key) => {
     router.push({

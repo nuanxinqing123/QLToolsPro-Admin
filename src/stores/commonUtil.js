@@ -26,6 +26,8 @@ import router from "@/router";
 
 export const useCommonUtilStore = defineStore("commonUtil", {
     state: () => ({
+        // 容器高度
+        routerPageHeight: 0,
         // 网站设置obj
         siteSettings: {
             web_title: "",
@@ -144,6 +146,10 @@ export const useCommonUtilStore = defineStore("commonUtil", {
         },
     },
     actions: {
+        // 设置容器高度
+        setRouterPageHeight(height) {
+            this.routerPageHeight = height;
+        },
         // 初始化跳转页面
         initGopage() {
             if (this.getUserSms.IsAdmin) {

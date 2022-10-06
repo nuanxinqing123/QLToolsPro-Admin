@@ -1,0 +1,201 @@
+<!--
+ * @Descripttion: 页面组件
+ * @Author: LiLei
+ * @Date: 2022-10-05 17:14:08
+ * @LastEditors: LiLei
+ * @LastEditTime: 2022-10-06 14:40:21
+-->
+<template>
+    <div :style="{height:routerPageHeight+'px'}"
+         class="pc-page flex flex-column">
+        <div class="pc-page-search"
+             v-if="isSearch">
+            <slot name="search"></slot>
+        </div>
+        <slot name="top"></slot>
+        {{routerPageHeight}}
+        {{tableHeight}}
+        <!-- 表格 -->
+        <div class="flex-base flex flex-column"
+             v-if="isTable">
+            <div class="flex-base table-list-container"
+                 ref="tableRef">
+                <a-table :columns="columns"
+                         v-if="tableHeight"
+                         :data-source="dataSource"
+                         :pagination="false"
+                         class="table-list"
+                         :scroll="{  x: 100 ,y:tableHeight - 55}">
+                    <template #bodyCell="{ text, record, index, column }">
+                        <slot name="bodyCell"
+                              :text="text"
+                              :record="record"
+                              :index="index"
+                              :column="column"></slot>
+                    </template>
+                    <template #emptyText
+                              :style="{'height':tableHeight - 110 +'px'}">
+                        <div class="table-empty flex align-items"
+                             :style="{'height':tableHeight - 110 +'px'}">
+                            <a-empty :image="simpleImage" />
+                        </div>
+
+                    </template>
+                </a-table>
+            </div>
+            <div class="flex content-between align-center table-pagination">
+                <div v-if="total">
+                    共{{total || 0}}条记录
+                </div>
+                <a-pagination show-size-changer
+                              v-if="total"
+                              show-quick-jumper
+                              v-model:current="pageNum"
+                              v-model:pageSize="pageSize"
+                              :total="total"
+                              @change="paginationchange"
+                              @showSizeChange="onShowSizeChange" />
+            </div>
+        </div>
+        <slot name="bottom"></slot>
+    </div>
+</template>
+
+<script setup>
+import { reactive, toRaw, ref, onMounted, toRefs } from "vue";
+import { Empty } from "ant-design-vue";
+// 列表总数
+// const total = ref(0);
+// 当前页码
+// const pageNum = ref(1);
+// 分页数量
+const pageSize = ref(1);
+// 空图片
+const simpleImage = Empty.PRESENTED_IMAGE_SIMPLE;
+import {
+    storeToRefs
+} from 'pinia';
+import {
+    commonUtil
+} from '@/utils/store';
+// 生成响应式
+const {
+    routerPageHeight
+} = storeToRefs(commonUtil);
+
+const props = defineProps({
+    columns: Array,
+    dataSource: Array,
+    isTable: Boolean,
+    total: [Number, String],
+    pageNum: [Number, String],
+    isSearch: Boolean
+});
+
+const {
+    total,
+    pageNum,
+    columns,
+    dataSource,
+    isTable,
+    isSearch
+} = toRefs(props);
+
+const emit = defineEmits(['update:current', 'update:pageSize', 'update:total']);
+
+// 表格ref
+const tableRef = ref(null);
+// 列表高度
+const tableHeight = ref(0);
+
+onMounted(() => {
+    // 计算容器高度，需要减去15的头部高度
+    setTimeout(() => {
+        try {
+            tableHeight.value = tableRef.value.clientHeight || tableRef.value.$el.clientHeight;
+        } catch (error) {
+
+        }
+        // 初始化数据
+        // 回调数据
+        emit('initData');
+    }, 0);
+
+    // 监听屏幕变化
+    window.addEventListener("resize", () => {
+        setTimeout(() => {
+            tableHeight.value = tableRef.value.clientHeight || tableRef.value.$el.clientHeight;
+            console.log("tableHeight.value3 ", tableHeight.value, tableRef.value.clientHeight)
+        }, 10);
+    })
+})
+
+// 分页回调
+const paginationchange = (page, pageSize) => {
+    emit('update:current', page);
+    emit('update:pageSize', pageSize);
+    // 回调数据
+    emit('getData');
+    console.log("page, pageSize", page, pageSize)
+};
+// 分页回调
+const onShowSizeChange = (e) => {
+    console.log("eee", e);
+};
+</script>
+
+<style lang="scss">
+.pc-page {
+    padding: 24px;
+    .table-pagination {
+        margin-top: 15px;
+        height: 32px;
+    }
+    .pc-page-search {
+        width: 100%;
+        // background: #ffffff;
+        padding: 20px;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.17);
+        border-radius: 6px;
+        margin-bottom: 15px;
+        // 筛选搜索
+        .filter-search {
+            background-color: #3fb3b0;
+            border-radius: 25px;
+            border-color: #3fb3b0;
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+        // 筛选重置
+        .filter-reset {
+            background-color: #f08a37;
+            border-radius: 25px;
+            border-color: #f08a37;
+            color: #ffffff;
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+        padding-bottom: 0;
+        transition: all linear 0.3s;
+        .ant-row.ant-form-item {
+            margin-right: 20px;
+            margin-bottom: 15px;
+
+            @media screen and (max-width: 575px) {
+                margin-right: 0;
+                width: 100%;
+            }
+        }
+    }
+    .table-list-container {
+        position: relative;
+        .table-list {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    }
+}
+</style>
