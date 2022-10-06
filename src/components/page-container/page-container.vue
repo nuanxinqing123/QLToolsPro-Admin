@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-10-05 17:14:08
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-06 15:49:44
+ * @LastEditTime: 2022-10-06 16:32:13
 -->
 <template>
     <div :style="{height:routerPageHeight+'px'}"
@@ -154,6 +154,8 @@ const onShowSizeChange = (e) => {
 <style lang="scss">
 .pc-page {
     padding: 24px;
+    background: #fff;
+
     .table-pagination {
         margin-top: 15px;
         height: 32px;

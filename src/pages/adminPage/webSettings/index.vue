@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:37:06
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-06 15:51:16
+ * @LastEditTime: 2022-10-06 16:23:47
 -->
 
 <template>
@@ -137,27 +137,27 @@ const formState = reactive({
 const rules = computed(() => {
     return {
         web_title: [{
-            required: true,
+            required: false,
             trigger: 'change',
         }],
         web_ico: [{
-            required: true,
+            required: false,
             trigger: 'change',
         }],
         web_logo: [{
-            required: true,
+            required: false,
             trigger: 'change',
         }],
         web_bg: [{
-            required: true,
+            required: false,
             trigger: 'change',
         }],
         register: [{
-            required: true,
+            required: false,
             trigger: 'change',
         }],
         notice: [{
-            required: true,
+            required: false,
             trigger: 'change',
         }],
     }

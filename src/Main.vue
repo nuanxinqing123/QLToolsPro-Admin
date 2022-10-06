@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-05-11 17:01:36
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-06 15:53:07
+ * @LastEditTime: 2022-10-06 16:27:31
 -->
 <template>
     <a-layout style="min-height: 100vh">
@@ -59,7 +59,7 @@
         </a-layout-sider>
         <a-layout>
             <p-header></p-header>
-            <a-layout-content style="margin: 0 16px">
+            <a-layout-content>
                 <div :style="{ height: '100%',marginTop:'15px'
                      }"
                      ref="routerPageRef"
@@ -67,9 +67,8 @@
                     <router-view></router-view>
                 </div>
             </a-layout-content>
-            <a-layout-footer style="text-align: center">
-                Ant Design ©2022 Created by Ant DALONG
-            </a-layout-footer>
+            <p-footer></p-footer>
+
         </a-layout>
     </a-layout>
 </template>
@@ -77,6 +76,7 @@
 import { PieChartOutlined, DesktopOutlined, UserOutlined, TeamOutlined, FileOutlined } from '@ant-design/icons-vue';
 import { defineComponent, ref, computed, onMounted } from 'vue';
 import pHeader from "components/header/header.vue";
+import pFooter from "@/components/footer/footer.vue";
 import router from "@/router";
 import { commonUtil } from "@/utils/store";
 const collapsed = ref(false);

@@ -30,6 +30,7 @@ export const useCommonUtilStore = defineStore("commonUtil", {
         routerPageHeight: 0,
         // 网站设置obj
         siteSettings: {
+            web_bg: "",
             web_title: "",
             web_ico: "",
             web_logo: "",
@@ -174,7 +175,7 @@ export const useCommonUtilStore = defineStore("commonUtil", {
             if (flag && this.getItem("siteSettings")) {
                 this.siteSettings = this.getItem("siteSettings");
             }
-            const { web_ico, web_title } = this.siteSettings;
+            const { web_ico, web_title, web_bg } = this.siteSettings;
             // 设置ico
             if (web_ico) {
                 let $favicon = document.querySelector('link[rel="icon"]');
@@ -192,17 +193,15 @@ export const useCommonUtilStore = defineStore("commonUtil", {
                 document.title = web_title;
             }
             // 设置背景图片
-            // if (bgUrl) {
-            //     setTimeout(() => {
-            //         const bgDom =
-            //             document.getElementsByClassName(
-            //                 "ant-layout-content"
-            //             )[0];
-            //         console.log("bgDom", bgDom);
-            //         bgDom.style.backgroundSize = "cover";
-            //         bgDom.style.backgroundImage = "url(" + bgUrl + ")";
-            //     }, 2000);
-            // }
+            if (web_bg) {
+                const bgDom = document.body;
+                console.log("bgDom", bgDom);
+                bgDom.style.backgroundSize = "cover";
+                bgDom.style.backgroundImage = "url(" + web_bg + ")";
+            } else {
+                const bgDom = document.body;
+                bgDom.style.backgroundImage = "url()";
+            }
         },
         // 获取网站设置
         getWebSetting(flag) {
