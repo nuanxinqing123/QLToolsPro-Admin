@@ -11,8 +11,6 @@
                  :dataObj="popData">
     </edit-or-add>
     <page-container :columns="columns"
-                    isRowSelection
-                    :row-selection="rowSelection"
                     v-model:pageSize="pageSize"
                     v-model:current="pageNum"
                     v-model:total="total"

@@ -6,50 +6,24 @@
  * @Las tEditTime: 2022-07-13 16:17:03
 -->
 <template>
-    <div class="report-page flex flex-column flex-base">
-        <div class="report-container flex-base flex flex-column">
-            <div class="list-container-all flex-base flex flex-column">
-                <div class="list-container flex-base">
-                    <a-table :columns="columns"
-                             :data-source="tableData"
-                             :pagination="false"
-                             :scroll="{  x: 100 ,y:listHeight}">
+    <page-container :columns="columns"
+                    v-model:pageSize="pageSize"
+                    v-model:current="pageNum"
+                    v-model:total="total"
+                    isTable
+                    @onShowSizeChange="getData"
+                    @initData="getData"
+                    :dataSource="tableData">
 
-                        <template #emptyText
-                                  style="{height:'500px'"
-                                  }>
-                            <div class="table-empty flex align-items"
-                                 :style="{'height':listHeight-95+'px'}">
-                                <a-empty :image="simpleImage" />
-                            </div>
-
-                        </template>
-                    </a-table>
-                </div>
-                <div class="flex content-between align-center"
-                     v-if="total">
-                    <div>
-                        共{{total || 0}}条记录
-                    </div>
-                    <a-pagination show-size-changer
-                                  show-quick-jumper
-                                  v-model:current="pageNum"
-                                  v-model:pageSize="pageSize"
-                                  :total="total"
-                                  @change="paginationchange"
-                                  @showSizeChange="onShowSizeChange" />
-                </div>
-
-            </div>
-        </div>
-
-    </div>
+    </page-container>
 
 </template>
 
 <script setup>
 import { reactive, toRaw, ref, onMounted } from "vue";
-import { Form, Empty, message } from "ant-design-vue";
+import pageContainer from "@/components/page-container/page-container.vue";
+
+import { Form, message } from "ant-design-vue";
 import {
     uploadRecords,
 } from "@/utils/api";
@@ -63,21 +37,17 @@ import {
 } from "@ant-design/icons-vue";
 const popData = ref({});
 const isPop = ref(false);
-const useForm = Form.useForm;
 // 列表总数
 const total = ref(0);
 // 当前页码
 const pageNum = ref(1);
 // 分页数量
 const pageSize = ref(10);
-// 空图片
-const simpleImage = Empty.PRESENTED_IMAGE_SIMPLE;
 // 查询数据
 const searchData = reactive({
     s: "",
 });
 const isSearchData = ref(false);
-const { resetFields, validate, validateInfos } = useForm(searchData);
 
 const columns = ref([{
     "title": "序号",
@@ -128,56 +98,14 @@ const getData = (flag) => {
     });
 }
 
-// 获取高度
-const listHeight = ref(300);
-onMounted(() => {
-    widthProcessing()
-    // 监听屏幕变化
-    window.addEventListener("resize", () => {
-        // 获取屏幕高度
-        widthProcessing();
-    });
-    getData();
 
-});
-// 监听宽度
-const widthProcessing = () => {
-    // 获取屏幕高度
-    let winWidth = window.innerWidth || document.body.clientWidth;
-
-    if (winWidth < 575) {
-        listHeight.value = 300;
-    } else {
-        try {
-            setTimeout(() => {
-                try {
-                    listHeight.value = document.getElementsByClassName("list-container")[0].clientHeight - 95;
-
-                } catch (error) {
-                    console.log("errorerrorerror", error, document.getElementsByClassName("list-container")[0])
-                }
-            }, 0);
-        } catch (error) {
-
-        }
-    }
-}
 const resetFieldsClick = () => {
     resetFields();
     isSearchData.value = false;
     getData();
 
 };
-// 分页回调
-const paginationchange = (page, pageSize) => {
-    getData();
-};
-// 分页回调
-const onShowSizeChange = (e) => {
-    console.log("eee", e);
-    getData();
 
-};
 const onSubmit = () => {
     validate()
         .then((value) => {
