@@ -49,7 +49,6 @@
                 <div class="list-container flex-base">
                     <a-table :columns="columns"
                              :data-source="tableData"
-                             v-if="tableData.length"
                              defaultExpandAllRows
                              :pagination="false"
                              :scroll="{  x: 100 ,y:listHeight}">
@@ -229,6 +228,9 @@ const getTableData = () => {
         isEnd = true;
     }
     tableData.value = dataAll.value.slice((pageNum.value - 1) * pageSize.value, endSize);
+
+    console.log("dataAll.value ", tableData.value)
+
 }
 // 获取总数据
 const getData = (flag) => {
@@ -242,7 +244,7 @@ const getData = (flag) => {
         data: searchData,
         splicingData: splicingData,
     }).then((data) => {
-        dataAll.value = data.map(item => {
+        dataAll.value = data.filter(item => item.panel_env && item.panel_name).map(item => {
             return item.panel_env ? item.panel_env.map(it => {
                 it.panel_name = item.panel_name;
                 if (it.CreatedAt) {

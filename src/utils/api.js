@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 03:11:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-05 20:53:42
+ * @LastEditTime: 2022-10-06 10:41:34
  */
 import service from "./request";
 import exportExcel from "./exportExcel";
@@ -156,8 +156,8 @@ export function checkToken(opts) {
         method: "post",
         url: import.meta.env.VITE_URl + "v1/api/check/token/admin",
         data: obj.data || {},
-        isLoadding: obj.isLoadding || true,
-        isCloseLoadding: obj.isCloseLoadding || true,
+        isLoadding: obj.isLoadding || false,
+        isCloseLoadding: obj.isCloseLoadding || false,
         isPop: obj.isPop,
     });
 }
@@ -169,8 +169,8 @@ export function userCheckToken(opts) {
         method: "post",
         url: import.meta.env.VITE_URl + "v1/api/check/token",
         data: obj.data || {},
-        isLoadding: obj.isLoadding || true,
-        isCloseLoadding: obj.isCloseLoadding || true,
+        isLoadding: obj.isLoadding || false,
+        isCloseLoadding: obj.isCloseLoadding || false,
         isPop: obj.isPop,
     });
 }
@@ -818,7 +818,7 @@ export function userVariableManagementSearchAll(opts) {
 export function userVariableManagementUpdate(opts) {
     let obj = opts || {};
     return service.request({
-        method: "post",
+        method: "put",
         isForm: false,
         url: import.meta.env.VITE_URl + "v3/api/user/env/data/update",
         data: obj.data || {},
@@ -842,7 +842,7 @@ export function userVariableManagementDelete(opts) {
         isPop: obj.isPop,
     });
 }
-/*******用户管理********/
+/*******网站设置********/
 
 // 获取网站设置信息
 export function webSettingsSms(opts) {
@@ -852,8 +852,8 @@ export function webSettingsSms(opts) {
         isForm: false,
         url: import.meta.env.VITE_URl + "v1/api/set/settings",
         data: obj.data || {},
-        isLoadding: obj.isLoadding || true,
-        isCloseLoadding: obj.isCloseLoadding || true,
+        isLoadding: obj.isLoadding || false,
+        isCloseLoadding: obj.isCloseLoadding || false,
         isPop: obj.isPop,
     });
 }
