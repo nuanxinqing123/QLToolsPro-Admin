@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-10-25 17:17:40
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-05 22:28:58
+ * @LastEditTime: 2022-10-06 20:23:50
  */
 import {
     createRouter,
@@ -52,6 +52,7 @@ const routes = [
                 path: "/home",
                 name: "home",
                 meta: {
+                    content: "asdas",
                     title: "总览",
                     key: "1",
                 },
@@ -282,6 +283,7 @@ router.beforeEach((to, from, next) => {
     commonUtil.$patch({
         pageKeys: [to.meta.key],
         activePage: {
+            // content: to.meta.content || "",
             title: to.meta.title,
         },
     });

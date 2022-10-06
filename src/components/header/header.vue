@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:07:46
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-06 17:13:54
+ * @LastEditTime: 2022-10-06 20:24:07
 -->
 <template>
     <a-page-header :title="activePage.title"
@@ -30,9 +30,9 @@
                     <logout-outlined style="margin-right:5px;" />退出登录
                 </span>
             </a-popconfirm>
-
             <!-- <theme-color></theme-color> -->
         </template>
+        <!-- {{activePage.content}} -->
     </a-page-header>
     <a-divider />
     <recharge-pop v-model:visible="isPop"

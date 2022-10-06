@@ -100,9 +100,9 @@
 </template>
 
 <script setup>
-import { reactive, toRaw, ref, onMounted } from "vue";
+import { reactive, toRaw, ref, onMounted, h } from "vue";
 import editOrAdd from "./editOrAdd.vue";
-import { Form, Empty, message } from "ant-design-vue";
+import { Form, Empty, message, notification } from "ant-design-vue";
 import pageContainer from "@/components/page-container/page-container.vue";
 
 import countAnimation from "@/components/count-animation/count-animation.vue";
@@ -117,6 +117,7 @@ import {
     dateTtoDateStr,
 } from "@/utils/common";
 import {
+    SmileOutlined,
     RollbackOutlined,
     SearchOutlined,
     SyncOutlined,
@@ -301,5 +302,23 @@ const onSubmit = () => {
         });
 };
 
+/*const openNotification = () => {
+    notification.open({
+        message: '面板管理',
+        icon: () => h(SmileOutlined, {
+            style: 'color: #108ee9',
+        }),
+        description: h(`
+        <p>面板管理可以添加自己的服务容器（青龙面板），用于分散提交的变量到不同的容器来缓解过于集中的压力。利于管理</p>
+        <p>Tips：青龙Tools需要环境变量模块的权限，请开通此模块权限</p>
+        <p>Tips：青龙面板版本低于2.11.x的用户请选择旧版本，2.11.x以及以上用户请选择新版本。默认新版本</p>
+        `),
+        duration: null,
+        onClick: () => {
+            console.log('Notification Clicked!');
+        },
+    });
+};
+openNotification();*/
 </script>
 
