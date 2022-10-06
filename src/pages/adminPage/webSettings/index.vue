@@ -3,90 +3,93 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:37:06
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-05 17:48:31
+ * @LastEditTime: 2022-10-06 15:51:16
 -->
 
 <template>
-    <div class="page-sets flex flex-column"
-         v-if="listHeight"
-         :style="{'height':listHeight+'px'}">
-        <a-form :model="formState"
-                name="basic"
-                :rules="rules"
-                v-bind="formItemLayout"
-                autocomplete="off"
-                @finish="onFinish"
-                class="flex flex-column page-form"
-                @finishFailed="onFinishFailed">
-            <div class="flex-base overflow-scroll">
+    <page-container @initData="getData"
+                    isScroll>
+        <template #top="{height}">
+            <a-form :model="formState"
+                    name="basic"
+                    :rules="rules"
+                    v-bind="formItemLayout"
+                    autocomplete="off"
+                    @finish="onFinish"
+                    class="flex flex-column page-form"
+                    :style="{height:height - 48 + 'px'}"
+                    @finishFailed="onFinishFailed">
+                <div class="flex-base overflow-scroll">
 
-                <a-form-item label="网站标题"
-                             name="web_title"
-                             has-feedback>
-                    <a-input v-model:value="formState.web_title"
-                             placeholder="请输入网站标题">
-                    </a-input>
-                </a-form-item>
-                <a-form-item label="网站图标"
-                             name="web_ico"
-                             has-feedback>
-                    <a-textarea v-model:value="formState.web_ico"
-                                placeholder="请输入网站图标">
-                    </a-textarea>
-                </a-form-item>
-                <a-form-item label="网站LOGO"
-                             name="web_logo"
-                             has-feedback>
-                    <a-textarea v-model:value="formState.web_logo"
-                                placeholder="请输入网站LOGO">
-                    </a-textarea>
-                </a-form-item>
-                <a-form-item label="网站背景"
-                             name="web_bg"
-                             has-feedback>
-                    <a-textarea v-model:value="formState.web_bg"
-                                placeholder="请输入网站背景">
-                    </a-textarea>
-                </a-form-item>
-                <a-form-item label="注册开关"
-                             name="register">
-                    <a-radio-group v-model:value="formState.register">
-                        <a-radio value="1"
-                                 name="type">打开</a-radio>
-                        <a-radio value="2"
-                                 name="type">关闭</a-radio>
-                    </a-radio-group>
-                </a-form-item>
-                <a-form-item label="网站介绍"
-                             name="notice">
-                    <div style="border: 1px solid #ccc">
-                        <Toolbar style="border-bottom: 1px solid #ccc"
-                                 :editor="editorRef"
-                                 :defaultConfig="toolbarConfig"
-                                 :mode="mode" />
-                        <Editor style="height: 300px; overflow-y: hidden;"
-                                v-model="formState.notice"
-                                :defaultConfig="editorConfig"
-                                :mode="mode"
-                                @onCreated="handleCreated" />
-                    </div>
-                    <!-- {{formState.notice}} -->
-                </a-form-item>
-            </div>
+                    <a-form-item label="网站标题"
+                                 name="web_title"
+                                 has-feedback>
+                        <a-input v-model:value="formState.web_title"
+                                 placeholder="请输入网站标题">
+                        </a-input>
+                    </a-form-item>
+                    <a-form-item label="网站图标"
+                                 name="web_ico"
+                                 has-feedback>
+                        <a-textarea v-model:value="formState.web_ico"
+                                    placeholder="请输入网站图标">
+                        </a-textarea>
+                    </a-form-item>
+                    <a-form-item label="网站LOGO"
+                                 name="web_logo"
+                                 has-feedback>
+                        <a-textarea v-model:value="formState.web_logo"
+                                    placeholder="请输入网站LOGO">
+                        </a-textarea>
+                    </a-form-item>
+                    <a-form-item label="网站背景"
+                                 name="web_bg"
+                                 has-feedback>
+                        <a-textarea v-model:value="formState.web_bg"
+                                    placeholder="请输入网站背景">
+                        </a-textarea>
+                    </a-form-item>
+                    <a-form-item label="注册开关"
+                                 name="register">
+                        <a-radio-group v-model:value="formState.register">
+                            <a-radio value="1"
+                                     name="type">打开</a-radio>
+                            <a-radio value="2"
+                                     name="type">关闭</a-radio>
+                        </a-radio-group>
+                    </a-form-item>
+                    <a-form-item label="网站介绍"
+                                 name="notice">
+                        <div style="border: 1px solid #ccc">
+                            <Toolbar style="border-bottom: 1px solid #ccc"
+                                     :editor="editorRef"
+                                     :defaultConfig="toolbarConfig"
+                                     :mode="mode" />
+                            <Editor style="height: 300px; overflow-y: hidden;"
+                                    v-model="formState.notice"
+                                    :defaultConfig="editorConfig"
+                                    :mode="mode"
+                                    @onCreated="handleCreated" />
+                        </div>
+                        <!-- {{formState.notice}} -->
+                    </a-form-item>
+                </div>
 
-            <a-form-item :wrapper-col="{ offset: 3, span: 16 }">
-                <a-button type="primary"
-                          style="width:100%;"
-                          html-type="submit">提交</a-button>
-            </a-form-item>
-        </a-form>
-    </div>
-
+                <a-form-item :wrapper-col="{ offset: 3, span: 16 }">
+                    <a-button type="primary"
+                              style="width:100%;"
+                              html-type="submit">提交</a-button>
+                </a-form-item>
+            </a-form>
+        </template>
+    </page-container>
 </template>
 <script setup>
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
 import { onBeforeUnmount, ref, shallowRef, onMounted, reactive, computed } from 'vue'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+import pageContainer from "@/components/page-container/page-container.vue";
+
 import {
     webSettingsSms,
     webSettingsUpdate,
@@ -204,40 +207,7 @@ const getData = () => {
         // formState.notice = data.filter(item => item.key == 'register')[0].notice || '';
     })
 }
-// 获取高度
-const listHeight = ref(0);
-onMounted(() => {
-    widthProcessing()
-    // 监听屏幕变化
-    window.addEventListener("resize", () => {
-        // 获取屏幕高度
-        widthProcessing();
-    });
-    getData();
 
-});
-// 监听宽度
-const widthProcessing = () => {
-    // 获取屏幕高度
-    let winWidth = window.innerWidth || document.body.clientWidth;
-
-    if (winWidth < 575) {
-        listHeight.value = 300;
-    } else {
-        try {
-            setTimeout(() => {
-                try {
-                    listHeight.value = document.getElementsByClassName("page-container")[0].clientHeight - 64;
-
-                } catch (error) {
-                    console.log("errorerrorerror", error, document.getElementsByClassName("page-container")[0])
-                }
-            }, 0);
-        } catch (error) {
-
-        }
-    }
-}
 </script>
 
 <style lang="scss">

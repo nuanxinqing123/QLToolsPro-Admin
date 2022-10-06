@@ -3,18 +3,20 @@
  * @Author: LiLei
  * @Date: 2022-10-05 17:14:08
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-06 14:40:21
+ * @LastEditTime: 2022-10-06 15:49:44
 -->
 <template>
     <div :style="{height:routerPageHeight+'px'}"
-         class="pc-page flex flex-column">
+         class="pc-page flex flex-column"
+         :class="[isScroll?'overflow-scroll':'',isCenter?'align-center':'']">
+        <!-- {{routerPageHeight}}
+        {{tableHeight}} -->
         <div class="pc-page-search"
              v-if="isSearch">
             <slot name="search"></slot>
         </div>
-        <slot name="top"></slot>
-        {{routerPageHeight}}
-        {{tableHeight}}
+        <slot name="top"
+              :height="routerPageHeight"></slot>
         <!-- 表格 -->
         <div class="flex-base flex flex-column"
              v-if="isTable">
@@ -23,6 +25,7 @@
                 <a-table :columns="columns"
                          v-if="tableHeight"
                          :data-source="dataSource"
+                         :row-selection="isRowSelection?rowSelection:null"
                          :pagination="false"
                          class="table-list"
                          :scroll="{  x: 100 ,y:tableHeight - 55}">
@@ -64,12 +67,8 @@
 <script setup>
 import { reactive, toRaw, ref, onMounted, toRefs } from "vue";
 import { Empty } from "ant-design-vue";
-// 列表总数
-// const total = ref(0);
-// 当前页码
-// const pageNum = ref(1);
 // 分页数量
-const pageSize = ref(1);
+const pageSize = ref(10);
 // 空图片
 const simpleImage = Empty.PRESENTED_IMAGE_SIMPLE;
 import {
@@ -89,10 +88,16 @@ const props = defineProps({
     isTable: Boolean,
     total: [Number, String],
     pageNum: [Number, String],
-    isSearch: Boolean
+    isSearch: Boolean,
+    isScroll: Boolean,
+    isCenter: Boolean,
+    isRowSelection: Boolean,
+    rowSelection: Object,
 });
 
 const {
+    isCenter,
+    isScroll,
     total,
     pageNum,
     columns,
@@ -123,10 +128,12 @@ onMounted(() => {
 
     // 监听屏幕变化
     window.addEventListener("resize", () => {
-        setTimeout(() => {
-            tableHeight.value = tableRef.value.clientHeight || tableRef.value.$el.clientHeight;
-            console.log("tableHeight.value3 ", tableHeight.value, tableRef.value.clientHeight)
-        }, 10);
+        if (isTable.value) {
+            setTimeout(() => {
+                tableHeight.value = tableRef.value.clientHeight || tableRef.value.$el.clientHeight;
+                console.log("tableHeight.value3 ", tableHeight.value, tableRef.value.clientHeight)
+            }, 10);
+        }
     })
 })
 
@@ -135,7 +142,7 @@ const paginationchange = (page, pageSize) => {
     emit('update:current', page);
     emit('update:pageSize', pageSize);
     // 回调数据
-    emit('getData');
+    emit('onShowSizeChange');
     console.log("page, pageSize", page, pageSize)
 };
 // 分页回调
@@ -151,6 +158,18 @@ const onShowSizeChange = (e) => {
         margin-top: 15px;
         height: 32px;
     }
+    // .ant-table-thead {
+    //     height: 45px;
+    //     > tr > th {
+    //         padding-top: 0;
+    //         padding-bottom: 0;
+    //         background-color: #eff3f7;
+    //     }
+    //     > tr
+    //         > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
+    //         display: none;
+    //     }
+    // }
     .pc-page-search {
         width: 100%;
         // background: #ffffff;

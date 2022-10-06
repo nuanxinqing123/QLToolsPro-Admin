@@ -3,45 +3,52 @@
  * @Author: LiLei
  * @Date: 2022-09-29 15:24:11
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-04 11:49:41
+ * @LastEditTime: 2022-10-06 14:53:23
 -->
 <template>
-    <a-row>
-        <a-col :span="12">
-            <a-statistic title="当前生效的面板数量"
-                         :value="homeObj.panel_count"
-                         style="margin-right: 50px;margin-bottom: 50px;" />
-        </a-col>
-        <a-col :span="12">
-            <a-statistic title="当前生效的变量数量"
-                         :value="homeObj.env_count" />
-        </a-col>
-    </a-row>
-    <a-row>
-        <a-col :span="12">
-            <a-statistic title="网站注册用户数量"
-                         :value="homeObj.user_count"
-                         style="margin-right: 50px;margin-bottom: 50px;" />
-        </a-col>
-        <a-col :span="12">
-            <a-statistic title="网站会员用户数量"
-                         :value="homeObj.vip_user_count" />
-        </a-col>
-    </a-row>
-    <a-row>
-        <a-col :span="12">
-            <a-statistic title="今日消费积分数量"
-                         :value="homeObj.to_day_integral"
-                         style="margin-right: 50px;margin-bottom: 50px;" />
-        </a-col>
-        <a-col :span="12">
-            <a-statistic title="今日上传变量数量"
-                         :value="homeObj.to_day_upload_count" />
-        </a-col>
-    </a-row>
+    <page-container @initData="getData"
+                    isScroll>
+        <template #top>
+            <a-row>
+                <a-col :span="12">
+                    <a-statistic title="当前生效的面板数量"
+                                 :value="homeObj.panel_count"
+                                 style="margin-right: 50px;margin-bottom: 50px;" />
+                </a-col>
+                <a-col :span="12">
+                    <a-statistic title="当前生效的变量数量"
+                                 :value="homeObj.env_count" />
+                </a-col>
+            </a-row>
+            <a-row>
+                <a-col :span="12">
+                    <a-statistic title="网站注册用户数量"
+                                 :value="homeObj.user_count"
+                                 style="margin-right: 50px;margin-bottom: 50px;" />
+                </a-col>
+                <a-col :span="12">
+                    <a-statistic title="网站会员用户数量"
+                                 :value="homeObj.vip_user_count" />
+                </a-col>
+            </a-row>
+            <a-row>
+                <a-col :span="12">
+                    <a-statistic title="今日消费积分数量"
+                                 :value="homeObj.to_day_integral"
+                                 style="margin-right: 50px;margin-bottom: 50px;" />
+                </a-col>
+                <a-col :span="12">
+                    <a-statistic title="今日上传变量数量"
+                                 :value="homeObj.to_day_upload_count" />
+                </a-col>
+            </a-row>
+        </template>
+    </page-container>
 </template>
 
 <script setup>
+import pageContainer from "@/components/page-container/page-container.vue";
+
 import { ref } from 'vue';
 import {
     homeData
@@ -59,7 +66,6 @@ const getData = () => {
         homeObj.value = data;
     })
 }
-getData();
 </script>
 
 <style lang="scss">

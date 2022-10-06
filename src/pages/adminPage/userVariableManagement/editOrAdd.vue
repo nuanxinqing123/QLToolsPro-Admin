@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-22 16:44:50
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-06 10:42:12
+ * @LastEditTime: 2022-10-06 15:42:12
 -->
 <template>
     <p-center-modal :modalVisible="visible"
@@ -126,10 +126,7 @@ watch(
 
 // 初始化数据
 const init = () => {
-    const formState = reactive({
-        "remarks": "",
-        "value": "",
-    });
+
     formState.remarks = dataObj.value.remarks || '';
     formState.value = dataObj.value.value || '';
 }
