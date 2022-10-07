@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-10-05 17:14:08
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-06 20:09:27
+ * @LastEditTime: 2022-10-07 19:43:24
 -->
 <template>
     <restore-pop v-model:visible="isPop"
@@ -22,9 +22,10 @@
                     <a-card title="迁移/复制"
                             :bordered="false">
                         <p>Tip: 迁移/复制功能需要至少添加两个面板地址才能正常使用</p>
-                        <p>迁移: 将A面板的所有变量迁移到B面板, 迁移完成后会清空A面板变量<a-button type="link"
+                        <p>迁移: 将A面板的所有变量迁移到B面板, 迁移完成后会清空A面板变量
+                            <!-- <a-button type="link"
                                       class="cursor-initial"
-                                      danger>【迁移功能可能受到青龙的限流限制,强烈推荐使用备份功能先备份数据。然后再使用迁移功能（避免数据丢失）】</a-button>
+                                      danger>【迁移功能可能受到青龙的限流限制,强烈推荐使用备份功能先备份数据。然后再使用迁移功能（避免数据丢失）】</a-button> -->
                         </p>
                         <p>复制: 将A面板的所有变量复制到B面板, 复制完成后A面板变量不会变化</p>
                     </a-card>
@@ -88,7 +89,7 @@
                     <a-form :model="formState2"
                             v-bind="layout2">
                         <a-form-item label="操作面板:"
-                                     style="margin-top:22px;"
+                                     style="margin-top:-10px;"
                                      name="start">
                             <a-select v-model:value="formState2.start"
                                       placeholder="请选择"
