@@ -3,28 +3,30 @@
  * @Author: LiLei
  * @Date: 2022-08-15 23:10:20
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-07 19:40:25
+ * @LastEditTime: 2022-10-07 21:50:24
  */
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import vue from "@vitejs/plugin-vue";
-// import viteCompression from "vite-plugin-compression";
+import viteCompression from "vite-plugin-compression";
 
 import path from "path";
 // https://vitejs.dev/config/
 export default ({ mode }) => {
+    // console.log("process", loadEnv(mode, process.cwd()));
     return defineConfig({
         plugins: [
             vue(),
-            // viteCompression({
-            //     //压缩，让体积更小
-            //     verbose: true,
-            //     disable: false,
-            //     threshold: 10240,
-            //     algorithm: "gzip",
-            //     ext: ".gz",
-            // }),
+            viteCompression({
+                //压缩，让体积更小
+                verbose: true,
+                disable: false,
+                threshold: 10240,
+                algorithm: "gzip",
+                ext: ".gz",
+            }),
         ],
         build: {
+            chunkSizeWarningLimit: 1500,
             // 清除console和debugger
             terserOptions: {
                 compress: {
@@ -55,9 +57,13 @@ export default ({ mode }) => {
             outDir: "static", //指定输出路径
             assetsDir: "", // 指定生成静态资源的存放路径
             emptyOutDir: true, //打包前先清空原有打包文件
+            minify: "terser", // 混淆器，terser构建后文件体积更小
         },
 
-        base: process.env.NODE_ENV === "development" ? "./" : "static/", // 公共路径
+        base:
+            loadEnv(mode, process.cwd()).VITE_TEST === "development"
+                ? "./"
+                : "/static/", // 公共路径
         // devServer: {
         //     proxy: {
         //         "/": {

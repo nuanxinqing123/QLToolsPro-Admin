@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 03:11:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-06 20:08:35
+ * @LastEditTime: 2022-10-07 21:36:36
  */
 import service from "./request";
 import exportExcel from "./exportExcel";
@@ -954,6 +954,21 @@ export function containerManagementBackUpDownload(opts) {
         data: obj.data || {},
         isLoadding: obj.isLoadding || false,
         isCloseLoadding: obj.isCloseLoadding || false,
+        isPop: obj.isPop,
+    });
+}
+
+/***版本**/
+
+export function webEdition(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "get",
+        isForm: false,
+        url: "https://version.6b7.xyz/qltoolspro_version.json",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
         isPop: obj.isPop,
     });
 }

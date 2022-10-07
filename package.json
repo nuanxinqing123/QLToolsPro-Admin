@@ -16,6 +16,7 @@
         "gsap": "^3.11.2",
         "pinia": "^2.0.18",
         "qs": "^6.11.0",
+        "terser": "^5.15.1",
         "vue": "^3.2.37",
         "vue-router": "4",
         "vue3-colorpicker": "^2.0.4"
@@ -24,6 +25,7 @@
         "@babel/plugin-syntax-dynamic-import": "^7.8.3",
         "@vitejs/plugin-vue": "^3.0.3",
         "sass": "^1.54.4",
-        "vite": "^3.0.7"
+        "vite": "^3.0.7",
+        "vite-plugin-compression": "^0.5.1"
     }
 }
