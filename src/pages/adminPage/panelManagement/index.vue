@@ -270,7 +270,8 @@ const getData = (flag) => {
     panelManagementList({
         data: searchData,
         splicingData: {
-            page: pageNum.value
+            page: pageNum.value,
+            quantity: pageSize.value
         },
     }).then((data) => {
         total.value = (data.pageData || []).length;

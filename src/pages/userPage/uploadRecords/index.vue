@@ -74,7 +74,8 @@ const getData = (flag) => {
         pageNum.value = 1;
     }
     let splicingData = {
-        page: pageNum.value
+        page: pageNum.value,
+        quantity: pageSize.value
     }
 
     uploadRecords({

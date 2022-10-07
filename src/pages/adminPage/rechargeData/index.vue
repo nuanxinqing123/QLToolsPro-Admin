@@ -132,6 +132,7 @@ const getData = (flag) => {
     } else {
         postFuc = rechargeDataList
         splicingData = {
+            quantity: pageSize.value,
             page: pageNum.value
         }
     }

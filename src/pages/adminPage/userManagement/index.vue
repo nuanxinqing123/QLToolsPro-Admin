@@ -231,7 +231,8 @@ const getData = (flag) => {
     } else {
         postFuc = userManagementList
         splicingData = {
-            page: pageNum.value
+            page: pageNum.value,
+            quantity: pageSize.value
         }
     }
 

@@ -285,7 +285,8 @@ const getData = (flag) => {
             postFuc = cardSecretManagementList;
             splicingData = {
                 ctype: postSearchData.value.ctype,
-                page: pageNum.value
+                page: pageNum.value,
+                quantity: pageSize.value
             };
         }
     } else {

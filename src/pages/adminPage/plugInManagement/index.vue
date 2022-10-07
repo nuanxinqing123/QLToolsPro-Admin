@@ -187,6 +187,7 @@ const getData = (flag) => {
     }
     let splicingData = {
         page: pageNum.value,
+        quantity: pageSize.value,
         type: postSearchData.value.type
     };
 

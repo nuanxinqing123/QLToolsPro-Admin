@@ -109,7 +109,8 @@ const getData = (flag) => {
     } else {
         postFuc = uploadDataList
         splicingData = {
-            page: pageNum.value
+            page: pageNum.value,
+            quantity: pageSize.value
         }
     }
 

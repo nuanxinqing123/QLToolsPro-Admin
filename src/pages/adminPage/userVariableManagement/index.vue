@@ -206,6 +206,7 @@ const getData = (flag) => {
     }
     let splicingData = posetSearchData.value;
     splicingData.page = pageNum.value;
+    splicingData.quantity = pageSize.value;
 
     userVariableManagementSearchAll({
         data: searchData,

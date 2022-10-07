@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-10-05 17:14:08
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-06 20:00:41
+ * @LastEditTime: 2022-10-07 17:17:08
 -->
 <template>
     <div :style="{height:routerPageHeight+'px'}"
@@ -69,7 +69,7 @@
 import { reactive, toRaw, ref, onMounted, toRefs } from "vue";
 import { Empty } from "ant-design-vue";
 // 分页数量
-const pageSize = ref(10);
+// const pageSize = ref(10);
 // 空图片
 const simpleImage = Empty.PRESENTED_IMAGE_SIMPLE;
 import {
@@ -90,6 +90,7 @@ const props = defineProps({
     isNoYScroll: Boolean,
     total: [Number, String],
     pageNum: [Number, String],
+    pageSize: [Number, String],
     isSearch: Boolean,
     isScroll: Boolean,
     isCenter: Boolean,
@@ -98,6 +99,7 @@ const props = defineProps({
 });
 
 const {
+    pageSize,
     isNoYScroll,
     isCenter,
     isScroll,
