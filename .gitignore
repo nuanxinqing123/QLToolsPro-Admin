@@ -27,3 +27,6 @@ dist-ssr
  
  
  
+/static/
+/vite.config copy 2.js
+/vite.config copy.js

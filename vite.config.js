@@ -3,39 +3,60 @@
  * @Author: LiLei
  * @Date: 2022-08-15 23:10:20
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-04 21:05:02
+ * @LastEditTime: 2022-10-07 19:36:58
  */
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+// import viteCompression from "vite-plugin-compression";
 
 import path from "path";
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [vue()],
+    plugins: [
+        vue(),
+        // viteCompression({
+        //     //压缩，让体积更小
+        //     verbose: true,
+        //     disable: false,
+        //     threshold: 10240,
+        //     algorithm: "gzip",
+        //     ext: ".gz",
+        // }),
+    ],
     build: {
+        // 清除console和debugger
+        terserOptions: {
+            compress: {
+                drop_console: true,
+                drop_debugger: true,
+            },
+        },
         // cssCodeSplit: true,
         rollupOptions: {
             output: {
-                chunkFileNames: "js/[name].[hash].js",
-                entryFileNames: "js/[name].[hash].js",
-                // 分割打包
-                // manualChunks(id) {
-                //     if (id.includes("node_modules")) {
-                //         return id
-                //             .toString()
-                //             .split("node_modules/")[1]
-                //             .split("/")[0]
-                //             .toString();
-                //     }
-                // },
+                //配置这个是让不同类型文件放在不同文件夹，不会显得太乱
+                chunkFileNames: "js/[name]-[hash].js",
+                entryFileNames: "js/[name]-[hash].js",
+                assetFileNames: "[ext]/[name]-[hash].[ext]",
+                manualChunks(id) {
+                    //静态资源分拆打包
+                    if (id.includes("node_modules")) {
+                        return id
+                            .toString()
+                            .split("node_modules/")[1]
+                            .split("/")[0]
+                            .toString();
+                    }
+                },
             },
         },
-        assetsDir: "assets",
-        publicPath: "./", // 公共路径
-        outDir: "dist",
+        target: "modules",
+        outDir: "static", //指定输出路径
+        assetsDir: "", // 指定生成静态资源的存放路径
+        emptyOutDir: true, //打包前先清空原有打包文件
     },
 
-    base: "./", // 公共路径
+    base: process.env.NODE_ENV === "development" ? "./" : "static/", // 公共路径
     // devServer: {
     //     proxy: {
     //         "/": {
