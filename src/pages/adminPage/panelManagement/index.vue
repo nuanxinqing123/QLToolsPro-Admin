@@ -255,7 +255,7 @@ const testLink = (item) => {
         data: {
             "name": item.PanelName,
             "url": item.PanelURL,
-            "id": item.ID,
+            "id": item.PanelClientID,
             "secret": item.PanelClientSecret,
         }
     }).then(() => {

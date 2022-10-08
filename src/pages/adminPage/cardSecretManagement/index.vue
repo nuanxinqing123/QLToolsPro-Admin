@@ -317,7 +317,6 @@ const getData = (flag) => {
         });
     });
 }
-postSearchData.value = searchData;
 
 
 const resetFieldsClick = () => {

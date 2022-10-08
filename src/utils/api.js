@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 03:11:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-07 21:36:36
+ * @LastEditTime: 2022-10-08 17:58:59
  */
 import service from "./request";
 import exportExcel from "./exportExcel";
@@ -965,7 +965,7 @@ export function webEdition(opts) {
     return service.request({
         method: "get",
         isForm: false,
-        url: "https://version.6b7.xyz/qltoolspro_version.json",
+        url: import.meta.env.VITE_URl + "v1/api/system/version",
         data: obj.data || {},
         isLoadding: obj.isLoadding || true,
         isCloseLoadding: obj.isCloseLoadding || true,
