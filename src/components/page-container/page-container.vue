@@ -161,7 +161,7 @@ const onShowSizeChange = (e) => {
 <style lang="scss">
 .pc-page {
     padding: 24px;
-    background: #fff;
+    // background: #fff;
 
     .table-pagination {
         margin-top: 15px;
