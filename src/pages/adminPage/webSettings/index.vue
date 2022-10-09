@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:37:06
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-07 17:23:54
+ * @LastEditTime: 2022-10-09 21:01:45
 -->
 
 <template>
@@ -19,7 +19,8 @@
                     class="flex flex-column page-form"
                     :style="{height:height - 48 + 'px'}"
                     @finishFailed="onFinishFailed">
-                <div class="flex-base overflow-scroll">
+                <div class="flex-base"
+                     :class="isMobile?'':'overflow-scroll'">
 
                     <a-form-item label="网站标题"
                                  name="web_title"
@@ -110,6 +111,13 @@ import {
 import {
     commonUtil
 } from '@/utils/store';
+import {
+    storeToRefs
+} from 'pinia'
+// 生成响应式
+const {
+    isMobile,
+} = storeToRefs(commonUtil);
 import { message } from "ant-design-vue";
 const setType = (t) => {
     formState.type = t;

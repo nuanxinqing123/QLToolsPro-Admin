@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-22 16:44:50
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 20:56:14
+ * @LastEditTime: 2022-10-09 21:02:08
 -->
 <template>
     <p-center-modal :modalVisible="visible"
@@ -165,7 +165,7 @@ const getData = () => {
         }
     }).then((data) => {
         variableData.value = (data.pageData || []).map(item => {
-            item.label = item.EnvTips;
+            item.label = item.EnvRemarks || item.EnvName;
             item.value = item.ID;
             return item;
         })
