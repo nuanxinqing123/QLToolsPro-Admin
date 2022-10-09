@@ -145,14 +145,14 @@ const simpleImage = Empty.PRESENTED_IMAGE_SIMPLE;
 // 查询数据
 const searchData = reactive({
     s: "",
-    ctype: "vip"
+    ctype: "" // vip
 });
 const isSearchData = ref(false);
 const { resetFields, validate, validateInfos } = useForm(searchData);
 const rules = computed(() => {
     return {
         s: [{
-            required: !searchData.ctype,
+            required: false,//!searchData.ctype,
             trigger: 'change',
             message: "请输入关键字"
         }],
@@ -187,7 +187,7 @@ const columns = [
     },
     {
         title: "类型",
-        dataIndex: "CdKeyType",
+        dataIndex: "CdKeyTypeStr",
         // fixed: "left",
         width: 200
     },
@@ -277,7 +277,7 @@ const getData = (flag) => {
         if (postSearchData.value.s) {
             postFuc = cardSecretManagementListSearch;
             splicingData = {
-                s: postSearchData.value.s,
+                s: postSearchData.value.s || '',
                 ctype: postSearchData.value.ctype,
             };
         } else {
@@ -293,7 +293,7 @@ const getData = (flag) => {
         // 标识查询
         postFuc = cardSecretManagementListSearchAll;
         splicingData = {
-            s: postSearchData.value.s
+            s: postSearchData.value.s || ''
         }
     }
 
@@ -307,6 +307,9 @@ const getData = (flag) => {
             total.value = 0;
         }
         tableData.value = (data.pageData || data || []).map(item => {
+            if (item.CdKeyType) {
+                item.CdKeyTypeStr = item.CdKeyType == 'vip' ? '会员' : '积分';
+            }
             if (item.CreatedAt) {
                 item.CreatedAt = dateTtoDateStr(item.CreatedAt);
             }
