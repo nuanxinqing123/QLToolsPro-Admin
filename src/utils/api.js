@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 03:11:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 13:18:06
+ * @LastEditTime: 2022-10-09 14:44:32
  */
 import service from "./request";
 import exportExcel from "./exportExcel";
@@ -511,7 +511,19 @@ export function messagePushManagementMessageSend(opts) {
         isPop: obj.isPop,
     });
 }
-
+// 全体消息群发
+export function messagePushManagementMessageAllSend(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "POST",
+        isForm: false,
+        url: import.meta.env.VITE_URl + "v3/api/message/send/all",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
 /*******数据查询********/
 // 充值数据
 // 列表查询

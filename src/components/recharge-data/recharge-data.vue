@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:37:06
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-05 16:01:27
+ * @LastEditTime: 2022-10-09 14:33:09
 -->
 
 <template>
@@ -30,7 +30,7 @@
             <a-textarea v-model:value="formState.recharge_cdk">
             </a-textarea>
         </a-form-item>
-        <a-form-item :wrapper-col="{ offset: 3, span: 16 }">
+        <a-form-item :wrapper-col="{ offset: 5, span: 16 }">
             <a-button type="primary"
                       style="width:100%;"
                       html-type="submit">充值</a-button>
@@ -73,7 +73,7 @@ const rules = computed(() => {
 });
 const formItemLayout = {
     labelCol: {
-        span: 3,
+        span: 5,
     },
     wrapperCol: {
         span: 16,

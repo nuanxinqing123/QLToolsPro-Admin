@@ -26,9 +26,17 @@
                     :model="searchData">
                 <a-form-item>
                     <a-button type="primary"
-                              @click.prevent="setPop"
+                              @click.prevent="setPop()"
                               class="filter-search">
                         消息群发
+                    </a-button>
+                </a-form-item>
+                <a-form-item>
+                    <a-button type="primary"
+                              @click.prevent="setPop(true)"
+                              style="margin-left:15px;"
+                              class="filter-search">
+                        全体消息发送
                     </a-button>
                 </a-form-item>
             </a-form>
@@ -93,12 +101,16 @@ const tableData = ref([
 
 ]);
 // 是否打开弹窗
-const setPop = () => {
-    if (!selectedRowKeys.value.length) {
-        message.error('请先选择用户');
-        return;
+const setPop = (flag) => {
+    if (flag) {
+        popData.value = null;
+    } else {
+        if (!selectedRowKeys.value.length) {
+            message.error('请先选择用户');
+            return;
+        }
+        popData.value = selectedArr.value.map(item => item.UserWxpusher);
     }
-    popData.value = selectedRowKeys.value;
     isPop.value = true;
 }
 const getData = (flag) => {

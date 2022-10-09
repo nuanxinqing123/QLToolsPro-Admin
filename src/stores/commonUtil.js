@@ -29,6 +29,8 @@ export const useCommonUtilStore = defineStore("commonUtil", {
         isMobile: false,
         // 容器高度
         routerPageHeight: 0,
+        // 网页宽度
+        bodyWidth: 0,
         // 网站设置obj
         siteSettings: {
             web_bg: "",
@@ -160,6 +162,8 @@ export const useCommonUtilStore = defineStore("commonUtil", {
     },
     actions: {
         setMobile(flag) {
+            this.bodyWidth =
+                document.body.clientWidth || document.body.offsetWidth;
             this.isMobile = flag;
             if (flag) {
                 document.getElementsByTagName("body")[0].className =

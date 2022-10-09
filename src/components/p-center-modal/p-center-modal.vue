@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-11-24 15:14:41
  * @LastEditors: LiLei
- * @LastEditTime: 2022-09-29 16:06:48
+ * @LastEditTime: 2022-10-09 14:34:28
 -->
 <template>
     <a-modal :visible="modalVisible"
@@ -13,7 +13,8 @@
              @cancel="close"
              :title="title"
              :maskClosable="false"
-             :class="[isAllHeight?'all-height-modal':'',isWidth80?'width80':'width60']"
+             :class="[isAllHeight?'all-height-modal':'',isModalCustom?'':(isWidth80?'width80':'width60')]"
+             :style="modalStyle"
              class="p-explain-center">
         <slot name="content"></slot>
     </a-modal>
@@ -24,14 +25,23 @@
              :footer="null"
              :title="title"
              @cancel="close"
+             :style="modalStyle"
              :maskClosable="false"
-             :class="[isAllHeight?'all-height-modal':'',isWidth80?'width80':'width60']"
+             :class="[isAllHeight?'all-height-modal':'',isModalCustom?'':(isWidth80?'width80':'width60')]"
              class="p-explain-center">
         <slot name="content"></slot>
     </a-modal>
 </template>
 <script>
-import { defineComponent, ref, toRefs } from 'vue';
+import { defineComponent, ref, toRefs, watch } from 'vue';
+import {
+    storeToRefs
+} from 'pinia'
+import {
+    commonUtil
+} from '@/utils/store';
+// 生成响应式
+
 export default defineComponent({
     props: {
         isWidth80: {
@@ -56,7 +66,10 @@ export default defineComponent({
         }
     },
     setup (props, ctx) {
-        const { modalVisible, title, isFooter } = toRefs(props);
+        const { modalVisible, title, isFooter, isWidth80 } = toRefs(props);
+        const {
+            bodyWidth,
+        } = storeToRefs(commonUtil);
         const close = () => {
             // ctx.emit("update:visible", false);
             ctx.emit("close");
@@ -64,7 +77,46 @@ export default defineComponent({
         const confirm = () => {
             ctx.emit("confirm");
         }
+        const modalStyle = ref({
+
+        });
+        const isModalCustom = ref(false);
+        const calculationModalWidth = () => {
+            let maxWidth = 800, activeWidth = 0;
+            if (isWidth80.value) {
+                activeWidth = bodyWidth.value * 0.8;
+            } else {
+                activeWidth = bodyWidth.value * 0.6;
+            }
+            if (activeWidth > maxWidth) {
+                isModalCustom.value = true;
+                modalStyle.value = {
+                    width: maxWidth + 'px',
+                    left: (bodyWidth.value - maxWidth) / 2 + 'px'
+                }
+
+            } else {
+                modalStyle.value = {}
+                isModalCustom.value = false;
+            }
+            console.log("activeWidth", activeWidth, modalStyle.value)
+        }
+        // 定义 watch 监听
+        watch(
+            bodyWidth,
+            (newCount, old, clear) => {
+                console.log("newCount, old", newCount, old)
+                calculationModalWidth();
+            }
+            // watch 刚被创建的时候不执行
+            // { lazy: true }
+        );
+        calculationModalWidth();
+
         return {
+            isModalCustom,
+            bodyWidth,
+            modalStyle,
             confirm,
             isFooter,
             title,

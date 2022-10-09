@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-22 16:44:50
  * @LastEditors: LiLei
- * @LastEditTime: 2022-09-29 18:19:46
+ * @LastEditTime: 2022-10-09 14:46:44
 -->
 <template>
     <p-center-modal :modalVisible="visible"
@@ -47,6 +47,7 @@ const props = defineProps({
 import { message } from "ant-design-vue";
 import dayjs from 'dayjs';
 import {
+    messagePushManagementMessageAllSend,
     messagePushManagementMessageSend,
 } from "@/utils/api";
 const {
@@ -85,11 +86,16 @@ const layout = {
 };
 
 const handleFinish = values => {
-    const postData = {
+    let postFuc = null, postData = {
         ...formState,
-        user_wxpusher: dataObj.value
     }
-    messagePushManagementMessageSend({
+    if (dataObj.value) {
+        postData.user_wxpusher = dataObj.value;
+        postFuc = messagePushManagementMessageSend;
+    } else {
+        postFuc = messagePushManagementMessageAllSend;
+    }
+    postFuc({
         data: postData
     }).then(() => {
         message.success('操作成功');
@@ -103,20 +109,13 @@ watch(
     (newCount, old, clear) => {
         // 如果 watch 监听被重复执行了，则会先清除上次未完成的异步任务
         if (visible.value) {
-            init();
+            formState.message = '';
         }
     }
     // watch 刚被创建的时候不执行
     // { lazy: true }
 );
 
-// 初始化数据
-const init = () => {
-    formState.is_state = dataObj.value.IsState;
-    formState.is_admin = dataObj.value.IsAdmin;
-    formState.user_wxpusher = dataObj.value.UserWxpusher;
-    formState.id = dataObj.value.ID;
-}
 </script>
 
 <style lang="scss">
