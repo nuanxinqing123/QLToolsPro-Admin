@@ -67,6 +67,7 @@
             </a-form>
         </template>
         <template #bodyCell="{ text, record, index, column }">
+
             <template v-if="column.customKey === 'state'">
                 <a-button type="link"
                           primary

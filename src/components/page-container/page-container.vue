@@ -3,12 +3,12 @@
  * @Author: LiLei
  * @Date: 2022-10-05 17:14:08
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 17:22:57
+ * @LastEditTime: 2022-10-09 18:20:13
 -->
 <template>
     <div :style="{height:routerPageHeight+'px'}"
          class="pc-page flex flex-column"
-         :class="[isScroll?'overflow-scroll':'',isCenter?'align-center':'',siteSettings.web_bg?'pc-page-bg':'']">
+         :class="[(isScroll || isMobile)?'overflow-scroll':'',isCenter?'align-center':'',siteSettings.web_bg?'pc-page-bg':'']">
         <!-- {{routerPageHeight}}
         {{tableHeight}} -->
         <div class="pc-page-search"
@@ -22,18 +22,32 @@
         <div class="flex-base flex flex-column"
              v-if="isTable">
             <div class="flex-base"
-                 :class="isNoYScroll?'':'table-list-container'"
+                 :class="(isNoYScroll || isMobile)?'':'table-list-container'"
                  ref="tableRef">
                 <a-table :columns="columnsTable"
+                         :showHeader="!isMobile"
                          v-if="isNoYScroll || tableHeight"
                          :data-source="dataSource"
                          :row-selection="isRowSelection?rowSelection:null"
                          :pagination="false"
                          class="table-list"
-                         :scroll="{  x: 500 ,y:isNoYScroll?null:tableHeight - 55}">
+                         :scroll="{  x: isMobile?null:500 ,y:(isMobile || isNoYScroll)?null:tableHeight - 55}">
                     <template #bodyCell="{ text, record, index, column }">
+                        <template v-if="column.customAllKey === 'allData' && isMobile">
+                            <div class="td-all-data">
+                                <div v-html="text">
+                                </div>
+                                <slot name="bodyCell"
+                                      :text="text"
+                                      :record="record"
+                                      :index="index"
+                                      :column="column"></slot>
+                            </div>
+
+                        </template>
                         <slot name="bodyCell"
                               :text="text"
+                              v-if="!isMobile"
                               :record="record"
                               :index="index"
                               :column="column"></slot>
@@ -69,7 +83,7 @@
 </template>
 
 <script setup>
-import { reactive, toRaw, ref, onMounted, toRefs } from "vue";
+import { reactive, toRaw, ref, onMounted, toRefs, watch } from "vue";
 import { Empty } from "ant-design-vue";
 // 分页数量
 // const pageSize = ref(10);
@@ -125,6 +139,18 @@ const columnsTable = ref([]);
 const tableRef = ref(null);
 // 列表高度
 const tableHeight = ref(0);
+// 定义 watch 监听
+watch(
+    dataSource,
+    (newCount, old, clear) => {
+        // 如果 watch 监听被重复执行了，则会先清除上次未完成的异步任务
+        if (isTable.value) {
+            init();
+        }
+    }
+    // watch 刚被创建的时候不执行
+    // { lazy: true }
+);
 // 判断手机还是pc
 onMounted(() => {
     // 计算容器高度，需要减去15的头部高度
@@ -160,15 +186,40 @@ onMounted(() => {
 // 初始化数据
 const init = () => {
     if (isMobile.value) {
-        columnsTable.value = columns.value.map(item => {
-            let returnItem = {};
-            for (let key in item) {
-                if (key !== 'fixed') {
-                    returnItem[key] = item[key];
+        // columnsTable.value = columns.value.map(item => {
+        //     let returnItem = {};
+        //     for (let key in item) {
+        //         if (key !== 'fixed') {
+        //             returnItem[key] = item[key];
+        //         }
+        //     }
+        //     return returnItem;
+        // });
+        columnsTable.value = [{
+            title: "所有",
+            dataIndex: "allData",
+            customAllKey: "allData",
+            customKey: "operation",
+        }];
+        if (dataSource.value.length) {
+            dataSource.value = dataSource.value.map(item => {
+                let allDataStr = '';
+
+                for (let key in item) {
+                    const kekObj = columns.value.filter(it => it.dataIndex == key)[0] || null;
+                    if (kekObj) {
+                        // if (allDataStr) {
+                        //     allDataStr += "<br/>"
+                        // }
+                        // console.log("kekObj", kekObj)
+                        allDataStr += "<p class='word-break table-alldata-list'>" + kekObj.title + "：" + item[key] + "</p>";
+                    }
                 }
-            }
-            return returnItem;
-        });
+                item.allData = allDataStr;
+                return item;
+            })
+        }
+
 
     } else {
         columnsTable.value = columns.value;
@@ -198,6 +249,13 @@ const onShowSizeChange = (e) => {
     .table-pagination {
         margin-top: 15px;
         height: 32px;
+    }
+    .td-all-data {
+        border-bottom: 1px dashed #ddd;
+        margin-bottom: 10px;
+        .table-alldata-list {
+            margin-bottom: 10px;
+        }
     }
     // .ant-table-thead {
     //     height: 45px;
