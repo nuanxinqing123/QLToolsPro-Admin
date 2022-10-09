@@ -35,7 +35,7 @@
                               @click.prevent="onSubmit()"
                               class="filter-search">
                         <SearchOutlined />
-                        页面刷新
+                        搜索
                     </a-button>
                     <a-button type="primary"
                               style="margin-left: 10px;"

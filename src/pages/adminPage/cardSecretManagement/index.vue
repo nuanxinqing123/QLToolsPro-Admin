@@ -57,12 +57,12 @@
                               @click="resetFieldsClick">
                         <SyncOutlined />重置
                     </a-button>
-                    <a-button shape="round"
+                    <!-- <a-button shape="round"
                               style="margin-left:10px;"
                               @click="downloadExcel">
                         <download-outlined />
                         下载模板
-                    </a-button>
+                    </a-button> -->
                 </a-form-item>
             </a-form>
         </template>

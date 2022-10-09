@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-22 16:44:50
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 14:46:44
+ * @LastEditTime: 2022-10-09 17:13:13
 -->
 <template>
     <p-center-modal :modalVisible="visible"
@@ -21,7 +21,8 @@
                     @finish="handleFinish">
                 <a-form-item label="消息内容"
                              name="message">
-                    <a-textarea v-model:value="formState.message" />
+                    <a-textarea v-model:value="formState.message"
+                                placeholder="请输入消息内容" />
                 </a-form-item>
 
                 <a-form-item :wrapper-col="{ span: 12, offset: 12 }"

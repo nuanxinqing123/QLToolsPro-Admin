@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-10-05 17:14:08
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 17:07:02
+ * @LastEditTime: 2022-10-09 17:22:57
 -->
 <template>
     <div :style="{height:routerPageHeight+'px'}"
@@ -265,7 +265,7 @@ const onShowSizeChange = (e) => {
     }
     &.pc-page-bg {
         ::-webkit-scrollbar {
-            width: 15px;
+            width: 18px;
         }
 
         // 滚动槽
@@ -306,6 +306,12 @@ const onShowSizeChange = (e) => {
                 border-bottom-color: transparent;
                 // color: #ffffff;
             }
+
+            // ant-table-cell ant-table-cell-fix-right ant-table-cell-fix-right-first
+            // .ant-table-cell-fix-right-first {
+            //     background: rgba(255, 255, 255, 1);
+            //     z-index: 99999;
+            // }
             // .ant-table-cell-scrollbar {
             //     @include hasBgbar();
             // }

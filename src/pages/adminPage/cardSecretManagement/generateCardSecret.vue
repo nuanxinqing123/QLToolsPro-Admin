@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-22 16:44:50
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 16:43:04
+ * @LastEditTime: 2022-10-09 17:19:18
 -->
 <template>
     <p-center-modal :modalVisible="visible"
@@ -11,6 +11,7 @@
                     @close="close"
                     title="生成卡密">
         <template #content>
+            {{ formState.cd_key_validity_period }}
             <a-form ref="formRef"
                     name="custom-validation"
                     :model="formState"
@@ -106,6 +107,7 @@ const props = defineProps({
 import { message } from "ant-design-vue";
 import dayjs from 'dayjs';
 import {
+    cardSecretManagementAddDownload,
     cardSecretManagementAdd
 } from "@/utils/api";
 const {
@@ -182,6 +184,7 @@ const handleFinish = values => {
         data: postData
     }).then(() => {
         message.success('操作成功');
+        cardSecretManagementAddDownload();
         emit("updateData", postData);
         close();
     })
