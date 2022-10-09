@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-22 16:44:50
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 10:11:40
+ * @LastEditTime: 2022-10-09 11:01:36
 -->
 <template>
     <p-center-modal :modalVisible="visible"
@@ -189,8 +189,8 @@ const init = () => {
         formState.url = '';
         formState.id = '';
         formState.secret = '';
-        formState.panel_enable = '';
-        formState.panel_version = '';
+        formState.panel_enable = false;
+        formState.panel_version = false;
     }
 }
 </script>
