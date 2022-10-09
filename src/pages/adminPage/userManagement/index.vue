@@ -252,6 +252,9 @@ const getData = (flag) => {
             if (item.UpdatedAt) {
                 item.UpdatedAt = dateTtoDateStr(item.UpdatedAt);
             }
+            if (item.ActivationTime) {
+                item.ActivationTime = dateTtoDateStr(item.ActivationTime);
+            }
             return item;
         });
     });

@@ -119,7 +119,7 @@ const getData = (flag) => {
         splicingData: splicingData,
     }).then((data) => {
         if (!isSearchData.value) {
-            total.value = data.page * 20;
+            total.value = data.page * pageSize.value;
         } else {
             total.value = 0;
         }

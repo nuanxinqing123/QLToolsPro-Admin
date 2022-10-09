@@ -10,6 +10,10 @@
                  @updateData="getData"
                  :dataObj="popData">
     </edit-or-add>
+    <bind-variable v-model:visible="isBindPop"
+                   @updateData="getData"
+                   :dataObj="popBindData">
+    </bind-variable>
     <page-container :columns="columns"
                     v-model:pageSize="pageSize"
                     v-model:current="pageNum"
@@ -86,7 +90,8 @@
 
                 <a-button type="primary"
                           style="margin-left: 10px;margin-bottom:10px;"
-                          shape="round">绑定变量
+                          shape="round"
+                          @click="setBindPop(record)">绑定变量
                 </a-button>
                 <a-button type="primary"
                           @click.stop="testLink(record)"
@@ -102,6 +107,7 @@
 <script setup>
 import { reactive, toRaw, ref, onMounted, h } from "vue";
 import editOrAdd from "./editOrAdd.vue";
+import bindVariable from "./bindVariable.vue";
 import { Form, Empty, message, notification } from "ant-design-vue";
 import pageContainer from "@/components/page-container/page-container.vue";
 
@@ -122,8 +128,10 @@ import {
     SearchOutlined,
     SyncOutlined,
 } from "@ant-design/icons-vue";
+const popBindData = ref({});
 const popData = ref({});
 const isPop = ref(false);
+const isBindPop = ref(false);
 const useForm = Form.useForm;
 // 列表总数
 const total = ref(0);
@@ -208,6 +216,11 @@ const columns = [
 const tableData = ref([
 
 ]);
+const setBindPop = (item) => {
+    popBindData.value = item;
+    isBindPop.value = true;
+}
+
 // 是否打开弹窗
 const setPop = (item) => {
     isPop.value = true;
