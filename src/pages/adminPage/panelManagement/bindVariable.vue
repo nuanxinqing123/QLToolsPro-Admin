@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-22 16:44:50
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 21:02:08
+ * @LastEditTime: 2022-10-09 21:50:05
 -->
 <template>
     <p-center-modal :modalVisible="visible"
@@ -151,7 +151,7 @@ watch(
 );
 // 初始化数据
 const init = () => {
-    formState.name = [];
+    formState.name = (dataObj.value.EnvBinding || '').split(",");
 
     getData();
 }
@@ -166,7 +166,7 @@ const getData = () => {
     }).then((data) => {
         variableData.value = (data.pageData || []).map(item => {
             item.label = item.EnvRemarks || item.EnvName;
-            item.value = item.ID;
+            item.value = numberToString(item.ID);
             return item;
         })
     })

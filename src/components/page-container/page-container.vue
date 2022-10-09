@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-10-05 17:14:08
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 18:20:13
+ * @LastEditTime: 2022-10-09 21:53:02
 -->
 <template>
     <div :style="{height:routerPageHeight+'px'}"
@@ -400,7 +400,8 @@ const onShowSizeChange = (e) => {
             }
             @include hasBg();
         }
-        .page-overview {
+        .page-overview,
+        .page-variable {
             .ant-descriptions {
                 // border-radius: 6px;
                 // padding: 20px;

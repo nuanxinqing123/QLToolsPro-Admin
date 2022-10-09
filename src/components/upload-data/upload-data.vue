@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:37:06
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-05 08:16:09
+ * @LastEditTime: 2022-10-09 21:56:44
 -->
 
 <template>
@@ -58,7 +58,7 @@
                      placeholder="可不填">
             </a-input>
         </a-form-item> -->
-        <a-form-item :wrapper-col="{ offset: 2, span: 10 }">
+        <a-form-item :wrapper-col="{ offset: 4, span: 18 }">
             <a-button type="primary"
                       html-type="submit">提交</a-button>
         </a-form-item>
@@ -87,10 +87,10 @@ const modalMsg = ref('');
 const modalValue = ref('');
 const formItemLayout = {
     labelCol: {
-        span: 3,
+        span: 4,
     },
     wrapperCol: {
-        span: 21,
+        span: 18,
     },
 };
 const rules = {
