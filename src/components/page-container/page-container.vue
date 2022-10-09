@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-10-05 17:14:08
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 16:33:06
+ * @LastEditTime: 2022-10-09 17:07:02
 -->
 <template>
     <div :style="{height:routerPageHeight+'px'}"
@@ -335,6 +335,14 @@ const onShowSizeChange = (e) => {
                 backdrop-filter: none;
             }
             @include hasBg();
+        }
+        .page-overview {
+            .ant-descriptions {
+                // border-radius: 6px;
+                // padding: 20px;
+                @include hasBg();
+                // margin-bottom: 20px;
+            }
         }
     }
 }
