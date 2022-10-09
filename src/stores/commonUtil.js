@@ -26,6 +26,8 @@ import router from "@/router";
 
 export const useCommonUtilStore = defineStore("commonUtil", {
     state: () => ({
+        isCollapsed: false, // 侧边栏缩进开关
+        // isSlider: true, //是否显示侧边栏
         isMobile: false,
         // 容器高度
         routerPageHeight: 0,
@@ -161,11 +163,15 @@ export const useCommonUtilStore = defineStore("commonUtil", {
         },
     },
     actions: {
+        setCollapsed(flag) {
+            this.isCollapsed = flag;
+        },
         setMobile(flag) {
             this.bodyWidth =
                 document.body.clientWidth || document.body.offsetWidth;
             this.isMobile = flag;
             if (flag) {
+                this.isCollapsed = true;
                 document.getElementsByTagName("body")[0].className =
                     "mobile-page";
             } else {

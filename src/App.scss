@@ -339,8 +339,15 @@ section.ant-layout {
         margin-top: 10px;
     }
 
-    .ant-btn {
-        margin-left: 0 !important;
+    // .ant-btn {
+    //     margin-left: 0 !important;
+    // }
+
+    aside.ant-layout-sider.ant-layout-sider-collapsed {
+        max-width: 0 !important;
+        min-width: 0 !important;
+        width: 0 !important;
+        overflow: hidden;
     }
 }
 

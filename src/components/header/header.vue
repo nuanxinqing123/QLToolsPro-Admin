@@ -3,13 +3,16 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:07:46
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 10:38:59
+ * @LastEditTime: 2022-10-09 20:47:49
 -->
 <template>
     <a-page-header :title="activePage.title"
                    :class="isMobile?'mobile-header':''"
                    :sub-title="isMobile?'':activePage.content">
         <template #extra>
+            <menu-fold-outlined :style="{fontSize: '16px'}"
+                                v-if="isCollapsed && isMobile"
+                                @click="setCollapsed" />
             <!-- 现在时间:{{tiemStr}} -->
             <span @click="setTop('2')"
                   class="pointer">
@@ -19,7 +22,6 @@
                   class="pointer">
                 <dollar-outlined style="margin-right:5px;" />积分：0
             </span>
-
             <a-popconfirm placement="topLeft"
                           ok-text="是"
                           cancel-text="否"
@@ -42,7 +44,7 @@
 </template>
 
 <script setup>
-import { DollarOutlined, SketchOutlined, LogoutOutlined } from '@ant-design/icons-vue';
+import { DollarOutlined, SketchOutlined, LogoutOutlined, MenuFoldOutlined } from '@ant-design/icons-vue';
 
 import { defineComponent, ref, onUnmounted } from 'vue';
 // import themeColor from "components/theme-color/theme-color.vue";
@@ -58,10 +60,14 @@ import {
 } from 'pinia'
 // 生成响应式
 const {
+    isCollapsed,
     isMobile,
     getUserSms,
     activePage,
 } = storeToRefs(commonUtil);
+const setCollapsed = () => {
+    commonUtil.setCollapsed(false);
+}
 
 const setTop = (t) => {
     type.value = t;

@@ -3,13 +3,16 @@
  * @Author: LiLei
  * @Date: 2021-05-11 17:01:36
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-06 16:43:18
+ * @LastEditTime: 2022-10-09 20:52:27
 -->
 <template>
     <a-layout style="min-height: 100vh">
-        <a-layout-sider v-model:collapsed="collapsed"
+        <a-layout-sider v-model:collapsed="isCollapsed"
+                        @collapse="sliderChange"
                         :class="commonUtil.siteSettings.web_bg?'slide-hide-bg':''"
-                        collapsible>
+                        :collapsible="true">
+            <!-- <template v-if="(!isCollapsed && isMobile) || !isMobile"> -->
+
             <a-image :width="70"
                      :preview="false"
                      :src="commonUtil.siteSettings.web_logo"
@@ -18,6 +21,8 @@
                  v-else>
                 {{!collapsed?'青龙Tools Pro':"青"}}
             </div>
+            <!-- </template> -->
+
             <a-menu v-model:selectedKeys="selectedKeys"
                     theme="dark"
                     mode="inline">
@@ -116,7 +121,16 @@ import pHeader from "@/components/header/header.vue";
 import pFooter from "@/components/footer/footer.vue";
 import router from "@/router";
 import { commonUtil } from "@/utils/store";
-const collapsed = ref(false);
+// const collapsed = ref(false);
+import {
+    storeToRefs
+} from 'pinia'
+// 生成响应式
+const {
+    isMobile,
+    isCollapsed
+} = storeToRefs(commonUtil);
+
 const selectedKeys = ref(commonUtil.pageKeys);
 const routerPageRef = ref(null);
 onMounted(() => {
@@ -129,8 +143,18 @@ onMounted(() => {
         commonUtil.setRouterPageHeight(routerPageHeight);
     });
 })
+const sliderChange = (e) => {
+    console.log("eee", e)
+    // setTimeout(() => {
+    //     commonUtil.setSlider(false);
 
+    // }, 500)
+
+}
 const goPage = (name, key) => {
+    if (isMobile.value) {
+        commonUtil.setCollapsed(true);
+    }
     router.push({
         name: name,
     });
