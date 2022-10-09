@@ -26,6 +26,7 @@ import router from "@/router";
 
 export const useCommonUtilStore = defineStore("commonUtil", {
     state: () => ({
+        isMobile: false,
         // 容器高度
         routerPageHeight: 0,
         // 网站设置obj
@@ -48,6 +49,17 @@ export const useCommonUtilStore = defineStore("commonUtil", {
         storageName: "qltools-admin",
     }),
     getters: {
+        //是移动端返回true,否则false
+        // isMobile: (state) => {
+        //     let flag = navigator.userAgent.match(
+        //         /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+        //     );
+        //     return flag;
+
+        //     // return /phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone|webOS|android/i.test(
+        //     //     navigator.userAgent
+        //     // );
+        // },
         /**
          * @description 获取storage中存储的值
          * @param {Object} key
@@ -147,6 +159,9 @@ export const useCommonUtilStore = defineStore("commonUtil", {
         },
     },
     actions: {
+        setMobile(flag) {
+            this.isMobile = flag;
+        },
         // 设置容器高度
         setRouterPageHeight(height) {
             this.routerPageHeight = height;

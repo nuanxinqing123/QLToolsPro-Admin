@@ -311,3 +311,8 @@ section.ant-layout {
     font-size: 12px;
     margin-top: 8px;
 }
+
+#app .ant-layout {
+    height: 100vh;
+    overflow: hidden;
+}

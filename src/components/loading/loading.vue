@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-10-26 14:14:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-08-16 00:08:21
+ * @LastEditTime: 2022-10-09 10:31:31
 -->
 <template>
     <div v-show="isLoading"
@@ -38,7 +38,7 @@ const {
     right: 0;
     bottom: 0;
     z-index: 9999;
-    background-color: rgba($color: #000000, $alpha: 0.6);
+    background-color: rgba($color: #000000, $alpha: 0.1);
 }
 
 .block {

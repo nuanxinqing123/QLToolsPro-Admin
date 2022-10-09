@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-22 16:44:50
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-05 11:19:57
+ * @LastEditTime: 2022-10-09 10:46:00
 -->
 <template>
     <p-center-modal :modalVisible="visible"
@@ -25,22 +25,26 @@
                                     style="width：100%;"
                                     min="0" />
                 </a-form-item>
-                <a-form-item label="CD-KEY类型"
+                <a-form-item label="卡密类型"
                              name="cd_key_type">
-                    <a-radio-group v-model:value="formState.cd_key_type">
+                    <a-radio-group v-model:value="formState.cd_key_type"
+                                   @change="typeChange">
                         <a-radio value="integral"
                                  name="type">积分</a-radio>
                         <a-radio value="vip"
                                  name="type">会员</a-radio>
                     </a-radio-group>
                 </a-form-item>
-                <a-form-item label="CD-KEY积分"
+                <a-form-item label="卡密积分"
+                             v-if="formState.cd_key_type=='integral'"
                              name="cd_key_integral">
                     <a-input-number v-model:value="formState.cd_key_integral"
+                                    placeholder="请输入卡密积分"
                                     style="width：100%;"
                                     min="0" />
                 </a-form-item>
-                <a-form-item label="CD-KEY有效期"
+                <a-form-item label="卡密有效期"
+                             v-if="formState.cd_key_type=='vip'"
                              name="cd_key_validity_period">
                     <a-radio-group v-model:value="formState.cd_key_validity_period">
                         <a-radio :value="1"
@@ -61,19 +65,19 @@
                     </a-radio-group>
 
                 </a-form-item>
-                <a-form-item name="cd_key_validity_period"
+                <!-- <a-form-item name="cd_key_validity_period"
                              :wrapper-col="{ span: 15, offset: 7 }">
                     <a-input-number v-model:value="formState.cd_key_validity_period"
                                     placeholder="请输入CD-KEY有效期"
                                     style="width：100%;"
                                     min="0" />
 
-                </a-form-item>
-                <a-form-item label="CD-KEY前缀"
+                </a-form-item> -->
+                <a-form-item label="卡密前缀"
                              name="cd_key_prefix">
                     <a-input v-model:value="formState.cd_key_prefix" />
                 </a-form-item>
-                <a-form-item label="CD-KEY标识"
+                <a-form-item label="卡密标识"
                              name="cd_key_remarks">
                     <a-input v-model:value="formState.cd_key_remarks" />
                 </a-form-item>
@@ -94,7 +98,7 @@
 <script setup>
 import pCenterModal from "@/components/p-center-modal/p-center-modal.vue";
 
-import { ref, reactive, toRefs, watch } from 'vue';
+import { ref, reactive, toRefs, watch, computed } from 'vue';
 const props = defineProps({
     dataObj: Object,
     visible: Boolean,
@@ -113,23 +117,45 @@ const close = () => {
     emit('update:visible', false);
 }
 const formState = reactive({
-    "cd_key_count": '1',
+    "cd_key_count": 1,
     "cd_key_type": "integral",
-    "cd_key_integral": "",
+    "cd_key_integral": undefined,
     "cd_key_validity_period": "",
     "cd_key_prefix": "",
     "cd_key_remarks": ""
 });
-const rules = {
-    cd_key_count: [{
-        required: true,
-        trigger: 'change',
-    }],
-    cd_key_type: [{
-        required: true,
-        trigger: 'change',
-    }],
-};
+const rules = computed(() => {
+    return {
+
+        cd_key_integral: [{
+            required: formState.cd_key_type == 'integral',
+            trigger: 'change',
+            message: "请输入卡密积分"
+        }],
+        cd_key_validity_period: [{
+            required: formState.cd_key_type != 'integral',
+            trigger: 'change',
+            message: "请选择卡密有效期"
+        }],
+        cd_key_count: [{
+            required: true,
+            trigger: 'change',
+        }],
+        cd_key_type: [{
+            required: true,
+            trigger: 'change',
+        }],
+    }
+})
+const typeChange = () => {
+    if (formState.cd_key_type == 'integral') {
+        formState.cd_key_validity_period = 0;
+        formState.cd_key_integral = "";
+    } else {
+        formState.cd_key_integral = 0;
+        formState.cd_key_validity_period = "";
+    }
+}
 
 const handleFinishFailed = errors => {
     console.log(errors);
@@ -175,9 +201,9 @@ watch(
 
 // 初始化数据
 const init = () => {
-    formState.cd_key_count = '1';
+    formState.cd_key_count = 1;
     formState.cd_key_type = "integral";
-    formState.cd_key_integral = "";
+    formState.cd_key_integral = undefined;
     formState.cd_key_validity_period = "";
     formState.cd_key_prefix = "";
     formState.cd_key_remarks = "";

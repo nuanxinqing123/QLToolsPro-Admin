@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-10-05 17:14:08
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-07 17:17:08
+ * @LastEditTime: 2022-10-09 09:35:13
 -->
 <template>
     <div :style="{height:routerPageHeight+'px'}"
@@ -12,6 +12,7 @@
         <!-- {{routerPageHeight}}
         {{tableHeight}} -->
         <div class="pc-page-search"
+             :class="isMobile?'mobile-search':''"
              v-if="isSearch">
             <slot name="search"></slot>
         </div>
@@ -23,13 +24,13 @@
             <div class="flex-base"
                  :class="isNoYScroll?'':'table-list-container'"
                  ref="tableRef">
-                <a-table :columns="columns"
+                <a-table :columns="columnsTable"
                          v-if="isNoYScroll || tableHeight"
                          :data-source="dataSource"
                          :row-selection="isRowSelection?rowSelection:null"
                          :pagination="false"
                          class="table-list"
-                         :scroll="{  x: 100 ,y:isNoYScroll?null:tableHeight - 55}">
+                         :scroll="{  x: 500 ,y:isNoYScroll?null:tableHeight - 55}">
                     <template #bodyCell="{ text, record, index, column }">
                         <slot name="bodyCell"
                               :text="text"
@@ -80,8 +81,10 @@ import {
 } from '@/utils/store';
 // 生成响应式
 const {
+    isMobile,
     routerPageHeight
 } = storeToRefs(commonUtil);
+
 
 const props = defineProps({
     columns: Array,
@@ -112,12 +115,12 @@ const {
 } = toRefs(props);
 
 const emit = defineEmits(['update:current', 'update:pageSize', 'update:total']);
-
+const columnsTable = ref([]);
 // 表格ref
 const tableRef = ref(null);
 // 列表高度
 const tableHeight = ref(0);
-
+// 判断手机还是pc
 onMounted(() => {
     // 计算容器高度，需要减去15的头部高度
     setTimeout(() => {
@@ -129,20 +132,43 @@ onMounted(() => {
 
         }
         // 初始化数据
+        if (isTable.value) {
+            init();
+        }
         // 回调数据
         emit('initData');
     }, 0);
 
     // 监听屏幕变化
     window.addEventListener("resize", () => {
-        if (isTable.value && !isNoYScroll.value) {
-            setTimeout(() => {
+        setTimeout(() => {
+            if (isTable.value) {
+                init();
+            }
+            if (isTable.value && !isNoYScroll.value) {
                 tableHeight.value = tableRef.value.clientHeight || tableRef.value.$el.clientHeight;
                 console.log("tableHeight.value3 ", tableHeight.value, tableRef.value.clientHeight)
-            }, 10);
-        }
+            }
+        }, 10);
     })
 })
+// 初始化数据
+const init = () => {
+    if (isMobile.value) {
+        columnsTable.value = columns.value.map(item => {
+            let returnItem = {};
+            for (let key in item) {
+                if (key !== 'fixed') {
+                    returnItem[key] = item[key];
+                }
+            }
+            return returnItem;
+        });
+
+    } else {
+        columnsTable.value = columns.value;
+    }
+}
 
 // 分页回调
 const paginationchange = (page, pageSize) => {
@@ -161,7 +187,7 @@ const onShowSizeChange = (e) => {
 <style lang="scss">
 .pc-page {
     padding: 24px;
-    // background: #fff;
+    background: #fff;
 
     .table-pagination {
         margin-top: 15px;
@@ -186,6 +212,7 @@ const onShowSizeChange = (e) => {
         box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.17);
         border-radius: 6px;
         margin-bottom: 15px;
+
         // 筛选搜索
         .filter-search {
             background-color: #3fb3b0;
@@ -214,6 +241,11 @@ const onShowSizeChange = (e) => {
             @media screen and (max-width: 575px) {
                 margin-right: 0;
                 width: 100%;
+            }
+        }
+        &.mobile-search {
+            .ant-btn {
+                margin-bottom: 15px;
             }
         }
     }

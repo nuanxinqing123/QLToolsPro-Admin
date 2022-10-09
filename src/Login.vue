@@ -1,7 +1,8 @@
 <template>
     <view class="page-login bg-cover flex align-items">
         <view class="login-container flex">
-            <view class="container-left flex-base flex  flex-column align-items">
+            <view class="container-left flex-base flex  flex-column align-items"
+                  v-if="!isMobile">
                 <view class="left-image bg-cover"></view>
                 <view class="left-text font-weight">
                     青龙助手PRO
@@ -219,6 +220,13 @@ import {
     reactive,
     ref
 } from 'vue';
+import {
+    storeToRefs
+} from 'pinia';
+// 生成响应式
+const {
+    isMobile,
+} = storeToRefs(commonUtil);
 // 获取登录校验
 const loginCheck = computed(() => {
     return !formState.username || !formState.password;

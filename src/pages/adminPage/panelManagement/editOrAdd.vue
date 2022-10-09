@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-22 16:44:50
  * @LastEditors: LiLei
- * @LastEditTime: 2022-09-29 16:33:18
+ * @LastEditTime: 2022-10-09 10:11:40
 -->
 <template>
     <p-center-modal :modalVisible="visible"
@@ -27,9 +27,13 @@
                              name="url">
                     <a-input v-model:value="formState.url" />
                 </a-form-item>
+                <a-form-item label="面板Client_ID"
+                             name="id">
+                    <a-input v-model:value="formState.id" />
+                </a-form-item>
                 <a-form-item label="面板Client_Secret"
-                             name="client_secret">
-                    <a-input v-model:value="formState.client_secret" />
+                             name="secret">
+                    <a-input v-model:value="formState.secret" />
                 </a-form-item>
                 <a-form-item label="是否启用"
                              name="panel_enable">
@@ -71,6 +75,9 @@ import {
     panelManagementAdd,
     panelManagementUpdate,
 } from "@/utils/api";
+import {
+    numberToString,
+} from "@/utils/common";
 const {
     visible,
     dataObj
@@ -82,8 +89,8 @@ const close = () => {
 const formState = reactive({
     "name": "",
     "url": "",
-    "client_id": "",
-    "client_secret": "",
+    "id": "",
+    "secret": "",
     "panel_enable": true,
     "panel_version": false
 });
@@ -96,11 +103,11 @@ const rules = {
         required: true,
         trigger: 'change',
     }],
-    client_id: [{
+    id: [{
         required: true,
         trigger: 'change',
     }],
-    client_secret: [{
+    secret: [{
         required: true,
         trigger: 'change',
     }],
@@ -124,18 +131,27 @@ const layout = {
 };
 
 const handleFinish = values => {
-    const postData = {
-        ...formState
+    let postData = {
     }
     let postFuc = null;
     // 编辑
     if (dataObj.value.ID) {
-        postData.id = dataObj.value.ID;
+        postData = {
+            id: dataObj.value.ID,
+            "name": formState.name, //面板名称
+            "url": formState.url, //面板连接地址
+            "client_id": formState.id, //面板Client_ID
+            "client_secret": formState.secret, //面板Client_Secret
+            "panel_enable": formState.panel_enable, //面板是否启用
+            "panel_version": formState.panel_version //面板版本（false：新版本、true：旧版本）
+        }
         postFuc = panelManagementUpdate;
     } else {
+        postData = {
+            ...formState
+        }
         // 新增
         postFuc = panelManagementAdd;
-
     }
     postFuc({
         data: postData
@@ -163,16 +179,16 @@ const init = () => {
     if (dataObj.value.title === '面板编辑') {
         formState.name = dataObj.value.PanelName;
         formState.url = dataObj.value.PanelURL;
-        formState.client_id = dataObj.value.PanelClientID;
-        formState.client_secret = dataObj.value.PanelClientSecret;
+        formState.id = numberToString(dataObj.value.PanelClientID);
+        formState.secret = dataObj.value.PanelClientSecret;
         formState.panel_enable = dataObj.value.PanelEnable;
         formState.panel_version = dataObj.value.PanelVersion;
         // formState.id = dataObj.value.ID;
     } else {
         formState.name = '';
         formState.url = '';
-        formState.client_id = '';
-        formState.client_secret = '';
+        formState.id = '';
+        formState.secret = '';
         formState.panel_enable = '';
         formState.panel_version = '';
     }

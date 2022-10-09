@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-10-26 12:05:19
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-04 20:28:34
+ * @LastEditTime: 2022-10-09 10:10:35
  */
 import axios from "axios";
 import qs from "qs";
@@ -21,6 +21,23 @@ const service = axios.create({
     baseURL: "",
     timeout: 1000 * 40,
 });
+
+function msgTip(msg) {
+    let msgStr = "";
+    if (typeof msg == "object") {
+        for (let key in msg) {
+            if (msgStr) {
+                msgStr += "、";
+            }
+            msgStr += msg[key];
+        }
+    } else if (typeof msg == "string") {
+        msgStr = msg;
+    } else {
+        msgStr = "系统异常";
+    }
+    return msgStr;
+}
 
 // 添加请求拦截器
 service.interceptors.request.use(
@@ -136,7 +153,7 @@ service.interceptors.response.use(
             } else {
                 if (isPop) {
                     setTimeout(() => {
-                        message.error(data.msg || "请求异常");
+                        message.error(msgTip(data.msg) || "请求异常");
                     }, 400);
                 }
                 // 无访问权限或认证已过期

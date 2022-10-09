@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-05-10 13:30:49
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-05 17:18:32
+ * @LastEditTime: 2022-10-09 09:31:51
 -->
 <template>
     <a-config-provider :locale="zhCN">
@@ -12,7 +12,7 @@
     </a-config-provider>
 </template>
 <script setup>
-import { ref, nextTick, provide } from 'vue';
+import { ref, nextTick, provide, onMounted } from 'vue';
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
 import loading from "./components/loading/loading.vue";
 import dayjs from 'dayjs';
@@ -33,7 +33,23 @@ const reload = () => {
     })
 }
 provide('reload', reload); // provide的第一个为名称，第二个值为所需要传的参数
+// 判断手机还是pc
+const isMobileFuc = () => {
+    let flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
+    commonUtil.setMobile(flag ? true : false);
+}
+isMobileFuc();
 
+// 判断手机还是pc
+onMounted(() => {
+    isMobileFuc()
+    // 监听屏幕变化
+    window.addEventListener("resize", () => {
+        setTimeout(() => {
+            isMobileFuc();
+        }, 5);
+    })
+})
 </script>
 <style lang="scss">
 @import "./App.scss";

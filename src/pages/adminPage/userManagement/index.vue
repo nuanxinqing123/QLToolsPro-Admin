@@ -118,13 +118,13 @@ const columns = [
     {
         title: "用户UID",
         dataIndex: "UserID",
-        fixed: "left",
+        // fixed: "left",
         width: 200
     },
     {
         title: "用户邮箱",
         dataIndex: "Email",
-        fixed: "left",
+        // fixed: "left",
         width: 200
     },
     {

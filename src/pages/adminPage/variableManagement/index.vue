@@ -109,13 +109,13 @@ const columns = [
     {
         title: "变量名",
         dataIndex: "EnvName",
-        fixed: "left",
+        // fixed: "left",
         width: 200
     },
     {
         title: "变量备注",
         dataIndex: "EnvRemarks",
-        fixed: "left",
+        // fixed: "left",
         width: 200
     },
     {

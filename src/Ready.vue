@@ -1,6 +1,7 @@
 <template>
     <!-- 准备页面 -->
-    <div class="loading flex align-items">
+    <div class="loading flex align-items"
+         :class="isMobile?'mobile-loading':''">
         <div class="loadingio-spinner-ripple-c8dpizgopqs">
             <div class="ldio-sbbdf3moufl flex align-items">
 
@@ -19,6 +20,13 @@
 import {
     commonUtil
 } from '@/utils/store';
+import {
+    storeToRefs
+} from 'pinia';
+// 生成响应式
+const {
+    isMobile,
+} = storeToRefs(commonUtil);
 // 跳转页面
 let token = commonUtil.getItem('token');
 if (token) {
@@ -91,14 +99,14 @@ if (token) {
         border-radius: 50%;
     }
 }
-.loadingio-spinner-ripple-c8dpizgopqs image {
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    top: 245px;
-    left: 245px;
-    z-index: 10;
-}
+// .loadingio-spinner-ripple-c8dpizgopqs image {
+//     position: absolute;
+//     width: 100px;
+//     height: 100px;
+//     top: 245px;
+//     left: 245px;
+//     z-index: 10;
+// }
 .ldio-sbbdf3moufl {
     width: 100%;
     height: 100%;
@@ -107,7 +115,43 @@ if (token) {
     backface-visibility: hidden;
     transform-origin: 0 0; /* see note above */
 }
-.ldio-sbbdf3moufl view {
-    box-sizing: content-box;
+// .ldio-sbbdf3moufl view {
+//     box-sizing: content-box;
+// }
+
+.mobile-loading {
+    .loadingio-spinner-ripple-c8dpizgopqs {
+        width: 90vw;
+        height: 90vw;
+    }
+    .logo {
+        max-width: 30vw;
+    }
+    // .loadingio-spinner-ripple-c8dpizgopqs image {
+    //     width: 10vw;
+    //     height: 10vw;
+    //     top: 0;
+    //     left: 0;
+    // }
+    @keyframes ldio-mobile {
+        0% {
+            // top: 0;
+            // left: 10px;
+            width: 70vw;
+            height: 70vw;
+            opacity: 1;
+        }
+        100% {
+            // top: 0px;
+            // left: 20vw;
+            width: 50vw;
+            height: 50vw;
+            opacity: 0;
+        }
+    }
+    .ldio-sbbdf3moufl .children-view {
+        animation: ldio-mobile 1.6949152542372878s cubic-bezier(0, 0.2, 0.8, 1)
+            infinite;
+    }
 }
 </style>

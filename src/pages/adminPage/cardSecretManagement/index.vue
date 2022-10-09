@@ -182,13 +182,13 @@ const columns = [
     {
         title: "卡密显示",
         dataIndex: "CdKey",
-        fixed: "left",
+        // fixed: "left",
         width: 200
     },
     {
         title: "类型",
         dataIndex: "CdKeyType",
-        fixed: "left",
+        // fixed: "left",
         width: 200
     },
     {

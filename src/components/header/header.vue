@@ -3,11 +3,12 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:07:46
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-06 20:24:07
+ * @LastEditTime: 2022-10-09 10:38:59
 -->
 <template>
     <a-page-header :title="activePage.title"
-                   :sub-title="activePage.content">
+                   :class="isMobile?'mobile-header':''"
+                   :sub-title="isMobile?'':activePage.content">
         <template #extra>
             <!-- 现在时间:{{tiemStr}} -->
             <span @click="setTop('2')"
@@ -57,6 +58,7 @@ import {
 } from 'pinia'
 // 生成响应式
 const {
+    isMobile,
     getUserSms,
     activePage,
 } = storeToRefs(commonUtil);
@@ -124,5 +126,10 @@ getAncientPoetry();
 <style lang="scss">
 .ant-page-header-heading-extra {
     line-height: 32px;
+}
+.mobile-header {
+    .ant-page-header-heading-extra {
+        white-space: initial;
+    }
 }
 </style>

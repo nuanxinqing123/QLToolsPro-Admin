@@ -145,19 +145,19 @@ const columns = [
     {
         title: "面板ID",
         dataIndex: "ID",
-        fixed: "left",
+        // fixed: "left",
         width: 120
     },
     {
         title: "名称",
         dataIndex: "PanelName",
-        fixed: "left",
+        // fixed: "left",
         width: 200
     },
     {
         title: "连接地址",
         dataIndex: "PanelURL",
-        fixed: "left",
+        // fixed: "left",
         width: 200
     },
     {
@@ -202,7 +202,7 @@ const columns = [
         dataIndex: "operation",
         customKey: "operation",
         fixed: "right",
-        width: 300,
+        width: 200,
     }
 ];
 const tableData = ref([
