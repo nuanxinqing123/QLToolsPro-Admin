@@ -161,18 +161,32 @@ export const useCommonUtilStore = defineStore("commonUtil", {
     actions: {
         setMobile(flag) {
             this.isMobile = flag;
+            if (flag) {
+                document.getElementsByTagName("body")[0].className =
+                    "mobile-page";
+            } else {
+                document.getElementsByTagName("body")[0].className = "";
+            }
         },
         // 设置容器高度
         setRouterPageHeight(height) {
             this.routerPageHeight = height;
         },
         // 初始化跳转页面
-        initGopage() {
+        initGopage(code) {
+            // if (code == 5003) {
+            //     console.log("adsda");
+            //     if (this.getUserSms.IsAdmin) {
+            //         this.navigateTo("variableSubmission");
+            //     } else {
+            //     }
+            // } else {
             if (this.getUserSms.IsAdmin) {
                 this.navigateTo("adminHome");
             } else {
                 this.navigateTo("variableSubmission");
             }
+            // }
         },
         // 页面跳转
         /*

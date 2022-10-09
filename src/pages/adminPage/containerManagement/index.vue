@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-10-05 17:14:08
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-07 19:43:24
+ * @LastEditTime: 2022-10-09 11:28:30
 -->
 <template>
     <restore-pop v-model:visible="isPop"
@@ -63,11 +63,13 @@
                         <a-divider />
 
                         <a-form-item :wrapper-col="{ span: 20, offset: 2 }"
-                                     class="form-buttom">
+                                     class="form-buttom flex">
                             <a-button type="primary"
-                                      style="margin-right:20px;width:150px;"
+                                      style="margin-right:20px;"
+                                      class="flex-base"
                                       @click="transferFuc">迁移</a-button>
                             <a-button type="primary"
+                                      class="flex-base"
                                       style="width:150px;"
                                       @click="copyFuc">复制</a-button>
                         </a-form-item>
@@ -105,10 +107,11 @@
                         <a-form-item :wrapper-col="{ span: 20, offset: 2 }"
                                      class="form-buttom">
                             <a-button type="primary"
-                                      style="margin-right:20px;width:150px;"
+                                      class="flex-base"
+                                      style="margin-right:20px;"
                                       @click="backupFuc">备份</a-button>
                             <a-button type="primary"
-                                      style="width:150px;"
+                                      class="flex-base"
                                       @click="setPop">恢复</a-button>
                         </a-form-item>
                     </a-form>
@@ -247,6 +250,9 @@ pageGetPanelData();
 }
 .form-container-item {
     padding-bottom: 20px;
+    .ant-form-item-control-input-content {
+        display: flex;
+    }
     .form-buttom {
         margin-top: 24px;
     }

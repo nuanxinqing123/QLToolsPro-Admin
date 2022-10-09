@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-05-10 13:30:49
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 09:31:51
+ * @LastEditTime: 2022-10-09 11:18:34
 -->
 <template>
     <a-config-provider :locale="zhCN">

@@ -316,3 +316,26 @@ section.ant-layout {
     height: 100vh;
     overflow: hidden;
 }
+
+// .ant-form-item-control {
+
+//     // margin-left: 0;
+//     .ant-form-item-control-input {
+//         width: 100%
+//     }
+
+//     .ant-form-item-control-input-content {
+//         @extend .flex;
+//     }
+// }
+
+// .ant-form-item-control {
+//     margin-top: 10px;
+// }
+
+.mobile-page {
+    .ant-form-item-control {
+        margin-left: 0 !important;
+        margin-top: 10px;
+    }
+}
