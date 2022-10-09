@@ -175,6 +175,7 @@ export const useCommonUtilStore = defineStore("commonUtil", {
                 document.getElementsByTagName("body")[0].className =
                     "mobile-page";
             } else {
+                this.isCollapsed = false;
                 document.getElementsByTagName("body")[0].className = "";
             }
         },

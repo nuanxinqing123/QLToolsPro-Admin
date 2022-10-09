@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-22 16:44:50
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 19:13:18
+ * @LastEditTime: 2022-10-09 20:56:14
 -->
 <template>
     <p-center-modal :modalVisible="visible"
@@ -127,7 +127,7 @@ const handleFinish = values => {
     }
     postData = {
         id: dataObj.value.ID,
-        "env_binding": formState.name, //面板名称
+        "env_binding": formState.name.map(item => numberToString(item)), //面板名称
     }
     panelManagementBinding({
         data: postData
