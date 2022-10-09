@@ -69,7 +69,7 @@ const total = ref(0);
 // 当前页码
 const pageNum = ref(1);
 // 分页数量
-const pageSize = ref(25);
+const pageSize = ref(10);
 // 空图片
 const simpleImage = Empty.PRESENTED_IMAGE_SIMPLE;
 // 查询数据
