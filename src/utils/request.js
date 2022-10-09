@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-10-26 12:05:19
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 11:31:55
+ * @LastEditTime: 2022-10-09 13:32:55
  */
 import axios from "axios";
 import qs from "qs";
@@ -12,11 +12,14 @@ import { useCommonUtilStore } from "@/stores/commonUtil";
 // 创建axios
 const service = axios.create({
     withCredentials: true,
+    // contentTypeName: false,
+    // processDataName: false,
+
     contentType: false,
     processData: false,
     crossDomain: true,
     headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
     },
     baseURL: "",
     timeout: 1000 * 40,
@@ -72,6 +75,10 @@ service.interceptors.request.use(
             }
             config.url += strUrl;
         }
+        if (config.isFile) {
+            config.headers["Content-Type"] =
+                "multipart/form-data;charset=utf-8";
+        }
         // 判断是不是form表单请求
         if (config.isForm) {
             const datas = qs.stringify(config.data, {
@@ -84,6 +91,7 @@ service.interceptors.request.use(
             }
             config.headers["Content-Type"] =
                 "application/x-www-form-urlencoded; charset=UTF-8";
+
             config.data = datas;
         } else {
             config.data = config.data;

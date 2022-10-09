@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-10-05 17:14:08
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 09:35:13
+ * @LastEditTime: 2022-10-09 12:48:01
 -->
 <template>
     <div :style="{height:routerPageHeight+'px'}"
@@ -48,7 +48,8 @@
                     </template>
                 </a-table>
             </div>
-            <div class="flex content-between align-center table-pagination">
+            <div class="flex content-between align-center table-pagination"
+                 v-if="!isNoPagination">
                 <div v-if="total">
                     共{{total || 0}}条记录
                 </div>
@@ -98,10 +99,12 @@ const props = defineProps({
     isScroll: Boolean,
     isCenter: Boolean,
     isRowSelection: Boolean,
+    isNoPagination: Boolean,
     rowSelection: Object,
 });
 
 const {
+    isNoPagination,
     pageSize,
     isNoYScroll,
     isCenter,
@@ -187,7 +190,7 @@ const onShowSizeChange = (e) => {
 <style lang="scss">
 .pc-page {
     padding: 24px;
-    background: #fff;
+    // background: #fff;
 
     .table-pagination {
         margin-top: 15px;

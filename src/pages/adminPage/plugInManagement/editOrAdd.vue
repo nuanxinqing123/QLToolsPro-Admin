@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-22 16:44:50
  * @LastEditors: LiLei
- * @LastEditTime: 2022-09-30 10:21:13
+ * @LastEditTime: 2022-10-09 13:43:27
 -->
 <template>
     <p-center-modal :modalVisible="visible"
@@ -31,6 +31,7 @@
                              name="file">
                     <a-upload v-model:fileList="formState.file"
                               :max-count="1"
+                              @remove="handleRemove"
                               :before-upload="beforeUpload">
                         <a-button>
                             <upload-outlined></upload-outlined>
@@ -55,7 +56,6 @@
 
 <script setup>
 import pCenterModal from "@/components/p-center-modal/p-center-modal.vue";
-
 import { ref, reactive, toRefs, watch } from 'vue';
 const props = defineProps({
     dataObj: Object,
@@ -103,7 +103,14 @@ const rules = {
     }],
 
 };
+
+const handleRemove = file => {
+    formState.file = [];
+};
 const beforeUpload = file => {
+    formState.file = [file];
+    // console.log("file", file)
+    // formState.file = file;
     // fileList.value = [...fileList.value, file];
     return false;
 };
@@ -125,20 +132,20 @@ const layout = {
 };
 
 const handleFinish = values => {
-    const postData = {
-        file: formState.file
-    }
-    let postFuc = null;
+
     // 编辑
     let splicingData = {
         type: formState.type
     }
+    let formData = new FormData();
+
+    formData.append('file', formState.file[0].originFileObj);
     plugInManagementUpload({
         splicingData: splicingData,
-        data: postData
+        data: formData
     }).then(() => {
         message.success('操作成功');
-        emit("updateData", postData);
+        emit("updateData");
         close();
     })
 };

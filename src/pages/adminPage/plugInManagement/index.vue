@@ -232,6 +232,7 @@ const onSubmit = () => {
             console.log("error", err);
         });
 };
+postSearchData.value = searchData;
 
 </script>
 

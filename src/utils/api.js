@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 03:11:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-08 17:58:59
+ * @LastEditTime: 2022-10-09 13:18:06
  */
 import service from "./request";
 import exportExcel from "./exportExcel";
@@ -787,7 +787,8 @@ export function plugInManagementUpload(opts) {
     let obj = opts || {};
     return service.request({
         method: "POST",
-        isForm: true,
+        // isForm: true,
+        // isFile: true,
         ifSplicing: true, //是否拼接
         splicingData: opts.splicingData || {}, //拼接的data
         url: import.meta.env.VITE_URl + "v3/api/plugin/upload",

@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-10-05 17:14:08
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 11:28:30
+ * @LastEditTime: 2022-10-09 11:41:28
 -->
 <template>
     <restore-pop v-model:visible="isPop"
@@ -12,6 +12,7 @@
     <page-container isScroll
                     isNoYScroll
                     isTable
+                    isNoPagination
                     :columns="columns"
                     @initData="getErrorList"
                     :dataSource="tableData">
