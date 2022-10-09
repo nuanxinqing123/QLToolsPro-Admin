@@ -111,3 +111,19 @@
 
 // 设置滚动条
 @mixin setScrollbar {}
+
+// 高斯模糊
+@mixin hasBg() {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(15px) brightness(110%);
+}
+
+@mixin hasBgbar() {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(15px) brightness(110%);
+}
+
+@mixin hasBgbarActive() {
+    background: rgba(255, 255, 255, 1.5);
+    backdrop-filter: blur(15px) brightness(110%);
+}

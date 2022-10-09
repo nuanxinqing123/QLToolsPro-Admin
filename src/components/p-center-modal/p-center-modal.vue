@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-11-24 15:14:41
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 14:34:28
+ * @LastEditTime: 2022-10-09 15:14:27
 -->
 <template>
     <a-modal :visible="modalVisible"
@@ -13,7 +13,7 @@
              @cancel="close"
              :title="title"
              :maskClosable="false"
-             :class="[isAllHeight?'all-height-modal':'',isModalCustom?'':(isWidth80?'width80':'width60')]"
+             :class="[isAllHeight?'all-height-modal':'',isModalCustom?'':(isWidth80?'width80':'width60'),siteSettings.web_bg?'pc-modal-bg':'']"
              :style="modalStyle"
              class="p-explain-center">
         <slot name="content"></slot>
@@ -27,7 +27,7 @@
              @cancel="close"
              :style="modalStyle"
              :maskClosable="false"
-             :class="[isAllHeight?'all-height-modal':'',isModalCustom?'':(isWidth80?'width80':'width60')]"
+             :class="[isAllHeight?'all-height-modal':'',isModalCustom?'':(isWidth80?'width80':'width60'),siteSettings.web_bg?'pc-modal-bg':'']"
              class="p-explain-center">
         <slot name="content"></slot>
     </a-modal>
@@ -68,6 +68,7 @@ export default defineComponent({
     setup (props, ctx) {
         const { modalVisible, title, isFooter, isWidth80 } = toRefs(props);
         const {
+            siteSettings,
             bodyWidth,
         } = storeToRefs(commonUtil);
         const close = () => {
@@ -114,6 +115,7 @@ export default defineComponent({
         calculationModalWidth();
 
         return {
+            siteSettings,
             isModalCustom,
             bodyWidth,
             modalStyle,
@@ -138,6 +140,12 @@ export default defineComponent({
     &.width60 {
         width: 60% !important;
         left: 20%;
+    }
+    &.pc-modal-bg {
+        .ant-modal-content,
+        .ant-modal-header {
+            @include hasBg();
+        }
     }
     top: 0;
     display: flex !important;

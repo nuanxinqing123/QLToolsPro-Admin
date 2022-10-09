@@ -3,12 +3,12 @@
  * @Author: LiLei
  * @Date: 2022-09-24 13:28:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 10:01:19
+ * @LastEditTime: 2022-10-09 16:38:37
  */
 export function dateTtoDateStr(dateStr) {
     return dateStr.split(".")[0].replace("T", " ");
 }
-// number转为 string
+// number 转为 string
 export function numberToString(num) {
     if (typeof num === "string") {
         return num;
@@ -17,6 +17,19 @@ export function numberToString(num) {
             return JSON.stringify(num);
         } catch (error) {
             return "";
+        }
+    }
+}
+
+// string 转为 number
+export function stringToNumber(num) {
+    if (typeof num === "number") {
+        return num;
+    } else {
+        try {
+            return JSON.parse(num);
+        } catch (error) {
+            return 0;
         }
     }
 }

@@ -3,12 +3,12 @@
  * @Author: LiLei
  * @Date: 2022-10-05 17:14:08
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 12:48:01
+ * @LastEditTime: 2022-10-09 16:33:06
 -->
 <template>
     <div :style="{height:routerPageHeight+'px'}"
          class="pc-page flex flex-column"
-         :class="[isScroll?'overflow-scroll':'',isCenter?'align-center':'']">
+         :class="[isScroll?'overflow-scroll':'',isCenter?'align-center':'',siteSettings.web_bg?'pc-page-bg':'']">
         <!-- {{routerPageHeight}}
         {{tableHeight}} -->
         <div class="pc-page-search"
@@ -49,7 +49,8 @@
                 </a-table>
             </div>
             <div class="flex content-between align-center table-pagination"
-                 v-if="!isNoPagination">
+                 v-if="!isNoPagination"
+                 :class="total?'':'visibility-view'">
                 <div v-if="total">
                     共{{total || 0}}条记录
                 </div>
@@ -82,6 +83,7 @@ import {
 } from '@/utils/store';
 // 生成响应式
 const {
+    siteSettings,
     isMobile,
     routerPageHeight
 } = storeToRefs(commonUtil);
@@ -191,6 +193,7 @@ const onShowSizeChange = (e) => {
 .pc-page {
     padding: 24px;
     // background: #fff;
+    /* 设置滚动条的样式 */
 
     .table-pagination {
         margin-top: 15px;
@@ -258,6 +261,80 @@ const onShowSizeChange = (e) => {
             position: absolute;
             left: 0;
             top: 0;
+        }
+    }
+    &.pc-page-bg {
+        ::-webkit-scrollbar {
+            width: 15px;
+        }
+
+        // 滚动槽
+
+        ::-webkit-scrollbar-track {
+            @include hasBgbar();
+            // border-radius: 10px;
+        }
+
+        // 滚动条滑块
+
+        ::-webkit-scrollbar-thumb {
+            // border-radius: 10px;
+            @include hasBgbar();
+            @include hasBgbarActive();
+        }
+
+        ::-webkit-scrollbar-thumb:window-inactive {
+            @include hasBgbar();
+        }
+
+        .pc-page-search {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(15px) brightness(110%);
+        }
+        .ant-table {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(15px) brightness(110%);
+
+            border-radius: 6px;
+
+            box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.17);
+            .ant-table-cell-scrollbar {
+                box-shadow: none;
+            }
+            .ant-table-cell {
+                background: rgba(255, 255, 255, 0.3);
+                border-bottom-color: transparent;
+                // color: #ffffff;
+            }
+            // .ant-table-cell-scrollbar {
+            //     @include hasBgbar();
+            // }
+        }
+        .table-pagination {
+            padding: 24px 12px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(15px) brightness(110%);
+            .ant-pagination-item-link,
+            .ant-pagination-item-active,
+            .ant-select-selector {
+                background-color: transparent;
+            }
+        }
+        // 容器管理
+        .ant-card {
+            background-color: transparent;
+            @include hasBg();
+            margin-bottom: 10px;
+        }
+        .form-container-item {
+            background-color: red;
+            margin-bottom: 10px;
+            .ant-card {
+                background: transparent;
+                backdrop-filter: none;
+            }
+            @include hasBg();
         }
     }
 }

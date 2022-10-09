@@ -3,10 +3,11 @@
  * @Author: LiLei
  * @Date: 2021-11-14 10:33:11
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-05 09:50:40
+ * @LastEditTime: 2022-10-09 15:18:10
 -->
 <template>
-    <div class="flex flex-column pc-container">
+    <div class="flex flex-column pc-container"
+         :class="siteSettings.web_bg?'pc-box-bg':''">
         <div class="container-title">
             <div class="container-title-content">
                 <div class="title-text flex content-between">
@@ -43,6 +44,12 @@
 <script>
 import { defineComponent, ref, onMounted, toRefs, nextTick } from 'vue';
 import { Empty } from 'ant-design-vue';
+import {
+    storeToRefs
+} from 'pinia'
+import {
+    commonUtil
+} from '@/utils/store';
 export default defineComponent({
     props: {
         isWatch: {
@@ -67,6 +74,9 @@ export default defineComponent({
         }
     },
     setup (props, ct) {
+        const {
+            siteSettings,
+        } = storeToRefs(commonUtil);
         const { title, isLoad, loading, data, isWatch } = toRefs(props);
         const myRef = ref(null);
         const contentHeight = ref(0);
@@ -92,6 +102,7 @@ export default defineComponent({
         }
 
         return {
+            siteSettings,
             contentWidth,
             contentHeight,
             myRef,
@@ -112,6 +123,9 @@ export default defineComponent({
     border-radius: 10px;
     margin-bottom: 20px;
     box-shadow: 0px 4px 34px 0px rgba(0, 0, 0, 0.04);
+    &.pc-box-bg {
+        @include hasBg();
+    }
     .container-table {
         width: 100%;
         // overflow: hidden;

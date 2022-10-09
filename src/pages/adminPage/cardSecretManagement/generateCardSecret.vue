@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-22 16:44:50
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 10:46:00
+ * @LastEditTime: 2022-10-09 16:43:04
 -->
 <template>
     <p-center-modal :modalVisible="visible"
@@ -204,7 +204,7 @@ const init = () => {
     formState.cd_key_count = 1;
     formState.cd_key_type = "integral";
     formState.cd_key_integral = undefined;
-    formState.cd_key_validity_period = "";
+    formState.cd_key_validity_period = 0;
     formState.cd_key_prefix = "";
     formState.cd_key_remarks = "";
 }
