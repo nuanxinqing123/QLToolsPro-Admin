@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:07:46
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 20:47:49
+ * @LastEditTime: 2022-10-09 22:28:01
 -->
 <template>
     <a-page-header :title="activePage.title"
@@ -20,7 +20,7 @@
             </span>
             <span @click="setTop('1')"
                   class="pointer">
-                <dollar-outlined style="margin-right:5px;" />积分：0
+                <dollar-outlined style="margin-right:5px;" />积分：{{getUserSms.Integral}}
             </span>
             <a-popconfirm placement="topLeft"
                           ok-text="是"

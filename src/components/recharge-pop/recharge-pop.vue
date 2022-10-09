@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:37:06
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-05 09:46:54
+ * @LastEditTime: 2022-10-09 22:33:55
 -->
 
 <template>
@@ -12,7 +12,8 @@
                     @close="close"
                     :title="title">
         <template #content>
-            <recharge-data ref="popRef"></recharge-data>
+            <recharge-data ref="popRef"
+                           @close="close"></recharge-data>
         </template>
     </p-center-modal>
 </template>
@@ -33,9 +34,12 @@ const {
 const title = ref('充值');
 const emit = defineEmits(['update:visible', 'updateData']);
 const close = () => {
+    console.log("111")
     emit('update:visible', false);
 }
-
+defineExpose({
+    close
+})
 const popRef = ref(null);
 
 // 定义 watch 监听

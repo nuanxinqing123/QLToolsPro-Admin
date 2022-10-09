@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:37:06
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 14:33:09
+ * @LastEditTime: 2022-10-09 22:35:01
 -->
 
 <template>
@@ -27,7 +27,8 @@
         <a-form-item :label="formState.type==1?'积分充值卡密':'会员充值卡密'"
                      name="recharge_cdk"
                      has-feedback>
-            <a-textarea v-model:value="formState.recharge_cdk">
+            <a-textarea v-model:value="formState.recharge_cdk"
+                        placeholder="请输入卡密">
             </a-textarea>
         </a-form-item>
         <a-form-item :wrapper-col="{ offset: 5, span: 16 }">
@@ -48,8 +49,10 @@ import {
     commonUtil
 } from '@/utils/store';
 import { message } from "ant-design-vue";
+const emit = defineEmits(['close']);
 const setType = (t) => {
     formState.type = t;
+    formState.recharge_cdk = '';
 }
 defineExpose({
     setType
@@ -86,6 +89,8 @@ const onFinish = values => {
     postFuc({ data: formState }).then(() => {
         message.success(formState.type == 1 ? "积分充值成功" : '会员充值成功');
         commonUtil.getUserSmsInfo(true);
+        formState.recharge_cdk = '';
+        // emit("close");
     })
 };
 
