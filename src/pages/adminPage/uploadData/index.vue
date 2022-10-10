@@ -93,10 +93,12 @@ const columns = ref([{
 }, {
     "title": "创建时间",
     "dataIndex": "CreatedAt",
-}, {
-    "title": "更新时间",
-    "dataIndex": "UpdatedAt",
-}]);
+},
+    // {
+    //     "title": "更新时间",
+    //     "dataIndex": "UpdatedAt",
+    // }
+]);
 const tableData = ref([
 
 ]);

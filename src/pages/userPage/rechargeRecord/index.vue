@@ -56,19 +56,21 @@ const { resetFields, validate, validateInfos } = useForm(searchData);
 const columns = ref([{
     "title": "序号",
     "dataIndex": "ID",
-}, {
-    "title": "创建时间",
-    "dataIndex": "CreatedAt",
-}, {
-    "title": "更新时间",
-    "dataIndex": "UpdatedAt",
-}, {
+},
+// {
+//     "title": "更新时间",
+//     "dataIndex": "UpdatedAt",
+// },
+{
     "title": "充值卡密",
     "dataIndex": "RechargeCDK",
 }, {
     "title": "充值类型",
     "dataIndex": "RechargeType",
-}]);
+}, {
+    "title": "创建时间",
+    "dataIndex": "CreatedAt",
+},]);
 const tableData = ref([
 
 ]);

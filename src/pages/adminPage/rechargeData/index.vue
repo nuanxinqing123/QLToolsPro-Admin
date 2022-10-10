@@ -110,11 +110,11 @@ const columns = [
         dataIndex: "CreatedAt",
         width: 280
     },
-    {
-        title: "更新时间",
-        dataIndex: "UpdatedAt",
-        width: 280
-    }
+    // {
+    //     title: "更新时间",
+    //     dataIndex: "UpdatedAt",
+    //     width: 280
+    // }
 
 ];
 const tableData = ref([
@@ -157,6 +157,7 @@ const getData = (flag) => {
             if (item.UpdatedAt) {
                 item.UpdatedAt = dateTtoDateStr(item.UpdatedAt);
             }
+
             return item;
         });
     });
