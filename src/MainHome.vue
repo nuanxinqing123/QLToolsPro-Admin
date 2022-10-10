@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-05-11 17:01:36
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-10 11:10:25
+ * @LastEditTime: 2022-10-10 20:45:50
 -->
 <template>
     <a-layout style="min-height: 100vh">
@@ -18,7 +18,8 @@
                      v-if="commonUtil.siteSettings.web_logo" />
             <div class="page-logo text-center font-weight"
                  v-else>
-                {{!isCollapsed?'青龙Tools Pro':"青"}}
+                {{commonUtil.siteSettings.web_title || '青龙Tools Pro'}}
+                <!-- {{!isCollapsed?'青龙Tools Pro':"青"}} -->
             </div>
             <!-- </template> -->
 

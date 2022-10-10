@@ -3,12 +3,12 @@
  * @Author: LiLei
  * @Date: 2022-10-06 16:25:58
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-06 16:30:57
+ * @LastEditTime: 2022-10-10 20:46:30
 -->
 <template>
     <a-layout-footer style="text-align: center"
                      :class="commonUtil.siteSettings.web_bg?'footer-hide-bg':''">
-        Copyright © 2022 All rights reserved. 青龙Tools Pro
+        Copyright © 2022 All rights reserved. {{commonUtil.siteSettings.web_title || '青龙Tools Pro'}}
     </a-layout-footer>
 </template>
 
