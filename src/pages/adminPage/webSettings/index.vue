@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:37:06
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 21:01:45
+ * @LastEditTime: 2022-10-10 11:22:04
 -->
 
 <template>
@@ -89,11 +89,11 @@
                     </a-form-item>
                 </div>
 
-                <a-form-item :wrapper-col="{ offset: 3, span: 16 }">
+                <a-form-item label="">
                     <a-button type="primary"
-                              style="width:100%;"
                               html-type="submit">提交</a-button>
                 </a-form-item>
+
             </a-form>
         </template>
     </page-container>

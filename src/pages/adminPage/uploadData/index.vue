@@ -82,17 +82,20 @@ const columns = ref([{
     "title": "序号",
     "dataIndex": "ID",
 }, {
+    "title": "上传变量名",
+    "dataIndex": "RecordEnvName",
+}, {
+    "title": "消费方式",
+    "dataIndex": "RecordTypeStr",
+}, {
+    "title": "上传用户ID",
+    "dataIndex": "RecordUserID",
+}, {
     "title": "创建时间",
     "dataIndex": "CreatedAt",
 }, {
     "title": "更新时间",
     "dataIndex": "UpdatedAt",
-}, {
-    "title": "充值卡密",
-    "dataIndex": "RechargeCDK",
-}, {
-    "title": "充值类型",
-    "dataIndex": "RechargeType",
 }]);
 const tableData = ref([
 
@@ -129,6 +132,9 @@ const getData = (flag) => {
             }
             if (item.UpdatedAt) {
                 item.UpdatedAt = dateTtoDateStr(item.UpdatedAt);
+            }
+            if (item.RecordType) {
+                item.RecordTypeStr = item.RecordType == 1 ? '积分' : '会员';
             }
             return item;
         });

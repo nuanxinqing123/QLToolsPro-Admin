@@ -3,11 +3,11 @@
  * @Author: LiLei
  * @Date: 2021-05-11 17:01:36
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-06 16:43:27
+ * @LastEditTime: 2022-10-10 11:11:25
 -->
 <template>
     <a-layout style="min-height: 100vh">
-        <a-layout-sider v-model:collapsed="collapsed"
+        <a-layout-sider v-model:collapsed="isCollapsed"
                         :class="commonUtil.siteSettings.web_bg?'slide-hide-bg':''"
                         collapsible>
 
@@ -17,7 +17,7 @@
                      v-if="commonUtil.siteSettings.web_logo" />
             <div class="page-logo text-center font-weight"
                  v-else>
-                {{!collapsed?'青龙Tools Pro':"青"}}
+                {{!isCollapsed?'青龙Tools Pro':"青"}}
             </div>
             <a-menu v-model:selectedKeys="selectedKeys"
                     theme="dark"
@@ -82,9 +82,17 @@ import pHeader from "components/header/header.vue";
 import pFooter from "@/components/footer/footer.vue";
 import router from "@/router";
 import { commonUtil } from "@/utils/store";
-const collapsed = ref(false);
 const selectedKeys = ref(commonUtil.pageKeys);
 const routerPageRef = ref(null);
+import {
+    storeToRefs
+} from 'pinia'
+// 生成响应式
+const {
+    isMobile,
+    isCollapsed
+} = storeToRefs(commonUtil);
+
 onMounted(() => {
     // 计算容器高度，需要减去15的头部高度
     let routerPageHeight = routerPageRef.value.clientHeight || routerPageRef.value.$el.clientHeight;
@@ -98,6 +106,9 @@ onMounted(() => {
 
 
 const goPage = (name, key) => {
+    if (isMobile.value) {
+        commonUtil.setCollapsed(true);
+    }
     router.push({
         name: name,
     });
