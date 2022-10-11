@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-22 16:44:50
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 16:41:32
+ * @LastEditTime: 2022-10-11 08:18:24
 -->
 <template>
     <p-center-modal :modalVisible="visible"
@@ -63,10 +63,21 @@
                               un-checked-children="否" />
                 </a-form-item>
 
-                <a-form-item label="绑定的插件名称"
+                <!-- <a-form-item label="绑定的插件名称"
                              name="env_plugin_name">
                     <a-input v-model:value="formState.env_plugin_name"
                              placeholder="请输入绑定的插件名称" />
+                </a-form-item> -->
+                <a-form-item label="绑定的插件名称"
+                             v-if="formState.env_is_plugin"
+                             name="env_plugin_name">
+                    <a-select v-model:value="formState.env_plugin_name"
+                              placeholder="请选择"
+                              :filter-option="filterOption"
+                              show-search
+                              option-label-prop="label"
+                              :options="envPluginData">
+                    </a-select>
                 </a-form-item>
                 <a-form-item label="环境变量是否计费"
                              name="env_is_charging">
@@ -112,6 +123,7 @@ const props = defineProps({
 import { message } from "ant-design-vue";
 import dayjs from 'dayjs';
 import {
+    plugInManagementList,
     variableManagementAdd,
     variableManagementUpdate
 } from "@/utils/api";
@@ -162,7 +174,10 @@ const rules = {
         trigger: 'change',
     }]
 };
-
+const envPluginData = ref([]);
+const filterOption = (value, option) => {
+    return option.label.indexOf(value) >= 0;
+};
 const handleFinishFailed = errors => {
     console.log(errors);
 
@@ -181,6 +196,11 @@ const layout = {
 };
 
 const handleFinish = values => {
+
+    if (!formState.env_is_plugin) {
+        formState.env_plugin_name = '';
+    }
+
     const postData = {
         ...formState
     }
@@ -216,9 +236,23 @@ watch(
     // watch 刚被创建的时候不执行
     // { lazy: true }
 );
-
+// 获取变量名称下拉数据
+const getData = () => {
+    plugInManagementList({
+        splicingData: {
+            type: "ordinary"
+        }
+    }).then((data) => {
+        envPluginData.value = (data || []).map(item => {
+            item.label = item.plugin_name;
+            item.value = item.value;
+            return item;
+        })
+    })
+}
 // 初始化数据
 const init = () => {
+    getData();
     if (dataObj.value.ID) {
         formState.env_name = dataObj.value.EnvName; //变量名
         formState.env_remarks = dataObj.value.EnvRemarks;  //环境变量名称备注

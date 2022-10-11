@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-22 16:44:50
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 17:19:18
+ * @LastEditTime: 2022-10-11 08:11:35
 -->
 <template>
     <p-center-modal :modalVisible="visible"
@@ -11,7 +11,7 @@
                     @close="close"
                     title="生成卡密">
         <template #content>
-            {{ formState.cd_key_validity_period }}
+            <!-- {{ formState.cd_key_validity_period }} -->
             <a-form ref="formRef"
                     name="custom-validation"
                     :model="formState"

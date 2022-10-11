@@ -256,7 +256,7 @@ const downloadExcel = () => {
 const deletRow = (item) => {
     cardSecretManagementDelete({
         data: {
-            id: [item.ID]
+            id_list: [item.ID]
         }
     }).then(() => {
         message.success("操作成功!");

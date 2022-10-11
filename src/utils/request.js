@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-10-26 12:05:19
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 13:32:55
+ * @LastEditTime: 2022-10-11 08:16:59
  */
 import axios from "axios";
 import qs from "qs";
@@ -150,6 +150,9 @@ service.interceptors.response.use(
                 const result = data.data;
                 try {
                     if (typeof result === "boolean") {
+                        return result;
+                    }
+                    if (typeof result === null) {
                         return result;
                     }
                     return typeof result === "string"
