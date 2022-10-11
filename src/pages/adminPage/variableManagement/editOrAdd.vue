@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-22 16:44:50
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-11 08:18:24
+ * @LastEditTime: 2022-10-11 14:23:39
 -->
 <template>
     <p-center-modal :modalVisible="visible"
@@ -245,7 +245,7 @@ const getData = () => {
     }).then((data) => {
         envPluginData.value = (data || []).map(item => {
             item.label = item.plugin_name;
-            item.value = item.value;
+            item.value = item.file_name;
             return item;
         })
     })

@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 03:11:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 14:44:32
+ * @LastEditTime: 2022-10-11 14:46:46
  */
 import service from "./request";
 import exportExcel from "./exportExcel";
@@ -979,6 +979,21 @@ export function webEdition(opts) {
         method: "get",
         isForm: false,
         url: import.meta.env.VITE_URl + "v1/api/system/version",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+
+/***修改用户消费信息****/
+
+export function userRecharge(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "POST",
+        isForm: false,
+        url: import.meta.env.VITE_URl + "v3/api/cd-key/user/recharge",
         data: obj.data || {},
         isLoadding: obj.isLoadding || true,
         isCloseLoadding: obj.isCloseLoadding || true,

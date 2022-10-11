@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:37:06
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 22:33:55
+ * @LastEditTime: 2022-10-11 15:14:00
 -->
 
 <template>
@@ -13,6 +13,7 @@
                     :title="title">
         <template #content>
             <recharge-data ref="popRef"
+                           @updateData="updateData"
                            @close="close"></recharge-data>
         </template>
     </p-center-modal>
@@ -25,20 +26,25 @@ import rechargeData from "@/components/recharge-data/recharge-data.vue";
 const props = defineProps({
     visible: Boolean,
     type: String,
+    dataObj: Object
 });
 const {
+    dataObj,
     type,
     visible,
 } = toRefs(props);
 
 const title = ref('充值');
 const emit = defineEmits(['update:visible', 'updateData']);
+const updateData = () => {
+    emit("updateData");
+}
 const close = () => {
     console.log("111")
     emit('update:visible', false);
 }
 defineExpose({
-    close
+    close, updateData
 })
 const popRef = ref(null);
 
@@ -50,10 +56,10 @@ watch(
         // 如果 watch 监听被重复执行了，则会先清除上次未完成的异步任务
         if (visible.value) {
             if (popRef.value) {
-                popRef.value.setType(type.value);
+                popRef.value.setType(type.value, dataObj.value);
             } else {
                 setTimeout(() => {
-                    popRef.value.setType(type.value);
+                    popRef.value.setType(type.value, dataObj.value);
                 }, 100);
             }
         }

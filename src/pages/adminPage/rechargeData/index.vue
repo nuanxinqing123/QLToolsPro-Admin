@@ -100,7 +100,7 @@ const columns = [
         width: 200
     },
     {
-        title: "CDK",
+        title: "充值卡密",
         dataIndex: "RechargeCDK",
         fixed: "left",
         width: 200

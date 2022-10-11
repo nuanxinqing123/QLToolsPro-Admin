@@ -10,6 +10,11 @@
                  @updateData="getData(true)"
                  :dataObj="popData">
     </edit-or-add>
+    <recharge-pop v-model:visible="isRechargePop"
+                  type="3"
+                  @updateData="getData(true)"
+                  :dataObj="rechargePopData"></recharge-pop>
+
     <page-container :columns="columns"
                     v-model:pageSize="pageSize"
                     v-model:current="pageNum"
@@ -45,7 +50,11 @@
         </template>
         <template #bodyCell="{ text, record, index, column }">
             <template v-if="column.customKey === 'operation'">
-
+                <a-button type="primary"
+                          @click.stop="setRechargePop(record)"
+                          style="margin-bottom:10px;"
+                          shape="round">充值
+                </a-button>
                 <a-button type="primary"
                           @click.stop="setPop(record)"
                           style="margin-left: 10px;margin-bottom:10px;"
@@ -76,6 +85,7 @@ import { reactive, toRaw, ref, onMounted } from "vue";
 import editOrAdd from "./editOrAdd.vue";
 import { Form, Empty, message } from "ant-design-vue";
 import pageContainer from "@/components/page-container/page-container.vue";
+import rechargePop from "@/components/recharge-pop/recharge-pop.vue";
 
 import {
     userManagementDelete,
@@ -140,12 +150,12 @@ const columns = [
     {
         title: "用户积分",
         dataIndex: "Integral",
-        width: 200
+        width: 150
     },
     {
         title: "VIP",
-        dataIndex: "IsVIP",
-        width: 200
+        dataIndex: "IsVIPStr",
+        width: 100
     },
     {
         title: "会员到期时间",
@@ -193,6 +203,14 @@ const columns = [
 const tableData = ref([
 
 ]);
+const isRechargePop = ref(false);
+const rechargePopData = ref({});
+
+const setRechargePop = (item) => {
+    isRechargePop.value = true;
+    rechargePopData.value = item;
+}
+
 // 是否打开弹窗
 const setPop = (item) => {
     isPop.value = true;
@@ -252,6 +270,7 @@ const getData = (flag) => {
             if (item.UpdatedAt) {
                 item.UpdatedAt = dateTtoDateStr(item.UpdatedAt);
             }
+            item.IsVIPStr = item.IsVIP ? '是' : "否";
             if (item.ActivationTime) {
                 item.ActivationTime = dateTtoDateStr(item.ActivationTime);
             }
