@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-10-13 21:55:46
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-13 22:18:25
+ * @LastEditTime: 2022-10-13 22:23:28
  */
 import qs from "qs";
 import { message } from "ant-design-vue";
@@ -28,7 +28,6 @@ let fetchRequest = function (config) {
     if (config.ifSplicing) {
         let strUrl = "";
         const splicingData = config.splicingData || config.data;
-        console.log("config.splicingData ", config.splicingData);
         for (const key in splicingData) {
             if (strUrl) {
                 strUrl += "&" + key + "=" + splicingData[key];
@@ -84,7 +83,6 @@ let fetchRequest = function (config) {
                         : config.isCloseLoadding;
                 // 是否开始错误弹框，默认开启
                 var isPop = config.isPop === undefined ? true : config.isPop;
-                console.log("isPop", isPop, config);
                 if (isCloseLoadding) {
                     commonUtil.setLoading(false);
                 }
