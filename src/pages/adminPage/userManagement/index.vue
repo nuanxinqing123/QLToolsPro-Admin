@@ -142,11 +142,11 @@ const columns = [
         dataIndex: "Username",
         width: 200
     },
-    {
-        title: "用户密码",
-        dataIndex: "Password",
-        width: 200
-    },
+    // {
+    //     title: "用户密码",
+    //     dataIndex: "Password",
+    //     width: 200
+    // },
     {
         title: "用户积分",
         dataIndex: "Integral",
@@ -158,14 +158,19 @@ const columns = [
         width: 100
     },
     {
+        title: "近期登录信息",
+        dataIndex: "LoginIP",
+        width: 280
+    },
+    {
         title: "会员到期时间",
         dataIndex: "ActivationTime",
         width: 200
     },
     {
         title: "管理员",
-        dataIndex: "IsAdmin",
-        width: 280
+        dataIndex: "IsAdminStr",
+        width: 120
     },
     {
         title: "用户WxpusherID",
@@ -177,21 +182,17 @@ const columns = [
         dataIndex: "IsState",
         width: 280
     },
-    {
-        title: "近期登录信息",
-        dataIndex: "LoginIP",
-        width: 280
-    },
+
     {
         title: "创建时间",
         dataIndex: "CreatedAt",
         width: 280
     },
-    {
-        title: "更新时间",
-        dataIndex: "UpdatedAt",
-        width: 280
-    },
+    // {
+    //     title: "更新时间",
+    //     dataIndex: "UpdatedAt",
+    //     width: 280
+    // },
     {
         title: "操作",
         dataIndex: "operation",
@@ -274,6 +275,7 @@ const getData = (flag) => {
             if (item.ActivationTime) {
                 item.ActivationTime = dateTtoDateStr(item.ActivationTime);
             }
+            item.IsAdminStr = item.IsAdmin ? '✓' : "";
             return item;
         });
     });

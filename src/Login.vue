@@ -227,6 +227,15 @@ import {
 const {
     isMobile,
 } = storeToRefs(commonUtil);
+// 跳转页面
+let token = commonUtil.getItem('token');
+if (token) {
+    // 免密登录
+    commonUtil
+        .checkUserToken()
+        .then()
+        .catch();
+}
 // 获取登录校验
 const loginCheck = computed(() => {
     return !formState.username || !formState.password;

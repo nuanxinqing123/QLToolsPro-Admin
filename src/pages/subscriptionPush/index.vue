@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-09-29 12:12:51
  * @LastEditors: LiLei
- * @LastEditTime: 2022-09-29 15:21:45
+ * @LastEditTime: 2022-10-13 22:20:07
 -->
 <template>
     <div class="subscription-push flex align-items bg-cover">
@@ -31,6 +31,8 @@ import {
     wxpusherBindState,
     wxpusherQrcode
 } from "utils/api.js";
+
+
 const times = ref(null);
 const wait = 1000 * 10;
 const qrcodeUrl = ref('');
@@ -45,6 +47,7 @@ const getWxpusherQrcode = () => {
 }
 // 检查绑定状态
 const getWxpusherState = () => {
+
     wxpusherBindState({
         splicingData: {
             code: qrcode.value
@@ -53,7 +56,7 @@ const getWxpusherState = () => {
         wx_uid.value = data;
         closeTimes();
         updateBindState();
-    })
+    }).catch((e) => { });
 }
 // 检查用户WxPusher订阅状态
 const updateBindState = () => {
@@ -98,6 +101,9 @@ getWxpusherQrcode();
         box-shadow: 0 2px 10px #999;
         -moz-box-shadow: #999 0 2px 10px;
         -webkit-box-shadow: #999 0 2px 10px;
+        .ant-image {
+            display: block;
+        }
         .push-text {
             color: #333;
             font-size: 20px;

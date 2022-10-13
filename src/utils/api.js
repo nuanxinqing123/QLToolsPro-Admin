@@ -3,10 +3,11 @@
  * @Author: LiLei
  * @Date: 2022-08-16 03:11:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-11 14:46:46
+ * @LastEditTime: 2022-10-13 22:19:25
  */
 import service from "./request";
 import exportExcel from "./exportExcel";
+import fetchRequest from "./fetchRequest";
 
 // 网站配置获取接口
 export function getSetting(opts) {
@@ -220,17 +221,16 @@ export function wxpusherUpdate(opts) {
 // 轮询订阅状态
 export function wxpusherBindState(opts) {
     let obj = opts || {};
-    return service.request({
+    return fetchRequest({
         method: "get",
         isForm: false,
         isPop: false,
         ifSplicing: true, //是否拼接
-        splicingData: opts.splicingData || {}, //拼接的data
+        splicingData: obj.splicingData || {}, //拼接的data
         url: "https://wxpusher.zjiecode.com/api/fun/scan-qrcode-uid",
         data: obj.data || {},
         isLoadding: obj.isLoadding || false,
         isCloseLoadding: obj.isCloseLoadding || false,
-        isPop: obj.isPop,
     });
 }
 

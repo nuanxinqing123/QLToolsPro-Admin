@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-15 23:10:20
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-07 21:50:24
+ * @LastEditTime: 2022-10-13 22:20:48
  */
 import { defineConfig, loadEnv } from "vite";
 import vue from "@vitejs/plugin-vue";
