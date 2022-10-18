@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-22 16:44:50
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-06 20:06:03
+ * @LastEditTime: 2022-10-18 17:15:30
 -->
 <template>
     <p-center-modal :modalVisible="visible"
@@ -104,19 +104,18 @@ const layout = {
 };
 
 const handleFinish = values => {
-    const postData = {
-        file: formState.file
-    }
-    let postFuc = null;
+
     // 编辑
     let splicingData = {
         id: dataObj.value.start
     }
+    let formData = new FormData();
+    formData.append('file', formState.file[0].originFileObj);
     containerManagementRestore({
         splicingData: splicingData,
-        data: postData
+        data: formData
     }).then(() => {
-        message.success('操作成功');
+        message.success('操作已进入任务队列, 请稍后前往青龙面板查看结果');
         emit("updateData");
         close();
     })

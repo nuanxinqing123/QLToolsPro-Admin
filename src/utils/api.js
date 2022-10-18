@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 03:11:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-13 22:19:25
+ * @LastEditTime: 2022-10-18 17:14:40
  */
 import service from "./request";
 import exportExcel from "./exportExcel";
@@ -930,7 +930,7 @@ export function containerManagementRestore(opts) {
     let obj = opts || {};
     return service.request({
         method: "post",
-        isForm: true,
+        // isForm: true,
         ifSplicing: true, //是否拼接
         splicingData: opts.splicingData || {}, //拼接的data
         url: import.meta.env.VITE_URl + "v3/api/container/restore",

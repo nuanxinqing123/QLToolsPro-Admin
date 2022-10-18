@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-10-05 17:14:08
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 11:41:28
+ * @LastEditTime: 2022-10-18 17:18:55
 -->
 <template>
     <restore-pop v-model:visible="isPop"
@@ -135,8 +135,9 @@ import { message } from "ant-design-vue";
 import restorePop from "./restorePop.vue";
 
 import {
+    panelManagementList,
     containerManagementBackUpDownload,
-    getPanelData, containerManagementTransfer, containerManagementCopy, containerManagementBackup, containerManagementErrorList
+    containerManagementTransfer, containerManagementCopy, containerManagementBackup, containerManagementErrorList
 } from "utils/api.js";
 const formState1 = reactive({
     start: "",
@@ -217,11 +218,17 @@ const backupFuc = () => {
 
 // 获取面板信息
 const pageGetPanelData = () => {
-    getPanelData({}).then((data) => {
-        serverData.value = data.online.map(item => {
+    panelManagementList({
+        data: {},
+        splicingData: {
+            page: 1,
+            quantity: 100
+        },
+    }).then((data) => {
+        serverData.value = data.pageData.map(item => {
             return {
                 label: item.PanelName,
-                value: item.id,
+                value: item.ID,
                 envData: item.env_data
             }
         });
@@ -232,8 +239,26 @@ const pageGetPanelData = () => {
         } catch (error) {
             formState1.end = serverData.value[0].value;
         }
-
     })
+
+
+    // getPanelData({}).then((data) => {
+    //     serverData.value = data.online.map(item => {
+    //         return {
+    //             label: item.PanelName,
+    //             value: item.id,
+    //             envData: item.env_data
+    //         }
+    //     });
+    //     formState1.start = serverData.value[0].value;
+    //     formState2.start = serverData.value[0].value;
+    //     try {
+    //         formState1.end = serverData.value[1].value;
+    //     } catch (error) {
+    //         formState1.end = serverData.value[0].value;
+    //     }
+
+    // })
 }
 
 const getErrorList = () => {
