@@ -65,7 +65,7 @@
                         </a-input>
                     </a-form-item>
                     <a-form-item name="code"
-                                 v-if="loginType === 'retrieve'">
+                                 v-if="loginType === 'retrieve' || isLoginAbnormal">
                         <a-input v-model:value="formState.code"
                                  placeholder="请输入验证码"
                                  :bordered="false"
@@ -83,16 +83,25 @@
                                                            @finish="codeFinish" />
                                     ）
                                 </a-button>
-                                <a-button type="primary"
-                                          class="flex post-code align-center"
-                                          @click="openCode"
-                                          v-else>
-                                    发送验证码</a-button>
+
+                                <template v-else>
+                                    <a-button type="primary"
+                                              class="flex post-code align-center"
+                                              @click="abnormalOpenCode"
+                                              v-if="isLoginAbnormal">
+                                        发送验证码</a-button>
+                                    <a-button type="primary"
+                                              class="flex post-code align-center"
+                                              @click="openCode"
+                                              v-else>
+                                        发送验证码</a-button>
+                                </template>
+
                             </template>
                         </a-input>
                     </a-form-item>
                     <a-form-item name="capt"
-                                 v-if="loginType !== 'retrieve'">
+                                 v-if="loginType !== 'retrieve' && !isLoginAbnormal">
                         <a-input v-model:value="formState.capt"
                                  placeholder="请输入验证码"
                                  :bordered="false"
@@ -197,6 +206,8 @@ import {
     message
 } from 'ant-design-vue';
 import {
+    abnormalSignin,
+    abnormalCode,
     userRepwd,
     userFindpwdCode,
     userSignin,
@@ -227,6 +238,8 @@ import {
 const {
     isMobile,
 } = storeToRefs(commonUtil);
+// 是否是登录异常
+const isLoginAbnormal = ref(false);
 // 跳转页面
 let token = commonUtil.getItem('token');
 if (token) {
@@ -300,6 +313,24 @@ const formState = reactive({
 // 是否开启倒计时
 const isDeadline = ref(false);
 const deadline = ref(Date.now() + 1000 * 60);
+// 开启异常倒计时
+
+const abnormalOpenCode = () => {
+    if (!formState.username) {
+        message.error('请输入用户名');
+        return;
+    }
+
+    abnormalCode({
+        data: {
+            "username": formState.username
+        }
+    }).then(() => {
+        message.success('验证码发送成功，请去微信WXPUSher进行查看');
+        deadline.value = Date.now() + 1000 * 60;
+        isDeadline.value = true;
+    });
+}
 // 开启倒计时
 const openCode = () => {
     if (formState.find_type === 'user' && !formState.username) {
@@ -322,7 +353,7 @@ const openCode = () => {
             "id": formState.id,
         }
     }).then(() => {
-        message.success('发送成功，请去微信WXPUSher进行查看');
+        message.success('验证码发送成功，请去微信WXPUSher进行查看');
         deadline.value = Date.now() + 1000 * 60;
         isDeadline.value = true;
     });
@@ -406,13 +437,24 @@ const setLoginType = text => {
 };
 // 登录
 const login = () => {
-    userSignin({
-        data: {
+    let postData = {
+        "username": formState.username,
+        "password": formState.password,
+        "capt": formState.capt,
+        "id": formState.id,
+    }
+    let postFuc = userSignin;
+    if (isLoginAbnormal.value) {
+        postFuc = abnormalSignin;
+        postData = {
             "username": formState.username,
             "password": formState.password,
-            "capt": formState.capt,
-            "id": formState.id,
+            "id": formState.code,
         }
+    }
+
+    postFuc({
+        data: postData
     }).then(data => {
         // 保存token
         commonUtil.saveItem("token", data);
@@ -434,7 +476,18 @@ const login = () => {
                 name: 'home'
             });
         }*/
-    }).catch(() => {
+    }).catch((e) => {
+        console.log("eeee", e);
+        try {
+            // 登录环境异常
+            if (e.code == 5016) {
+                abnormalOpenCode();
+                return;
+            }
+        } catch (error) {
+
+        }
+
         getCheckCode();
     })
 };

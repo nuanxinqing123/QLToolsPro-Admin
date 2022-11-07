@@ -355,3 +355,9 @@ section.ant-layout {
 .visibility-view {
     visibility: hidden;
 }
+
+.ant-descriptions-item-block {
+    .ant-descriptions-item-content {
+        display: block !important;
+    }
+}

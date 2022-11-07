@@ -3,10 +3,11 @@
  * @Author: LiLei
  * @Date: 2022-09-29 15:24:11
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 17:08:43
+ * @LastEditTime: 2022-11-07 11:14:39
 -->
 <template>
-    <page-container @initData="getData">
+    <page-container @initData="getData"
+                    isScroll>
         <template #top>
             <div class="page-overview">
 
@@ -88,8 +89,12 @@
                 <a-descriptions-item label="">{{webData.Version}}</a-descriptions-item>
             </a-descriptions> -->
                 <a-descriptions title="公告">
-                    <a-descriptions-item label="">
-                        <span v-html="webData.Notice"></span>
+                    <a-descriptions-item label=""
+                                         class="ant-descriptions-item-block">
+                        <div v-html="webData.Notice"></div>
+                        <a-divider style="padding:5px 0;" />
+                        程序版本：{{webData.LocVersion}}
+                        <span v-if="webData.LocVersion !== webData.Version">【有最新版本可用，最新版本：{{webData.Version}}】</span>
                     </a-descriptions-item>
                 </a-descriptions>
             </div>
@@ -119,7 +124,7 @@ const webData = ref({})
 const getData = () => {
     webEdition().then((data) => {
         webData.value = data;
-        if (webData.LocVersion !== webData.Version) {
+        if (data.LocVersion !== data.Version) {
             notification.info({
                 message: '温馨提示',
                 duration: 5,

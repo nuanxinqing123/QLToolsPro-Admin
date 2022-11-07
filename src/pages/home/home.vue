@@ -22,6 +22,7 @@
                                :isLoad="false">
                     <template v-slot:content="{height}">
                         <div v-html="pageData.webData.data"></div>
+
                     </template>
                 </box-container>
                 <box-container title="变量提交"

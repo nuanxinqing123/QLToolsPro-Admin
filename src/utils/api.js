@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 03:11:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-18 17:14:40
+ * @LastEditTime: 2022-11-07 10:56:04
  */
 import service from "./request";
 import exportExcel from "./exportExcel";
@@ -994,6 +994,33 @@ export function userRecharge(opts) {
         method: "POST",
         isForm: false,
         url: import.meta.env.VITE_URl + "v3/api/cd-key/user/recharge",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+// 登录异常-发送验证码
+export function abnormalCode(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "POST",
+        isForm: false,
+        url: import.meta.env.VITE_URl + "v1/api/user/abnormal/code",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+
+// 登录异常-异常登录
+export function abnormalSignin(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "POST",
+        isForm: false,
+        url: import.meta.env.VITE_URl + "v1/api/user/abnormal/signin",
         data: obj.data || {},
         isLoadding: obj.isLoadding || true,
         isCloseLoadding: obj.isCloseLoadding || true,
