@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-11-24 15:14:41
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 15:14:27
+ * @LastEditTime: 2022-11-07 15:15:15
 -->
 <template>
     <a-modal :visible="modalVisible"
@@ -13,7 +13,7 @@
              @cancel="close"
              :title="title"
              :maskClosable="false"
-             :class="[isAllHeight?'all-height-modal':'',isModalCustom?'':(isWidth80?'width80':'width60'),siteSettings.web_bg?'pc-modal-bg':'']"
+             :class="[isAllHeight?'all-height-modal':'',isModalCustom?'':(isWidth80?'width80':'width60'),siteSettings.web_bg && !isNoBg?'pc-modal-bg':'']"
              :style="modalStyle"
              class="p-explain-center">
         <slot name="content"></slot>
@@ -27,7 +27,7 @@
              @cancel="close"
              :style="modalStyle"
              :maskClosable="false"
-             :class="[isAllHeight?'all-height-modal':'',isModalCustom?'':(isWidth80?'width80':'width60'),siteSettings.web_bg?'pc-modal-bg':'']"
+             :class="[isAllHeight?'all-height-modal':'',isModalCustom?'':(isWidth80?'width80':'width60'),siteSettings.web_bg && !isNoBg?'pc-modal-bg':'']"
              class="p-explain-center">
         <slot name="content"></slot>
     </a-modal>
@@ -44,6 +44,10 @@ import {
 
 export default defineComponent({
     props: {
+        isNoBg: {
+            type: Boolean,
+            default: false
+        },
         isWidth80: {
             type: Boolean,
             default: false

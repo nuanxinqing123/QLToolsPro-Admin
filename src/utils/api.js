@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 03:11:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-11-07 10:56:04
+ * @LastEditTime: 2022-11-07 14:56:00
  */
 import service from "./request";
 import exportExcel from "./exportExcel";
@@ -110,7 +110,7 @@ export function userSignin(opts) {
         data: obj.data || {},
         isLoadding: obj.isLoadding || true,
         isCloseLoadding: obj.isCloseLoadding || true,
-        isPop: obj.isPop,
+        isPop: false,
     });
 }
 // 找回密码 - 发送验证码

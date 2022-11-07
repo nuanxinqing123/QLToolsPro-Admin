@@ -1,11 +1,13 @@
 <template>
+    <abnormal-login v-model:visible="isPop"
+                    :dataObj="popData"></abnormal-login>
     <view class="page-login bg-cover flex align-items">
         <view class="login-container flex">
             <view class="container-left flex-base flex  flex-column align-items"
                   v-if="!isMobile">
                 <view class="left-image bg-cover"></view>
                 <view class="left-text font-weight">
-                    青龙助手PRO
+                    {{siteSettings.web_title || '青龙助手PRO'}}
                     <text class="left-small">简洁、方便的助手</text>
                 </view>
             </view>
@@ -222,6 +224,7 @@ import {
     SolutionOutlined
 } from '@ant-design/icons-vue';
 
+import abnormalLogin from "@/components/abnormal-login/abnormal-login.vue";
 
 import {
     commonUtil
@@ -234,8 +237,11 @@ import {
 import {
     storeToRefs
 } from 'pinia';
+
+
 // 生成响应式
 const {
+    siteSettings,
     isMobile,
 } = storeToRefs(commonUtil);
 // 是否是登录异常
@@ -309,7 +315,8 @@ const formState = reactive({
     "capt": "",
     "id": ""
 });
-
+const popData = ref({});
+const isPop = ref(false);
 // 是否开启倒计时
 const isDeadline = ref(false);
 const deadline = ref(Date.now() + 1000 * 60);
@@ -326,7 +333,7 @@ const abnormalOpenCode = () => {
             "username": formState.username
         }
     }).then(() => {
-        message.success('验证码发送成功，请去微信WXPUSher进行查看');
+        message.success('发送成功，请前往微信公众号【WxPusher】查看验证码');
         deadline.value = Date.now() + 1000 * 60;
         isDeadline.value = true;
     });
@@ -353,7 +360,7 @@ const openCode = () => {
             "id": formState.id,
         }
     }).then(() => {
-        message.success('验证码发送成功，请去微信WXPUSher进行查看');
+        message.success('发送成功，请前往微信公众号【WxPusher】查看验证码');
         deadline.value = Date.now() + 1000 * 60;
         isDeadline.value = true;
     });
@@ -481,13 +488,16 @@ const login = () => {
         try {
             // 登录环境异常
             if (e.code == 5016) {
-                abnormalOpenCode();
+                // 异常登录弹窗
+                // abnormalOpenCode();
+                isPop.value = true;
+                popData.value = formState;
                 return;
             }
         } catch (error) {
-
+            message.error(e.msg || '系统异常')
         }
-
+        message.error(e.msg || '系统异常')
         getCheckCode();
     })
 };
