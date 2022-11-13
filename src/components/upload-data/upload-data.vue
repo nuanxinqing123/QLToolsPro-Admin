@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:37:06
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 21:56:44
+ * @LastEditTime: 2022-11-13 22:50:41
 -->
 
 <template>
@@ -193,6 +193,9 @@ const filterOption = (value, option) => {
 const serverChange = (id, data) => {
     formState.envName = "";
     remainingPosition.value = "";
+    envNameData.value = [];
+    tipText.value = '';
+    emit("tipChange", tipText.value);
     try {
         envNameData.value = data.envData.map(item => {
             return {
