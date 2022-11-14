@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-10-26 12:05:19
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-11 08:16:59
+ * @LastEditTime: 2022-11-14 17:35:48
  */
 import axios from "axios";
 import qs from "qs";
@@ -135,6 +135,9 @@ service.interceptors.response.use(
                 : config.isCloseLoadding;
         // 是否开始错误弹框，默认开启
         var isPop = config.isPop === undefined ? true : config.isPop;
+        // 是否显示成功弹框，默认开启
+        var isSuccessPop =
+            config.isSuccessPop === undefined ? false : config.isSuccessPop;
 
         if (isCloseLoadding) {
             commonUtil.setLoading(false);
@@ -148,6 +151,7 @@ service.interceptors.response.use(
             }
             if (data.code == 0 || data.code == 2000 || data.code == 1000) {
                 const result = data.data;
+                let returnRes = {};
                 try {
                     if (typeof result === "boolean") {
                         return result;
@@ -155,12 +159,19 @@ service.interceptors.response.use(
                     if (typeof result === null) {
                         return result;
                     }
-                    return typeof result === "string"
-                        ? JSON.parse(result)
-                        : result || {};
+                    returnRes =
+                        typeof result === "string"
+                            ? JSON.parse(result)
+                            : result || {};
                 } catch (error) {
-                    return result;
+                    returnRes = result;
                 }
+                if (isSuccessPop) {
+                    setTimeout(() => {
+                        message.success(returnRes || "操作成功");
+                    }, 400);
+                }
+                return returnRes;
             } else {
                 if (isPop) {
                     setTimeout(() => {

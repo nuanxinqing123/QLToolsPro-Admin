@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 03:11:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-11-07 14:56:00
+ * @LastEditTime: 2022-11-14 17:58:47
  */
 import service from "./request";
 import exportExcel from "./exportExcel";
@@ -1021,6 +1021,36 @@ export function abnormalSignin(opts) {
         method: "POST",
         isForm: false,
         url: import.meta.env.VITE_URl + "v1/api/user/abnormal/signin",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+
+// 手动刷新缓存
+export function refreshCacheManually(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "PUT",
+        isForm: false,
+        isSuccessPop: true,
+        url: import.meta.env.VITE_URl + "v3/api/env/refresh",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+
+// config.sh 同步
+export function synchronizationPost(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "POST",
+        isForm: false,
+        isSuccessPop: true,
+        url: import.meta.env.VITE_URl + "v3/api/container/synchronization",
         data: obj.data || {},
         isLoadding: obj.isLoadding || true,
         isCloseLoadding: obj.isCloseLoadding || true,

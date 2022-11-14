@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-10-05 17:14:08
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-18 17:18:55
+ * @LastEditTime: 2022-11-14 18:00:29
 -->
 <template>
     <restore-pop v-model:visible="isPop"
@@ -119,10 +119,52 @@
                     <!-- <a-divider /> -->
                 </div>
             </div>
+            <a-card title="config.sh 同步"
+                    :bordered="false">
+                <a-row :gutter="16">
+                    <a-col :span="5">
+
+                        <a-form-item label="面板A:"
+                                     name="start">
+                            <a-select v-model:value="synchronizationForm.start"
+                                      placeholder="请选择"
+                                      :filter-option="filterOption"
+                                      show-search
+                                      @change="synchronizationChangeA"
+                                      option-label-prop="label"
+                                      :options="synchronizationA">
+                            </a-select>
+                        </a-form-item>
+                    </a-col>
+                    <a-col :span="13">
+                        <a-form-item label="面板B:"
+                                     name="end">
+                            <a-select v-model:value="synchronizationForm.end"
+                                      placeholder="请选择"
+                                      :max-tag-count="maxTagCount"
+                                      :filter-option="filterOption"
+                                      show-search
+                                      mode="multiple"
+                                      option-label-prop="label"
+                                      :options="synchronizationB">
+                            </a-select>
+                        </a-form-item>
+                    </a-col>
+                    <a-col :span="6">
+                        <a-button type="primary"
+                                  style="width:100%;"
+                                  @click="synchronizationSubmit">同步</a-button>
+                    </a-col>
+                </a-row>
+
+            </a-card>
+
             <a-card title="错误日志"
                     :bordered="false">
                 <p>Tip: 错误日志会显示以上功能执行时发生的错误记录（只显示最新的十条记录）</p>
+
             </a-card>
+
         </template>
     </page-container>
 
@@ -135,6 +177,7 @@ import { message } from "ant-design-vue";
 import restorePop from "./restorePop.vue";
 
 import {
+    synchronizationPost,
     panelManagementList,
     containerManagementBackUpDownload,
     containerManagementTransfer, containerManagementCopy, containerManagementBackup, containerManagementErrorList
@@ -150,6 +193,14 @@ const serverData = ref([]);
 const filterOption = (value, option) => {
     return option.label.indexOf(value) >= 0;
 };
+const maxTagCount = ref(3);
+// configsh同步
+const synchronizationForm = reactive({
+    start: undefined,
+    end: []
+})
+const synchronizationA = ref([]);
+const synchronizationB = ref([]);
 const layout1 = {
     labelCol: {
         span: 6,
@@ -185,6 +236,32 @@ const columns = [
 const tableData = ref([]);
 const popData = ref({});
 const isPop = ref(false);
+// 同步config.sh
+const synchronizationChangeA = (e) => {
+    synchronizationB.value = serverData.value.filter(item => item.value !== e);
+    if (synchronizationForm.end.includes(e)) {
+        synchronizationForm.end = synchronizationForm.end.filter(item => item != e);
+    }
+}
+// 同步数据
+const synchronizationSubmit = () => {
+
+
+    if (!synchronizationForm.start) {
+        message.error("请选择面板A!");
+        return;
+    }
+    if (!synchronizationForm.end.length) {
+        message.error("请选择面板B!");
+        return;
+    }
+    synchronizationPost({
+        data: synchronizationForm
+    }).then(() => {
+        synchronizationForm.start = undefined;
+        synchronizationForm.end = [];
+    })
+}
 // 是否打开弹窗
 const setPop = () => {
     isPop.value = true;
@@ -239,6 +316,10 @@ const pageGetPanelData = () => {
         } catch (error) {
             formState1.end = serverData.value[0].value;
         }
+
+        // 同步的数据
+        synchronizationA.value = serverData.value;
+        synchronizationB.value = serverData.value;
     })
 
 

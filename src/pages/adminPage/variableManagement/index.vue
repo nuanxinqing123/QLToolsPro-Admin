@@ -30,6 +30,19 @@
                         新增
                     </a-button>
                 </a-form-item>
+
+                <a-popconfirm placement="topLeft"
+                              ok-text="是"
+                              cancel-text="否"
+                              @confirm="refreshCache">
+                    <template #title>
+                        是否确认刷新缓存？
+                    </template>
+                    <a-button type="danger"
+                              style="margin-left: 10px;"
+                              shape="round">手动刷新缓存
+                    </a-button>
+                </a-popconfirm>
             </a-form>
         </template>
         <template #bodyCell="{ text, record, index, column }">
@@ -70,6 +83,7 @@ import countAnimation from "@/components/count-animation/count-animation.vue";
 import pageContainer from "@/components/page-container/page-container.vue";
 
 import {
+    refreshCacheManually,
     variableManagementList,
     variableManagementDelete,
 } from "@/utils/api";
@@ -184,6 +198,10 @@ const columns = [
 const tableData = ref([
 
 ]);
+// 手动刷新缓存
+const refreshCache = () => {
+    refreshCacheManually();
+}
 // 是否打开弹窗
 const setPop = (item) => {
     isPop.value = true;
