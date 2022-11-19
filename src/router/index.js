@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-10-25 17:17:40
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-06 20:23:50
+ * @LastEditTime: 2022-11-19 22:04:42
  */
 import {
     createRouter,
@@ -161,7 +161,7 @@ const routes = [
                 path: "/plugInManagement",
                 name: "plugInManagement",
                 meta: {
-                    title: "插件管理",
+                    title: "在线插件库",
                     key: "10",
                 },
                 component: () =>
@@ -203,6 +203,18 @@ const routes = [
                 component: () =>
                     import(
                         /* webpackChunkName: 'adminHome' */ "@/pages/userPage/variableSubmission/index.vue"
+                    ),
+            },
+            {
+                path: "/plugInOnLine",
+                name: "plugInOnLine",
+                meta: {
+                    title: "在线插件库",
+                    key: "14",
+                },
+                component: () =>
+                    import(
+                        /* webpackChunkName: 'plugInOnLine' */ "@/pages/adminPage/plugInOnLine/index.vue"
                     ),
             },
         ],

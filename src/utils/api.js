@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 03:11:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-11-14 17:58:47
+ * @LastEditTime: 2022-11-19 22:24:59
  */
 import service from "./request";
 import exportExcel from "./exportExcel";
@@ -752,6 +752,25 @@ export function cardSecretManagementAddDownload(opts) {
     });
 }
 /*******插件管理********/
+
+// 在线插件库读取插件
+export function plugInManagementOnLineList(opts) {
+    let obj = opts || {};
+    // fetchRequest service.request
+    return service.request({
+        method: "get",
+        isForm: false,
+        ifSplicing: true, //是否拼接
+        splicingData: opts.splicingData || {}, //拼接的data
+        url: import.meta.env.VITE_URl + "v1/api/plugin/data",
+        // url: "http://plugin.6b7.xyz/v1/api/plugin/data",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+
 // 读取插件
 export function plugInManagementList(opts) {
     let obj = opts || {};

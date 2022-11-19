@@ -1,5 +1,5 @@
 <!--
- * @Descripttion: 本地插件管理
+ * @Descripttion: 在线插件库
  * @Author: LiLei
  * @Date: 2022-07-13 16:10:45
  * @LastEditors: LiLei
@@ -37,7 +37,7 @@
                         <SearchOutlined />
                         搜索
                     </a-button>
-                    <a-button type="primary"
+                    <!-- <a-button type="primary"
                               style="margin-left: 10px;"
                               shape="round"
                               @click.prevent="plugUpdate()">
@@ -48,7 +48,7 @@
                               shape="round"
                               @click.prevent="setPop()">
                         上传插件
-                    </a-button>
+                    </a-button> -->
                     <!-- <a-button style="margin-left: 10px"
                               class="filter-reset"
                               @click="resetFieldsClick">
@@ -89,7 +89,7 @@ import pageContainer from "@/components/page-container/page-container.vue";
 import {
     plugInManagementRefresh,
     plugInManagementDelete,
-    plugInManagementList,
+    plugInManagementOnLineList,
 } from "@/utils/api";
 import {
     dateTtoDateStr,
@@ -125,31 +125,37 @@ const options = ref([
     {
         value: "cron",
         label: "定时"
+    }, {
+        value: "front",
+        label: "前置"
     }
 ])
 const columns = [
     {
         title: "文件名称",
-        dataIndex: "file_name",
+        dataIndex: "FileName",
     },
     {
         title: "插件名称",
-        dataIndex: "plugin_name",
+        dataIndex: "Name",
     },
     {
-        title: "定时时间",
-        dataIndex: "cron_time",
+        title: "版本",
+        dataIndex: "Version",
     },
     {
-        title: "容器名称",
-        dataIndex: "need_env_name",
+        title: "上传人",
+        dataIndex: "Author",
     },
-
     {
-        title: "操作",
-        dataIndex: "operation",
-        customKey: "operation",
-    }
+        title: "更新日期",
+        dataIndex: "Time",
+    },
+    // {
+    //     title: "操作",
+    //     dataIndex: "operation",
+    //     customKey: "operation",
+    // }
 ];
 const tableData = ref([
 
@@ -191,7 +197,7 @@ const getData = (flag) => {
         type: postSearchData.value.type
     };
 
-    plugInManagementList({
+    plugInManagementOnLineList({
         data: searchData,
         splicingData: splicingData,
     }).then((data) => {

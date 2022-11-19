@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-05-11 17:01:36
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-10 20:45:50
+ * @LastEditTime: 2022-11-19 22:24:43
 -->
 <template>
     <a-layout style="min-height: 100vh">
@@ -57,11 +57,18 @@
                     <shrink-outlined />
                     <span>容器管理</span>
                 </a-menu-item>
-                <a-menu-item key="10"
-                             @click="goPage('plugInManagement','10')">
-                    <cloud-server-outlined />
-                    <span>插件管理</span>
-                </a-menu-item>
+
+                <a-sub-menu key="sub2">
+                    <template #icon>
+                        <cloud-server-outlined />
+                    </template>
+
+                    <template #title>插件管理</template>
+                    <a-menu-item key="10"
+                                 @click="goPage('plugInManagement','10')">本地插件管理</a-menu-item>
+                    <a-menu-item key="14"
+                                 @click="goPage('plugInOnLine','14')">在线插件库</a-menu-item>
+                </a-sub-menu>
 
                 <a-menu-item key="3"
                              @click="goPage('userManagement','3')">
