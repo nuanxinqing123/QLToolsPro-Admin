@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-10-26 12:05:19
  * @LastEditors: LiLei
- * @LastEditTime: 2022-11-14 17:35:48
+ * @LastEditTime: 2022-11-19 23:24:31
  */
 import axios from "axios";
 import qs from "qs";
@@ -93,10 +93,10 @@ service.interceptors.request.use(
                 "application/x-www-form-urlencoded; charset=UTF-8";
 
             config.data = datas;
-        } else {
+        } else if (config.method != "get") {
             config.data = config.data;
         }
-        if (commonUtil.getItem("token")) {
+        if (commonUtil.getItem("token") && !config.noAuthorization) {
             config.headers.Authorization =
                 "Bearer " + commonUtil.getItem("token") || "";
         }
@@ -162,7 +162,7 @@ service.interceptors.response.use(
                     returnRes =
                         typeof result === "string"
                             ? JSON.parse(result)
-                            : result || {};
+                            : result;
                 } catch (error) {
                     returnRes = result;
                 }

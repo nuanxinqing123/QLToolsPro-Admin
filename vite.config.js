@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-15 23:10:20
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-13 22:20:48
+ * @LastEditTime: 2022-11-19 23:21:07
  */
 import { defineConfig, loadEnv } from "vite";
 import vue from "@vitejs/plugin-vue";
@@ -88,6 +88,11 @@ export default ({ mode }) => {
                     target: "http://h.6b7.xyz:6600/",
                     changeOrigin: true,
                     rewrite: (path) => path.replace(/^\/foo/, ""),
+                },
+                "/goo": {
+                    target: "http://plugin.6b7.xyz/",
+                    changeOrigin: true,
+                    rewrite: (path) => path.replace(/^\/goo/, ""),
                 },
             },
         },

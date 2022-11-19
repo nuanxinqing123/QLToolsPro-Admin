@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 03:11:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-11-19 22:24:59
+ * @LastEditTime: 2022-11-19 23:22:52
  */
 import service from "./request";
 import exportExcel from "./exportExcel";
@@ -756,15 +756,14 @@ export function cardSecretManagementAddDownload(opts) {
 // 在线插件库读取插件
 export function plugInManagementOnLineList(opts) {
     let obj = opts || {};
-    // fetchRequest service.request
     return service.request({
         method: "get",
         isForm: false,
+        noAuthorization: true,
         ifSplicing: true, //是否拼接
         splicingData: opts.splicingData || {}, //拼接的data
-        url: import.meta.env.VITE_URl + "v1/api/plugin/data",
+        url: import.meta.env.VITE_PLUGIN_URL + "v1/api/plugin/data",
         // url: "http://plugin.6b7.xyz/v1/api/plugin/data",
-        data: obj.data || {},
         isLoadding: obj.isLoadding || true,
         isCloseLoadding: obj.isCloseLoadding || true,
         isPop: obj.isPop,

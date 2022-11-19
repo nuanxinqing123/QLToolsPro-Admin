@@ -192,11 +192,11 @@ const getData = (flag) => {
         pageNum.value = 1;
     }
     let splicingData = {
-        page: pageNum.value,
-        quantity: pageSize.value,
+        // page: pageNum.value,
+        // quantity: pageSize.value,
         type: postSearchData.value.type
     };
-
+    // axios.get('http://plugin.6b7.xyz/v1/api/plugin/data?page=1&quantity=10&type=ordinary')
     plugInManagementOnLineList({
         data: searchData,
         splicingData: splicingData,
