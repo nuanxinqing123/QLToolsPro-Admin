@@ -130,7 +130,7 @@ const options = ref([
         label: "前置"
     }
 ])
-const columns = [
+const columnsDefault = [
     {
         title: "文件名称",
         dataIndex: "FileName",
@@ -157,6 +157,43 @@ const columns = [
     //     customKey: "operation",
     // }
 ];
+const columnsCron = [
+    {
+        title: "文件名称",
+        dataIndex: "FileName",
+    },
+    {
+        title: "插件名称",
+        dataIndex: "Name",
+    },
+    {
+        title: "插件执行变量名",
+        dataIndex: "EnvName",
+    },
+    {
+        title: "定时规则",
+        dataIndex: "Cron",
+    },
+    {
+        title: "版本",
+        dataIndex: "Version",
+    },
+    {
+        title: "上传人",
+        dataIndex: "Author",
+    },
+    {
+        title: "更新日期",
+        dataIndex: "Time",
+    },
+    // {
+    //     title: "操作",
+    //     dataIndex: "operation",
+    //     customKey: "operation",
+    // }
+];
+const columns = ref(columnsDefault)
+
 const tableData = ref([
 
 ]);
@@ -201,6 +238,11 @@ const getData = (flag) => {
         data: searchData,
         splicingData: splicingData,
     }).then((data) => {
+        if (postSearchData.value.type == 'cron') {
+            columns.value = columnsCron;
+        } else {
+            columns.value = columnsDefault;
+        }
         try {
             total.value = (data.page || 0) * pageSize.value;
         } catch (error) {
