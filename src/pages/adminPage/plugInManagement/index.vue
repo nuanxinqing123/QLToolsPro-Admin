@@ -127,7 +127,23 @@ const options = ref([
         label: "定时"
     }
 ])
-const columns = [
+const columnsDefault = [
+    {
+        title: "文件名称",
+        dataIndex: "file_name",
+    },
+    {
+        title: "插件名称",
+        dataIndex: "plugin_name",
+    },
+
+    {
+        title: "操作",
+        dataIndex: "operation",
+        customKey: "operation",
+    }
+];
+const columnsCron = [
     {
         title: "文件名称",
         dataIndex: "file_name",
@@ -151,6 +167,8 @@ const columns = [
         customKey: "operation",
     }
 ];
+const columns = ref(columnsDefault)
+
 const tableData = ref([
 
 ]);
@@ -190,7 +208,11 @@ const getData = (flag) => {
         quantity: pageSize.value,
         type: postSearchData.value.type
     };
-
+    if (postSearchData.value.type == 'cron') {
+        columns.value = columnsCron;
+    } else {
+        columns.value = columnsDefault;
+    }
     plugInManagementList({
         data: searchData,
         splicingData: splicingData,

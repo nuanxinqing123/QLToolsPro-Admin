@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-10-25 17:17:40
  * @LastEditors: LiLei
- * @LastEditTime: 2022-11-19 22:04:42
+ * @LastEditTime: 2022-11-27 15:46:05
  */
 import {
     createRouter,
@@ -161,7 +161,7 @@ const routes = [
                 path: "/plugInManagement",
                 name: "plugInManagement",
                 meta: {
-                    title: "在线插件库",
+                    title: "本地插件管理",
                     key: "10",
                 },
                 component: () =>
