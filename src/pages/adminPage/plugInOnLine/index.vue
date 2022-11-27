@@ -61,7 +61,7 @@
 
             <template v-if="column.customKey === 'operation'">
 
-                <!-- <a-popconfirm placement="topLeft"
+                <a-popconfirm placement="topLeft"
                               ok-text="确认"
                               cancel-text="取消"
                               @confirm="download(record)">
@@ -72,13 +72,13 @@
                               style="margin-left: 10px;margin-bottom:10px;"
                               shape="round">下载
                     </a-button>
-                </a-popconfirm> -->
-
+                </a-popconfirm>
+                <!--
                 <a-button type="primary"
                           @click="download(record)"
                           style="margin-bottom:10px;"
                           shape="round">下载
-                </a-button>
+                </a-button> -->
             </template>
         </template>
     </page-container>
@@ -233,10 +233,9 @@ const deletRow = (item) => {
 // 下载文件
 const download = (item) => {
     pluginDownload({
-        excelTitles: item.FileName,
-        splicingData: {
+        data: {
             type: postSearchData.value.type,
-            filename: item.FileName
+            file_name: item.FileName
         }
     })
 }

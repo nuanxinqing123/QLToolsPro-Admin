@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 03:11:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-11-27 11:33:35
+ * @LastEditTime: 2022-11-27 13:14:31
  */
 import service from "./request";
 import exportExcel from "./exportExcel";
@@ -1077,19 +1077,31 @@ export function synchronizationPost(opts) {
 }
 
 // 下载插件
+
 export function pluginDownload(opts) {
     let obj = opts || {};
-    return exportExcel({
-        method: "get",
-        noAuthorization: true,
-        ifSplicing: true, //是否拼接
-        splicingData: opts.splicingData || {}, //拼接的data
-        excelTitles: opts.excelTitles,
-        exportTip: "正在下载，请稍候...",
-        url: import.meta.env.VITE_PLUGIN_URL + "v1/api/plugin/download",
+    // return exportExcel({
+    //     method: "get",
+    //     noAuthorization: true,
+    //     ifSplicing: true, //是否拼接
+    //     splicingData: opts.splicingData || {}, //拼接的data
+    //     excelTitles: opts.excelTitles,
+    //     exportTip: "正在下载，请稍候...",
+    //     url: import.meta.env.VITE_PLUGIN_URL + "v1/api/plugin/download",
+    //     data: obj.data || {},
+    //     isLoadding: obj.isLoadding || false,
+    //     isCloseLoadding: obj.isCloseLoadding || false,
+    //     isPop: obj.isPop,
+    // });
+
+    return service.request({
+        method: "POST",
+        isForm: false,
+        isSuccessPop: true,
+        url: import.meta.env.VITE_URl + "v3/api/plugin/remote/download",
         data: obj.data || {},
-        isLoadding: obj.isLoadding || false,
-        isCloseLoadding: obj.isCloseLoadding || false,
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
         isPop: obj.isPop,
     });
 }
