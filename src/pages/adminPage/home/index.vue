@@ -3,9 +3,12 @@
  * @Author: LiLei
  * @Date: 2022-09-29 15:24:11
  * @LastEditors: LiLei
- * @LastEditTime: 2022-11-07 11:14:39
+ * @LastEditTime: 2022-11-27 22:11:55
 -->
 <template>
+    <pop v-model:visible="isPop"
+         :dataObj="popData">
+    </pop>
     <page-container @initData="getData"
                     isScroll>
         <template #top>
@@ -94,7 +97,11 @@
                         <div v-html="webData.Notice"></div>
                         <a-divider style="padding:5px 0;" />
                         程序版本：{{webData.LocVersion}}
-                        <span v-if="webData.LocVersion !== webData.Version">【有最新版本可用，最新版本：{{webData.Version}}】</span>
+
+                        <a-button type="link"
+                                  danger
+                                  @click="openPop"
+                                  v-if="webData.LocVersion !== webData.Version">【有最新版本可用，最新版本：{{webData.Version}}】</a-button>
                     </a-descriptions-item>
                 </a-descriptions>
             </div>
@@ -108,6 +115,8 @@ import pageContainer from "@/components/page-container/page-container.vue";
 import countAnimation from "@/components/count-animation/count-animation.vue";
 import { notification } from 'ant-design-vue';
 import { ref } from 'vue';
+import pop from "./update.vue";
+
 import {
     webEdition,
     homeData
@@ -121,10 +130,19 @@ const homeObj = ref({
     "to_day_upload_count": 0 //今日上传变量数量
 })
 const webData = ref({})
+const popData = ref({});
+const isPop = ref(false);
+
+const openPop = () => {
+    isPop.value = true;
+    popData.value = webData.value;
+}
+
 const getData = () => {
     webEdition().then((data) => {
         webData.value = data;
         if (data.LocVersion !== data.Version) {
+            // openPop();
             notification.info({
                 message: '温馨提示',
                 duration: 5,

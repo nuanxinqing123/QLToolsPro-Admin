@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:37:06
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-10 11:22:04
+ * @LastEditTime: 2022-11-27 22:11:30
 -->
 
 <template>
@@ -89,8 +89,32 @@
                     </a-form-item>
                 </div>
 
-                <a-form-item label="">
+                <a-form-item label=""
+                             :wrapper-col="{ span: 16, offset: 3 }">
+                    <a-popconfirm placement="
+                             topLeft"
+                                  ok-text="确认"
+                                  cancel-text="取消"
+                                  @confirm="systemOperation('shutdown')">
+                        <template #title>
+                            是否确认关机？
+                        </template>
+                        <a-button type="danger"
+                                  html-type="submit">关机</a-button>
+                    </a-popconfirm>
+                    <a-popconfirm placement="topLeft"
+                                  ok-text="确认"
+                                  cancel-text="取消"
+                                  @confirm="systemOperation('restart')">
+                        <template #title>
+                            是否确认重启？
+                        </template>
+                        <a-button type="danger"
+                                  style="margin-left: 20px;"
+                                  html-type="submit">重启</a-button>
+                    </a-popconfirm>
                     <a-button type="primary"
+                              style="margin-left: 20px;"
                               html-type="submit">提交</a-button>
                 </a-form-item>
 
@@ -105,7 +129,7 @@ import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import pageContainer from "@/components/page-container/page-container.vue";
 
 import {
-    webSettingsSms,
+    systemState,
     webSettingsUpdate,
 } from "utils/api.js";
 import {
@@ -145,6 +169,14 @@ onBeforeUnmount(() => {
 
 const handleCreated = (editor) => {
     editorRef.value = editor // 记录 editor 实例，重要！
+}
+
+const systemOperation = (type) => {
+    systemState({
+        splicingData: {
+            type: type
+        }
+    })
 }
 
 const formState = reactive({

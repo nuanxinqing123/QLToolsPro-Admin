@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 03:11:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-11-27 13:14:31
+ * @LastEditTime: 2022-11-27 22:04:16
  */
 import service from "./request";
 import exportExcel from "./exportExcel";
@@ -1099,6 +1099,42 @@ export function pluginDownload(opts) {
         isForm: false,
         isSuccessPop: true,
         url: import.meta.env.VITE_URl + "v3/api/plugin/remote/download",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+
+// 更新系统
+
+export function softwareUpdate(opts) {
+    let obj = opts || {};
+
+    return service.request({
+        method: "POST",
+        isForm: false,
+        isSuccessPop: true,
+        url: import.meta.env.VITE_URl + "v3/api/system/software/update",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+
+// 关机/重启
+
+export function systemState(opts) {
+    let obj = opts || {};
+
+    return service.request({
+        method: "get",
+        isForm: false,
+        isSuccessPop: true,
+        ifSplicing: true, //是否拼接
+        splicingData: opts.splicingData || {}, //拼接的data
+        url: import.meta.env.VITE_URl + "v3/api/system/state",
         data: obj.data || {},
         isLoadding: obj.isLoadding || true,
         isCloseLoadding: obj.isCloseLoadding || true,
