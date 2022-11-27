@@ -157,7 +157,7 @@ const columnsCron = [
         dataIndex: "cron_time",
     },
     {
-        title: "容器名称",
+        title: "执行变量名",
         dataIndex: "need_env_name",
     },
 
