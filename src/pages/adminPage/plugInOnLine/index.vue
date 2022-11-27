@@ -61,19 +61,24 @@
 
             <template v-if="column.customKey === 'operation'">
 
-                <a-popconfirm placement="topLeft"
-                              ok-text="是"
-                              cancel-text="否"
-                              @confirm="deletRow(record)">
+                <!-- <a-popconfirm placement="topLeft"
+                              ok-text="确认"
+                              cancel-text="取消"
+                              @confirm="download(record)">
                     <template #title>
-                        是否确认删除？
+                        此操作会覆盖原有内容？
                     </template>
-                    <a-button type="danger"
+                    <a-button type="primary"
                               style="margin-left: 10px;margin-bottom:10px;"
-                              shape="round">删除
+                              shape="round">下载
                     </a-button>
-                </a-popconfirm>
+                </a-popconfirm> -->
 
+                <a-button type="primary"
+                          @click="download(record)"
+                          style="margin-bottom:10px;"
+                          shape="round">下载
+                </a-button>
             </template>
         </template>
     </page-container>
@@ -87,6 +92,7 @@ import { Form, Empty, message } from "ant-design-vue";
 import pageContainer from "@/components/page-container/page-container.vue";
 
 import {
+    pluginDownload,
     plugInManagementRefresh,
     plugInManagementDelete,
     plugInManagementOnLineList,
@@ -151,11 +157,11 @@ const columnsDefault = [
         title: "更新日期",
         dataIndex: "Time",
     },
-    // {
-    //     title: "操作",
-    //     dataIndex: "operation",
-    //     customKey: "operation",
-    // }
+    {
+        title: "操作",
+        dataIndex: "operation",
+        customKey: "operation",
+    }
 ];
 const columnsCron = [
     {
@@ -186,11 +192,11 @@ const columnsCron = [
         title: "更新日期",
         dataIndex: "Time",
     },
-    // {
-    //     title: "操作",
-    //     dataIndex: "operation",
-    //     customKey: "operation",
-    // }
+    {
+        title: "操作",
+        dataIndex: "operation",
+        customKey: "operation",
+    }
 ];
 const columns = ref(columnsDefault)
 
@@ -221,6 +227,17 @@ const deletRow = (item) => {
     }).then(() => {
         message.success("操作成功!");
         getData(true);
+    })
+}
+
+// 下载文件
+const download = (item) => {
+    pluginDownload({
+        excelTitles: item.FileName,
+        splicingData: {
+            type: postSearchData.value.type,
+            filename: item.FileName
+        }
     })
 }
 

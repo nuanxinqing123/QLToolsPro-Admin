@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-10-05 17:14:08
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-09 21:53:02
+ * @LastEditTime: 2022-11-27 11:36:41
 -->
 <template>
     <div :style="{height:routerPageHeight+'px'}"
@@ -133,7 +133,7 @@ const {
     isSearch
 } = toRefs(props);
 
-const emit = defineEmits(['update:current', 'update:pageSize', 'update:total']);
+const emit = defineEmits(['update:current', 'update:pageSize', 'update:total', 'onShowSizeChange', 'initData']);
 const columnsTable = ref([]);
 // 表格ref
 const tableRef = ref(null);

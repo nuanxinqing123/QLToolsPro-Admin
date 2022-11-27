@@ -3,10 +3,11 @@
  * @Author: LiLei
  * @Date: 2022-03-24 13:15:33
  * @LastEditors: LiLei
- * @LastEditTime: 2022-09-30 09:45:17
+ * @LastEditTime: 2022-11-27 11:35:03
  */
 import { useCommonUtilStore } from "@/stores/commonUtil";
 import { message } from "ant-design-vue";
+import qs from "qs";
 
 function doDownloadFile(config) {
     const commonUtil = useCommonUtilStore();
@@ -23,8 +24,25 @@ function doDownloadFile(config) {
         commonUtil.setLoading(true);
     }
 
+    if (config.ifSplicing) {
+        let strUrl = "";
+        const splicingData = config.splicingData || config.data;
+        console.log("config.splicingData Download", config.splicingData);
+        for (const key in splicingData) {
+            if (strUrl) {
+                strUrl += "&" + key + "=" + splicingData[key];
+            } else {
+                strUrl = key + "=" + splicingData[key];
+            }
+        }
+        if (strUrl) {
+            strUrl = "?" + strUrl;
+        }
+        config.url += strUrl;
+    }
+
     const hide = message.loading(config.exportTip || "正在导出，请稍候...", 0);
-    setTimeout(hide, 2500);
+    setTimeout(hide, 500);
     const data = config.data;
     console.log("导出下载请求参数：", data);
     const oReq = new XMLHttpRequest();
@@ -32,7 +50,7 @@ function doDownloadFile(config) {
 
     oReq.open(config.method || "POST", config.url, true);
     oReq.setRequestHeader("Content-Type", "application/json");
-    if (commonUtil.getItem("token")) {
+    if (commonUtil.getItem("token") && !config.noAuthorization) {
         oReq.setRequestHeader(
             "Authorization",
             "Bearer " + commonUtil.getItem("token") || ""
@@ -44,7 +62,9 @@ function doDownloadFile(config) {
         const content = oReq.response;
 
         const elink = document.createElement("a");
-        elink.download = config.excelTitle + (config.excelType || ".xlsx");
+        elink.download =
+            config.excelTitles ||
+            config.excelTitle + (config.excelType || ".xlsx");
         elink.style.display = "none";
 
         const blob = new Blob([content], {
