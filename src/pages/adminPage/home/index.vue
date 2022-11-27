@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-09-29 15:24:11
  * @LastEditors: LiLei
- * @LastEditTime: 2022-11-27 22:11:55
+ * @LastEditTime: 2022-11-27 22:16:25
 -->
 <template>
     <pop v-model:visible="isPop"
@@ -147,6 +147,7 @@ const getData = () => {
                 message: '温馨提示',
                 duration: 5,
                 description: '有更新可用',
+                onClick: openPop
             });
         }
 

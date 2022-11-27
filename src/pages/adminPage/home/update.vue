@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:37:06
  * @LastEditors: LiLei
- * @LastEditTime: 2022-11-27 22:12:34
+ * @LastEditTime: 2022-11-27 22:15:26
 -->
 
 <template>
@@ -102,8 +102,9 @@ const updateSystem = () => {
 <style lang="scss">
 .update-container {
     ul,
-    ol {
-        list-style: disc;
+    ol,
+    li {
+        list-style: disc !important;
         margin-bottom: 0;
         padding-left: 15px;
     }
