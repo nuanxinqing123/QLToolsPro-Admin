@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-10-05 17:14:08
  * @LastEditors: LiLei
- * @LastEditTime: 2022-11-14 18:00:29
+ * @LastEditTime: 2022-11-27 22:19:40
 -->
 <template>
     <restore-pop v-model:visible="isPop"
@@ -83,16 +83,16 @@
                         <p>Tip: 备份/恢复功能将会以JSON文件实现</p>
                         <p>备份: 备份完成后会自动下载备份文件，下载完成十秒后。服务器自动删除服务端备份数据</p>
 
-                        <p>恢复: 恢复文件的文件名必须为<a-button type="link"
+                        <!-- <p>恢复: 恢复文件的文件名必须为<a-button type="link"
                                       class="cursor-initial"
                                       danger>【backup.json】</a-button>
-                        </p>
+                        </p> -->
                     </a-card>
 
                     <a-form :model="formState2"
                             v-bind="layout2">
                         <a-form-item label="操作面板:"
-                                     style="margin-top:-10px;"
+                                     style="margin-top:46px;"
                                      name="start">
                             <a-select v-model:value="formState2.start"
                                       placeholder="请选择"

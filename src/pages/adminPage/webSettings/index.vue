@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:37:06
  * @LastEditors: LiLei
- * @LastEditTime: 2022-11-27 22:11:30
+ * @LastEditTime: 2022-11-27 22:20:42
 -->
 
 <template>
@@ -90,28 +90,28 @@
                 </div>
 
                 <a-form-item label=""
+                             style="margin-top:15px;"
                              :wrapper-col="{ span: 16, offset: 3 }">
-                    <a-popconfirm placement="
-                             topLeft"
+                    <a-popconfirm placement="topLeft"
                                   ok-text="确认"
                                   cancel-text="取消"
                                   @confirm="systemOperation('shutdown')">
                         <template #title>
-                            是否确认关机？
+                            是否确认关闭程序？
                         </template>
                         <a-button type="danger"
-                                  html-type="submit">关机</a-button>
+                                  html-type="submit">关闭程序</a-button>
                     </a-popconfirm>
                     <a-popconfirm placement="topLeft"
                                   ok-text="确认"
                                   cancel-text="取消"
                                   @confirm="systemOperation('restart')">
                         <template #title>
-                            是否确认重启？
+                            是否确认重启程序？
                         </template>
                         <a-button type="danger"
                                   style="margin-left: 20px;"
-                                  html-type="submit">重启</a-button>
+                                  html-type="submit">重启程序</a-button>
                     </a-popconfirm>
                     <a-button type="primary"
                               style="margin-left: 20px;"
