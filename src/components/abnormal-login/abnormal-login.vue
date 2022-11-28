@@ -3,11 +3,12 @@
  * @Author: LiLei
  * @Date: 2022-08-22 16:44:50
  * @LastEditors: LiLei
- * @LastEditTime: 2022-11-07 15:32:36
+ * @LastEditTime: 2022-11-28 09:45:53
 -->
 <template>
     <p-center-modal :modalVisible="visible"
                     isNoBg
+                    isWidth80
                     :isFooter="false"
                     @close="close"
                     title="您的登录环境异常，需要校验身份">
@@ -30,7 +31,7 @@
 
                 <a-form-item name="id">
                     <a-input v-model:value="formState.id"
-                             placeholder="请输入验证码"
+                             placeholder="输入验证码"
                              :bordered="false"
                              allow-clear>
                         <template #prefix>
@@ -40,11 +41,12 @@
                             <a-button class="button-flex post-code align-center"
                                       disabled
                                       v-if="isDeadline">
-                                发送验证码（
+                                重发验证码
+                                <!-- （ -->
                                 <a-statistic-countdown :value="deadline"
                                                        format="ss"
                                                        @finish="codeFinish" />
-                                ）
+                                <!-- ） -->
                             </a-button>
 
                             <template v-else>
@@ -251,5 +253,22 @@ const init = () => {
 <style lang="scss">
 .button-flex {
     display: flex;
+}
+@media screen and (max-width: 750px) {
+    .post-code {
+        font-size: 14px;
+        line-height: 30px;
+        padding: 0 5px;
+        .ant-statistic {
+            font-size: 14px;
+            line-height: 30px;
+            margin-top: -2px;
+            margin-left: 5px;
+            span {
+                display: inline-block;
+                font-size: 14px;
+            }
+        }
+    }
 }
 </style>
