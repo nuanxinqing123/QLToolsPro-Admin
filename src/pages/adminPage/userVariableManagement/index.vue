@@ -136,6 +136,11 @@ const columns = [
         key: 'value',
     },
     {
+        title: '上传用户',
+        dataIndex: 'remarks',
+        key: 'remarks',
+    },
+    {
         title: "操作",
         dataIndex: "operation",
         customKey: "operation",

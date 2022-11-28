@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-10-05 17:14:08
  * @LastEditors: LiLei
- * @LastEditTime: 2022-11-27 11:36:41
+ * @LastEditTime: 2022-11-28 17:42:18
 -->
 <template>
     <div :style="{height:routerPageHeight+'px'}"
@@ -157,7 +157,11 @@ onMounted(() => {
     setTimeout(() => {
         try {
             if (!isNoYScroll.value) {
-                tableHeight.value = tableRef.value.clientHeight || tableRef.value.$el.clientHeight;
+                try {
+                    tableHeight.value = tableRef.value.clientHeight || tableRef.value.$el.clientHeight;
+                } catch (error) {
+
+                }
             }
         } catch (error) {
 
@@ -177,8 +181,12 @@ onMounted(() => {
                 init();
             }
             if (isTable.value && !isNoYScroll.value) {
-                tableHeight.value = tableRef.value.clientHeight || tableRef.value.$el.clientHeight;
-                console.log("tableHeight.value3 ", tableHeight.value, tableRef.value.clientHeight)
+                try {
+                    tableHeight.value = tableRef.value.clientHeight || tableRef.value.$el.clientHeight;
+                    console.log("tableHeight.value3 ", tableHeight.value, tableRef.value.clientHeight)
+                } catch (error) {
+
+                }
             }
         }, 10);
     })

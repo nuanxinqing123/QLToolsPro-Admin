@@ -177,13 +177,13 @@ const columns = [
         dataIndex: "EnvTips",
         width: 280
     },
+    // {
+    //     title: "创建时间",
+    //     dataIndex: "CreatedAt",
+    //     width: 280
+    // },
     {
-        title: "创建时间",
-        dataIndex: "CreatedAt",
-        width: 280
-    },
-    {
-        title: "更新时间",
+        title: "操作时间",
         dataIndex: "UpdatedAt",
         width: 280
     },

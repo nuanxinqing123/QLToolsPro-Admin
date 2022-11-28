@@ -152,11 +152,11 @@ const columns = [
         dataIndex: "Integral",
         width: 150
     },
-    {
-        title: "VIP",
-        dataIndex: "IsVIPStr",
-        width: 100
-    },
+    // {
+    //     title: "VIP",
+    //     dataIndex: "IsVIPStr",
+    //     width: 100
+    // },
     {
         title: "近期登录信息",
         dataIndex: "LoginIP",
@@ -179,7 +179,7 @@ const columns = [
     },
     {
         title: "用户账户状态",
-        dataIndex: "IsState",
+        dataIndex: "IsStateStr",
         width: 280
     },
 
@@ -271,9 +271,10 @@ const getData = (flag) => {
             if (item.UpdatedAt) {
                 item.UpdatedAt = dateTtoDateStr(item.UpdatedAt);
             }
+            item.IsStateStr = item.IsState ? '可用' : "禁用";
             item.IsVIPStr = item.IsVIP ? '是' : "否";
             if (item.ActivationTime) {
-                item.ActivationTime = dateTtoDateStr(item.ActivationTime);
+                item.ActivationTime = item.ActivationTime === "0001-01-01T00:00:00Z" ? '' : dateTtoDateStr(item.ActivationTime);
             }
             item.IsAdminStr = item.IsAdmin ? '✓' : "";
             return item;

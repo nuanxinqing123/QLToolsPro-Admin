@@ -190,18 +190,18 @@ const columns = [
     //     dataIndex: "PanelParams",
     //     width: 200
     // },
+    // {
+    //     title: "绑定变量",
+    //     dataIndex: "EnvBinding",
+    //     width: 200
+    // },
+    // {
+    //     title: "创建时间",
+    //     dataIndex: "CreatedAt",
+    //     width: 280
+    // },
     {
-        title: "绑定变量",
-        dataIndex: "EnvBinding",
-        width: 200
-    },
-    {
-        title: "创建时间",
-        dataIndex: "CreatedAt",
-        width: 280
-    },
-    {
-        title: "更新时间",
+        title: "操作时间",
         dataIndex: "UpdatedAt",
         width: 280
     },
@@ -210,7 +210,7 @@ const columns = [
         dataIndex: "operation",
         customKey: "operation",
         fixed: "right",
-        width: 200,
+        width: 150,
     }
 ];
 const tableData = ref([
