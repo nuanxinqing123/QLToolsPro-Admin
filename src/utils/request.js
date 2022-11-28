@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2021-10-26 12:05:19
  * @LastEditors: LiLei
- * @LastEditTime: 2022-11-19 23:24:31
+ * @LastEditTime: 2022-11-28 18:59:13
  */
 import axios from "axios";
 import qs from "qs";
@@ -46,7 +46,10 @@ function msgTip(msg) {
 service.interceptors.request.use(
     function (config) {
         const commonUtil = useCommonUtilStore();
-
+        config.withCredentials =
+            config.withCredentials !== undefined
+                ? config.withCredentials
+                : true;
         // 在发送请求之前做些什么
         // 开启loadding
         // 是否开启loadding，默认开启

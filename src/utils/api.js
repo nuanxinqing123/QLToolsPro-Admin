@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 03:11:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-11-27 22:04:16
+ * @LastEditTime: 2022-11-28 19:00:05
  */
 import service from "./request";
 import exportExcel from "./exportExcel";
@@ -761,6 +761,7 @@ export function plugInManagementOnLineList(opts) {
         isForm: false,
         noAuthorization: true,
         ifSplicing: true, //是否拼接
+        withCredentials: false,
         splicingData: opts.splicingData || {}, //拼接的data
         url: import.meta.env.VITE_PLUGIN_URL + "v1/api/plugin/data",
         // url: "http://plugin.6b7.xyz/v1/api/plugin/data",

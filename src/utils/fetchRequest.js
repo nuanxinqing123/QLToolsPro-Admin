@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-10-13 21:55:46
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-13 22:23:28
+ * @LastEditTime: 2022-11-28 18:36:33
  */
 import qs from "qs";
 import { message } from "ant-design-vue";
@@ -58,7 +58,7 @@ let fetchRequest = function (config) {
     } else {
         config.data = config.data;
     }
-    if (commonUtil.getItem("token")) {
+    if (commonUtil.getItem("token") && !config.noAuthorization) {
         headers.Authorization = "Bearer " + commonUtil.getItem("token") || "";
     }
     let postData = {
