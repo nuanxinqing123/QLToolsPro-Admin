@@ -17,7 +17,7 @@
                     :isTable="true"
                     :isSearch="true"
                     @onShowSizeChange="getTableData"
-                    @initData="getData"
+                    @initData="()=>{}"
                     :dataSource="tableData">
         <template #search>
             <a-form class="flex flex-warp"
@@ -26,15 +26,15 @@
                              name="type">
                     <a-radio-group v-model:value="searchData.type">
                         <a-radio value="panel"
-                                 name="type">面板</a-radio>
+                                 name="panel">面板</a-radio>
                         <a-radio value="user"
-                                 name="type">用户</a-radio>
+                                 name="user">用户</a-radio>
                     </a-radio-group>
                 </a-form-item>
                 <a-form-item label="关键字:"
                              name="s">
                     <a-input v-model:value="searchData.s"
-                             placeholder="请输入关键字" />
+                             :placeholder="searchData.type=='panel'?'请输入面板ID':'请输入用户名'" />
                 </a-form-item>
 
                 <a-form-item>
@@ -208,6 +208,10 @@ const getTableData = () => {
 const getData = (flag) => {
     if (flag) {
         pageNum.value = 1;
+    }
+    if (searchData.type == 'panel' && !searchData.s) {
+        message.error('请输入面板ID');
+        return;
     }
     let splicingData = posetSearchData.value;
     splicingData.page = pageNum.value;
