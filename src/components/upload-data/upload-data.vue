@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:37:06
  * @LastEditors: LiLei
- * @LastEditTime: 2022-11-13 22:50:41
+ * @LastEditTime: 2022-12-02 19:59:31
 -->
 
 <template>
@@ -80,6 +80,9 @@ import { message } from "ant-design-vue";
 import {
     uploadAdd, getPanelData, postCdk
 } from "utils/api.js";
+import { useCommonUtilStore } from "stores/commonUtil";
+const commonUtil = useCommonUtilStore();
+import { commonProps } from 'ant-design-vue/es/date-picker/generatePicker/props';
 const emit = defineEmits(['tipChange'])
 const modal2Visible = ref(false);
 const tipText = ref('');
@@ -138,6 +141,7 @@ const onFinish = values => {
             "env_data": formState.envData,
         }
     }).then((data) => {
+        commonUtil.getUserSmsInfo(true);
         message.success("变量提交成功");
     }).catch((error) => {
         // 需要校验CDK，请点击右上角按钮填写您的CDK

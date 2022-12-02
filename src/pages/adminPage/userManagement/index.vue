@@ -158,15 +158,16 @@ const columns = [
     //     width: 100
     // },
     {
-        title: "近期登录信息",
-        dataIndex: "LoginIP",
-        width: 280
-    },
-    {
         title: "会员到期时间",
         dataIndex: "ActivationTime",
         width: 200
     },
+    {
+        title: "近期登录信息",
+        dataIndex: "LoginIP",
+        width: 280
+    },
+
     {
         title: "管理员",
         dataIndex: "IsAdminStr",

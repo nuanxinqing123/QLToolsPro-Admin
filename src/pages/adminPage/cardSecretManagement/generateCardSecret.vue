@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-22 16:44:50
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-11 08:11:35
+ * @LastEditTime: 2022-12-02 19:43:53
 -->
 <template>
     <p-center-modal :modalVisible="visible"
@@ -44,7 +44,7 @@
                                     style="width：100%;"
                                     min="0" />
                 </a-form-item>
-                <a-form-item label="卡密有效期"
+                <!-- <a-form-item label="卡密有效期"
                              v-if="formState.cd_key_type=='vip'"
                              name="cd_key_validity_period">
                     <a-radio-group v-model:value="formState.cd_key_validity_period">
@@ -65,15 +65,16 @@
                                  name="type">一年</a-radio>
                     </a-radio-group>
 
-                </a-form-item>
-                <!-- <a-form-item name="cd_key_validity_period"
-                             :wrapper-col="{ span: 15, offset: 7 }">
+                </a-form-item> -->
+                <a-form-item name="cd_key_validity_period"
+                             label="卡密有效期"
+                             v-if="formState.cd_key_type=='vip'">
                     <a-input-number v-model:value="formState.cd_key_validity_period"
                                     placeholder="请输入CD-KEY有效期"
                                     style="width：100%;"
                                     min="0" />
 
-                </a-form-item> -->
+                </a-form-item>
                 <a-form-item label="卡密前缀"
                              name="cd_key_prefix">
                     <a-input v-model:value="formState.cd_key_prefix" />
