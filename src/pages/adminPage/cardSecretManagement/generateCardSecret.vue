@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-22 16:44:50
  * @LastEditors: LiLei
- * @LastEditTime: 2022-12-02 19:43:53
+ * @LastEditTime: 2022-12-03 11:03:14
 -->
 <template>
     <p-center-modal :modalVisible="visible"
@@ -69,10 +69,10 @@
                 <a-form-item name="cd_key_validity_period"
                              label="卡密有效期"
                              v-if="formState.cd_key_type=='vip'">
-                    <a-input-number v-model:value="formState.cd_key_validity_period"
-                                    placeholder="请输入CD-KEY有效期"
-                                    style="width：100%;"
-                                    min="0" />
+                    <a-input v-model:value="formState.cd_key_validity_period"
+                             placeholder="请输入CD-KEY有效期"
+                             suffix="天"
+                             style="width：100%;" />
 
                 </a-form-item>
                 <a-form-item label="卡密前缀"
@@ -111,6 +111,10 @@ import {
     cardSecretManagementAddDownload,
     cardSecretManagementAdd
 } from "@/utils/api";
+import {
+    stringToNumber,
+} from "@/utils/common";
+
 const {
     visible,
     dataObj
@@ -138,7 +142,12 @@ const rules = computed(() => {
         cd_key_validity_period: [{
             required: formState.cd_key_type != 'integral',
             trigger: 'change',
-            message: "请选择卡密有效期"
+            message: "请输入卡密有效期",
+        }, {
+            required: false,
+            pattern: new RegExp(/^[1-9]\d*$/, "g"),
+            message: '请输入正确的卡密有效期'
+
         }],
         cd_key_count: [{
             required: true,
@@ -177,9 +186,11 @@ const layout = {
     },
 };
 
+
 const handleFinish = values => {
     const postData = {
-        ...formState
+        ...formState,
+        cd_key_validity_period: stringToNumber(formState.cd_key_validity_period)
     }
     cardSecretManagementAdd({
         data: postData
