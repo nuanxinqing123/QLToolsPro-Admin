@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-10-05 17:14:08
  * @LastEditors: LiLei
- * @LastEditTime: 2022-12-14 19:25:48
+ * @LastEditTime: 2022-12-14 19:41:15
 -->
 <template>
     <restore-pop v-model:visible="isPop"
@@ -406,7 +406,6 @@ const getErrorList = () => {
 
 // 面板备份提交
 const panelBackupSubmit = () => {
-    console.log("panelBackupData", panelBackupState)
     if (!panelBackupState.panel_id.length) {
         message.error("请选择面板!");
         return;
@@ -416,7 +415,7 @@ const panelBackupSubmit = () => {
         return;
     }
     panelManagementBackup({
-        data: panelBackupData
+        data: panelBackupState
     });
 }
 
