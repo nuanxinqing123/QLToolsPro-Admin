@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-22 16:44:50
  * @LastEditors: LiLei
- * @LastEditTime: 2022-10-11 14:23:39
+ * @LastEditTime: 2022-12-14 19:32:43
 -->
 <template>
     <p-center-modal :modalVisible="visible"
@@ -49,6 +49,10 @@
                                  name="type">新建模式</a-radio>
                         <a-radio value="2"
                                  name="type">更新模式</a-radio>
+                        <a-radio value="3"
+                                 name="type">
+                            <span title="合并模式下VIP提交不支持会员到期后自动删除变量">合并模式<span style="color:red;"> ？</span></span>
+                        </a-radio>
                     </a-radio-group>
                 </a-form-item>
                 <a-form-item label="环境变量更新匹配正则"

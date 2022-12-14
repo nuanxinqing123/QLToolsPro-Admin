@@ -144,7 +144,7 @@ const columns = [
     },
     {
         title: "变量模式",
-        dataIndex: "EnvMode",
+        dataIndex: "EnvModeStr",
         width: 200
     },
     {
@@ -254,6 +254,24 @@ const getData = (flag) => {
             if (item.UpdatedAt) {
                 item.UpdatedAt = dateTtoDateStr(item.UpdatedAt);
             }
+            // 变量模式
+            switch (item.EnvMode) {
+                case 1:
+                case '1':
+                    item.EnvModeStr = '新建模式'
+                    break;
+                case 2:
+                case '2':
+                    item.EnvModeStr = '更新模式'
+                    break;
+                default:
+                    item.EnvModeStr = '合并模式'
+
+                    break;
+            }
+            item.EnvIsCharging = item.EnvIsCharging || '——';
+            item.EnvNeedIntegral = item.EnvNeedIntegral || '——';
+
             return item;
         });
     });

@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-10-05 17:14:08
  * @LastEditors: LiLei
- * @LastEditTime: 2022-11-27 22:19:40
+ * @LastEditTime: 2022-12-14 19:25:48
 -->
 <template>
     <restore-pop v-model:visible="isPop"
@@ -158,7 +158,52 @@
                 </a-row>
 
             </a-card>
+            <a-card title="面板备份"
+                    :bordered="false">
+                <a-row :gutter="16">
+                    <a-col :span="8">
 
+                        <a-form-item label="面板:"
+                                     name="panel_id">
+                            <a-select v-model:value="panelBackupState.panel_id"
+                                      placeholder="请选择"
+                                      mode="multiple"
+                                      :filter-option="filterOption"
+                                      show-search
+                                      option-label-prop="label"
+                                      :options="panelBackupData">
+                            </a-select>
+                        </a-form-item>
+                    </a-col>
+                    <a-col :span="7">
+                        <a-form-item label="cron表达式:"
+                                     name="cron">
+                            <a-input v-model:value="panelBackupState.cron"
+                                     placeholder="请输入cron表达式（仅支持标准5位）">
+                                <template #addonAfter>
+                                    <a href="https://zh.wikipedia.org/wiki/Cron"
+                                       title="参考"
+                                       target="_blank">?</a>
+                                </template>
+                            </a-input>
+                        </a-form-item>
+                    </a-col>
+                    <a-col :span="3">
+                        <a-form-item label="启用状态:"
+                                     name="state">
+                            <a-switch v-model:checked="panelBackupState.state"
+                                      checked-children="启用"
+                                      un-checked-children="禁用" />
+                        </a-form-item>
+                    </a-col>
+                    <a-col :span="6">
+                        <a-button type="primary"
+                                  style="width:100%;"
+                                  @click="panelBackupSubmit">提交</a-button>
+                    </a-col>
+                </a-row>
+
+            </a-card>
             <a-card title="错误日志"
                     :bordered="false">
                 <p>Tip: 错误日志会显示以上功能执行时发生的错误记录（只显示最新的十条记录）</p>
@@ -177,11 +222,22 @@ import { message } from "ant-design-vue";
 import restorePop from "./restorePop.vue";
 
 import {
+    panelManagementBackup,
+    panelManagementSimple,
     synchronizationPost,
     panelManagementList,
     containerManagementBackUpDownload,
     containerManagementTransfer, containerManagementCopy, containerManagementBackup, containerManagementErrorList
 } from "utils/api.js";
+
+// 面板备份
+
+const panelBackupState = reactive({
+    panel_id: [],
+    cron: '',
+    state: true
+})
+const panelBackupData = ref([]);
 const formState1 = reactive({
     start: "",
     end: ""
@@ -347,8 +403,37 @@ const getErrorList = () => {
         tableData.value = data || [];
     })
 }
-// 获取错误日志
-pageGetPanelData();
+
+// 面板备份提交
+const panelBackupSubmit = () => {
+    console.log("panelBackupData", panelBackupState)
+    if (!panelBackupState.panel_id.length) {
+        message.error("请选择面板!");
+        return;
+    }
+    if (!panelBackupState.cron) {
+        message.error("请输入cron表达式!");
+        return;
+    }
+    panelManagementBackup({
+        data: panelBackupData
+    });
+}
+
+// 初始化
+const init = () => {
+    panelManagementSimple().then(data => {
+        panelBackupData.value = (data || []).map(item => {
+            return {
+                label: item.name,
+                value: item.id
+            }
+        })
+    });
+    // 获取错误日志
+    pageGetPanelData();
+}
+init();
 </script>
 
 <style lang="scss">

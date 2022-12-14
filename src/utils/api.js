@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 03:11:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-11-28 19:00:05
+ * @LastEditTime: 2022-12-14 16:26:34
  */
 import service from "./request";
 import exportExcel from "./exportExcel";
@@ -312,6 +312,33 @@ export function homeData(opts) {
 }
 
 /*******面板管理********/
+// 获取面板简易数据
+export function panelManagementSimple(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "get",
+        isForm: false,
+        url: import.meta.env.VITE_URl + "v3/api/panel/division/data/simple",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+// 定时备份面板变量
+export function panelManagementBackup(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "post",
+        isForm: false,
+        isSuccessPop: true,
+        url: import.meta.env.VITE_URl + "v3/api/container/cron/backup",
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
 // 列表
 export function panelManagementList(opts) {
     let obj = opts || {};
