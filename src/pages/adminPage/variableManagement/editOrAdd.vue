@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-22 16:44:50
  * @LastEditors: LiLei
- * @LastEditTime: 2022-12-16 17:43:12
+ * @LastEditTime: 2022-12-16 19:35:01
 -->
 <template>
     <p-center-modal :modalVisible="visible"
@@ -213,7 +213,7 @@ const layout = {
 };
 
 const handleFinish = values => {
-    if (formState.env_mode == 3) {
+    if (formState.env_mode != 3) {
         formState.env_merge = '';
     }
     if (!formState.env_is_plugin) {
