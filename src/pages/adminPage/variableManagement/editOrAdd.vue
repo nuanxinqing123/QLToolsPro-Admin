@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-22 16:44:50
  * @LastEditors: LiLei
- * @LastEditTime: 2022-12-14 19:32:43
+ * @LastEditTime: 2022-12-16 17:43:12
 -->
 <template>
     <p-center-modal :modalVisible="visible"
@@ -51,11 +51,23 @@
                                  name="type">更新模式</a-radio>
                         <a-radio value="3"
                                  name="type">
-                            <span title="合并模式下VIP提交不支持会员到期后自动删除变量">合并模式<span style="color:red;"> ？</span></span>
+                            <a-tooltip placement="top">
+                                <template #title>
+                                    <span>合并模式下VIP提交不支持会员到期后自动删除变量</span>
+                                </template>
+                                合并模式<span style="color:red;"> ？</span>
+                            </a-tooltip>
                         </a-radio>
                     </a-radio-group>
                 </a-form-item>
+                <a-form-item label="环境变量分隔符"
+                             v-if="formState.env_mode==3"
+                             name="env_merge">
+                    <a-input v-model:value="formState.env_merge"
+                             placeholder="请输入环境变量分隔符" />
+                </a-form-item>
                 <a-form-item label="环境变量更新匹配正则"
+                             v-else
                              name="env_update">
                     <a-input v-model:value="formState.env_update"
                              placeholder="请输入环境变量更新匹配正则" />
@@ -145,6 +157,7 @@ const close = () => {
     emit('update:visible', false);
 }
 const formState = reactive({
+    "env_merge": "",
     "env_name": "", //变量名
     "env_remarks": "", //环境变量名称备注
     "env_quantity": "", //环境变量数量上限
@@ -200,7 +213,9 @@ const layout = {
 };
 
 const handleFinish = values => {
-
+    if (formState.env_mode == 3) {
+        formState.env_merge = '';
+    }
     if (!formState.env_is_plugin) {
         formState.env_plugin_name = '';
     }
@@ -258,6 +273,8 @@ const getData = () => {
 const init = () => {
     getData();
     if (dataObj.value.ID) {
+
+        formState.env_merge = dataObj.value.EnvMerge || dataObj.value.env_merge || ''; //变量名
         formState.env_name = dataObj.value.EnvName; //变量名
         formState.env_remarks = dataObj.value.EnvRemarks;  //环境变量名称备注
         formState.env_quantity = dataObj.value.EnvQuantity; //环境变量数量上限
@@ -269,6 +286,7 @@ const init = () => {
         formState.env_is_charging = numberToString(dataObj.value.EnvIsCharging);  //环境变量是否计费（1：不计费、2：VIP提交、3：积分提交）
         formState.env_need_integral = numberToString(dataObj.value.EnvNeedIntegral); //环境变量积分提交需要多少积分
     } else {
+        formState.env_merge = "";
         formState.env_name = ""; //变量名
         formState.env_remarks = "";  //环境变量名称备注
         formState.env_quantity = ""; //环境变量数量上限

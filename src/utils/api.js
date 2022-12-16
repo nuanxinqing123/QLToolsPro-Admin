@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 03:11:42
  * @LastEditors: LiLei
- * @LastEditTime: 2022-12-14 16:26:34
+ * @LastEditTime: 2022-12-16 17:57:52
  */
 import service from "./request";
 import exportExcel from "./exportExcel";
@@ -339,6 +339,23 @@ export function panelManagementBackup(opts) {
         isPop: obj.isPop,
     });
 }
+
+// 查询定时备份面板备份列表
+export function panelManagementBackupList(opts) {
+    let obj = opts || {};
+    return service.request({
+        method: "get",
+        isForm: false,
+        url: import.meta.env.VITE_URl + "v3/api/task/data/query",
+        ifSplicing: true, //是否拼接
+        splicingData: opts.splicingData || {}, //拼接的data
+        data: obj.data || {},
+        isLoadding: obj.isLoadding || true,
+        isCloseLoadding: obj.isCloseLoadding || true,
+        isPop: obj.isPop,
+    });
+}
+
 // 列表
 export function panelManagementList(opts) {
     let obj = opts || {};

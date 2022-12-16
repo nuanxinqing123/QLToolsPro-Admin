@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:37:06
  * @LastEditors: LiLei
- * @LastEditTime: 2022-12-02 19:59:31
+ * @LastEditTime: 2022-12-16 17:32:36
 -->
 
 <template>
@@ -172,7 +172,7 @@ const pageGetPanelData = () => {
 
             envNameData.value = serverData.value[0].envData.map(item => {
                 return {
-                    label: item.EnvName,
+                    label: item.EnvRemarks || item.EnvName,
                     value: item.EnvName,
                     quantity: item.EnvQuantity,
                     EnvTips: item.EnvTips
@@ -203,7 +203,7 @@ const serverChange = (id, data) => {
     try {
         envNameData.value = data.envData.map(item => {
             return {
-                label: item.EnvName,
+                label: item.EnvRemarks || item.EnvName,
                 value: item.EnvName,
                 quantity: item.EnvQuantity,
                 EnvTips: item.EnvTips

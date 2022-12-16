@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-10-05 17:14:08
  * @LastEditors: LiLei
- * @LastEditTime: 2022-12-14 19:41:15
+ * @LastEditTime: 2022-12-16 18:14:52
 -->
 <template>
     <restore-pop v-model:visible="isPop"
@@ -202,7 +202,7 @@
                                   @click="panelBackupSubmit">提交</a-button>
                     </a-col>
                 </a-row>
-
+                <div v-html="backUpText"></div>
             </a-card>
             <a-card title="错误日志"
                     :bordered="false">
@@ -222,6 +222,7 @@ import { message } from "ant-design-vue";
 import restorePop from "./restorePop.vue";
 
 import {
+    panelManagementBackupList,
     panelManagementBackup,
     panelManagementSimple,
     synchronizationPost,
@@ -229,13 +230,13 @@ import {
     containerManagementBackUpDownload,
     containerManagementTransfer, containerManagementCopy, containerManagementBackup, containerManagementErrorList
 } from "utils/api.js";
-
+const backUpText = ref('');
 // 面板备份
 
 const panelBackupState = reactive({
     panel_id: [],
     cron: '',
-    state: true
+    state: false
 })
 const panelBackupData = ref([]);
 const formState1 = reactive({
@@ -349,6 +350,22 @@ const backupFuc = () => {
     });
 }
 
+// 查询定时备份面板备份列表
+const getPanelManagementBackupList = () => {
+    panelManagementBackupList({
+        splicingData: {
+            type: 'CronBackUpEnv'
+        }
+    }).then((data) => {
+        if (data.cron) {
+            backUpText.value = '任务名称：CronBackUpEnv&nbsp;&nbsp;任务Corn定时：' + data.cron + '&nbsp;&nbsp;任务配置：' + data.config + '&nbsp;&nbsp;任务状态：' + (data.status ? '开启' : '关闭') + '';
+        } else {
+            backUpText.value = '';
+        }
+
+    })
+}
+
 // 获取面板信息
 const pageGetPanelData = () => {
     panelManagementList({
@@ -416,6 +433,9 @@ const panelBackupSubmit = () => {
     }
     panelManagementBackup({
         data: panelBackupState
+    }).then(() => {
+        // 查询定时备份面板备份列表
+        getPanelManagementBackupList();
     });
 }
 
@@ -428,7 +448,11 @@ const init = () => {
                 value: item.id
             }
         })
+
+        // 查询定时备份面板备份列表
+        getPanelManagementBackupList();
     });
+
     // 获取错误日志
     pageGetPanelData();
 }
