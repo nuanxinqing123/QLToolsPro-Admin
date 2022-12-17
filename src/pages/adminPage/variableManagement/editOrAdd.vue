@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-22 16:44:50
  * @LastEditors: LiLei
- * @LastEditTime: 2022-12-16 19:35:01
+ * @LastEditTime: 2022-12-17 16:54:56
 -->
 <template>
     <p-center-modal :modalVisible="visible"
@@ -12,6 +12,7 @@
                     :title="dataObj.title">
         <template #content>
             <a-form ref="formRef"
+                    class="form-ref"
                     name="custom-validation"
                     :model="formState"
                     :rules="rules"
@@ -113,31 +114,53 @@
                                     placeholder="请输入环境变量积分提交需要多少积分"
                                     min="0" />
                 </a-form-item>
-
-                <a-divider />
-
-                <a-form-item :wrapper-col="{ span: 12, offset: 12 }"
-                             class="timed-start-button">
-                    <a-button @click="close">取消</a-button>
-                    <a-button type="primary"
-                              style="margin-left: 20px"
-                              html-type="submit">提交</a-button>
+                <a-form-item label="变量提示内容"
+                             name="env_tips">
+                    <div style="border: 1px solid #ccc">
+                        <Toolbar style="border-bottom: 1px solid #ccc"
+                                 :editor="editorRef"
+                                 :defaultConfig="toolbarConfig"
+                                 :mode="mode" />
+                        <Editor style="height: 300px; overflow-y: hidden;"
+                                v-model="formState.env_tips"
+                                :defaultConfig="editorConfig"
+                                :mode="mode"
+                                @onCreated="handleCreated" />
+                    </div>
+                    <!-- {{formState.notice}} -->
                 </a-form-item>
+                <div class="form-bottom">
+
+                    <a-divider />
+
+                    <a-form-item :wrapper-col="{ span: 9, offset: 12 }"
+                                 class="timed-start-button">
+                        <a-button @click="close">取消</a-button>
+                        <a-button type="primary"
+                                  style="margin-left: 20px"
+                                  html-type="submit">提交</a-button>
+                    </a-form-item>
+                </div>
+
             </a-form>
         </template>
     </p-center-modal>
 </template>
 
 <script setup>
+import '@wangeditor/editor/dist/css/style.css' // 引入 css
+import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+
 import pCenterModal from "@/components/p-center-modal/p-center-modal.vue";
 
-import { ref, reactive, toRefs, watch } from 'vue';
+import { ref, reactive, toRefs, watch, shallowRef, onBeforeUnmount } from 'vue';
 const props = defineProps({
     dataObj: Object,
     visible: Boolean,
 });
 import { message } from "ant-design-vue";
 import dayjs from 'dayjs';
+
 import {
     plugInManagementList,
     variableManagementAdd,
@@ -152,6 +175,7 @@ const {
     visible,
     dataObj
 } = toRefs(props);
+const formHeight = ref(0);
 const emit = defineEmits(['update:visible', 'updateData']);
 const close = () => {
     emit('update:visible', false);
@@ -212,6 +236,31 @@ const layout = {
     },
 };
 
+// 编辑器实例，必须用 shallowRef
+const editorRef = shallowRef()
+
+const toolbarConfig = {
+    excludeKeys: [
+        "group-video",
+        "group-image",
+        'headerSelect',
+        'italic',
+        'group-more-style' // 排除菜单组，写菜单组 key 的值即可
+    ]
+}
+const editorConfig = { placeholder: '请输入变量提示内容...' }
+
+
+const handleCreated = (editor) => {
+    editorRef.value = editor // 记录 editor 实例，重要！
+}
+// 组件销毁时，也及时销毁编辑器
+onBeforeUnmount(() => {
+    const editor = editorRef.value
+    if (editor == null) return
+    editor.destroy()
+})
+
 const handleFinish = values => {
     if (formState.env_mode != 3) {
         formState.env_merge = '';
@@ -271,9 +320,11 @@ const getData = () => {
 }
 // 初始化数据
 const init = () => {
+    // form高度
+    formHeight.value = document.body.clientHeight * 0.8;
     getData();
     if (dataObj.value.ID) {
-
+        formState.env_tips = dataObj.value.EnvTips || ''; //变量名提示
         formState.env_merge = dataObj.value.EnvMerge || dataObj.value.env_merge || ''; //变量名
         formState.env_name = dataObj.value.EnvName; //变量名
         formState.env_remarks = dataObj.value.EnvRemarks;  //环境变量名称备注
@@ -286,6 +337,7 @@ const init = () => {
         formState.env_is_charging = numberToString(dataObj.value.EnvIsCharging);  //环境变量是否计费（1：不计费、2：VIP提交、3：积分提交）
         formState.env_need_integral = numberToString(dataObj.value.EnvNeedIntegral); //环境变量积分提交需要多少积分
     } else {
+        formState.env_tips = "";
         formState.env_merge = "";
         formState.env_name = ""; //变量名
         formState.env_remarks = "";  //环境变量名称备注
@@ -309,5 +361,18 @@ const init = () => {
 }
 .ant-input-number {
     width: 100%;
+}
+.form-ref {
+    // border: 1px solid red;
+    padding-bottom: 70px;
+    // position: relative;
+    .form-bottom {
+        width: 100%;
+        padding-bottom: 20px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 999;
+    }
 }
 </style>
