@@ -3,7 +3,7 @@
  * @Author: LiLei
  * @Date: 2022-08-16 02:37:06
  * @LastEditors: LiLei
- * @LastEditTime: 2022-12-16 17:32:36
+ * @LastEditTime: 2022-12-19 18:50:29
 -->
 
 <template>
@@ -220,9 +220,10 @@ const serverChange = (id, data) => {
 
 // 变量联动
 const envNameChange = (value, data) => {
+    console.log("value, data", value, data)
     remainingPosition.value = "";
     remainingPosition.value = data.quantity;
-
+    emit("tipChange", data.EnvTips);
 }
 pageGetPanelData();
 
